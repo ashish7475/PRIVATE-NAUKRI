@@ -1,0 +1,133 @@
+import React, { useEffect } from 'react'
+import Footer from './components/Footer'
+import Main from './components/Main'
+import Navbar from './components/Navbar'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AnimatedCursor from "react-animated-cursor";
+import FilterMenu from './components/FilterMenu';
+import axios from 'axios';
+import HomeIntro from './components/HomeIntro';
+import { useNavigate } from 'react-router-dom';
+import UserContext from './UserContext';
+import { ErrorBoundary } from 'react-error-boundary';
+
+const App = () => {
+  const {userData} = React.useContext(UserContext)
+  const [search,setSearch] =React.useState('')
+  const [data,setData] = React.useState([])
+  const [currentPageListing,setCurrentPageListings] = React.useState([])
+  const [currentPage,setCurrentPage] = React.useState(1)
+  const [totalRecords,setTotalRecords] = React.useState(0)
+  const [filters,setFilters] = React.useState({
+    type:'',
+    companies:[],
+    countries:[]
+  })
+  const navigate = useNavigate()
+   const ErrorFallback = ({ error }) => {
+    console.log(error)
+    return (
+      <div>
+        <h2>Something went wrong:</h2>
+        <p>{error.message}</p>
+      </div>
+    );
+  };
+  
+
+  
+
+  const handleChange=(e)=>{
+    setSearch(e.target.value)
+  }
+
+  useEffect(()=>{
+    
+    axios.get('http://localhost:5000/amazon-job-listings',{
+      params:{
+        q:search,
+        page:currentPage,
+        filters:{...filters}
+      }
+    }).then((res,err)=>{
+     try {
+       setData(res.data.data)
+       setCurrentPageListings(res.data.data)
+       setTotalRecords(res.data.totalListings)
+     } catch (error) {
+       console.log(error)
+     }
+
+   })
+   },[])
+
+   useEffect(()=>{
+
+    axios.get('http://localhost:5000/amazon-job-listings',{
+      params:{
+        q:search,
+        page:currentPage,
+        filters,
+      }
+    }).then((res,err)=>{
+     try {
+      console.log(res.data.data.length)
+       setData(res.data.data)
+       setCurrentPageListings(res.data.data)
+       setTotalRecords(res.data.totalListings)
+     } catch (error) {
+       console.log(error)
+     }
+   })
+   },[currentPage,search,filters])
+  useEffect(()=>{
+     window.scrollTo(0,0)
+  },[])
+  
+  useEffect(()=>{
+    try {
+        setCurrentPageListings(data)
+    } catch (error) {
+      toast.error("Error ",error)
+    }
+    
+  },[currentPage])
+
+  return (
+    <div>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <Navbar
+       data={data}
+       />
+      <HomeIntro/>
+      <FilterMenu 
+      totalRecords={totalRecords}
+      data={data} 
+      setCurrentPage={setCurrentPage} 
+      currentPage={currentPage} 
+      setCurrentPageListings={setCurrentPageListings}
+      currentPageListings={currentPageListing}
+      filters={filters}
+      setFilters = {setFilters}
+      search={search}
+      handleSearch={handleChange}
+      />
+
+      <Main 
+      data={data} 
+      search={search} 
+      style={{paddingBottom:'40px'}}
+      currentPage={currentPage}
+      currentPageListings={currentPageListing}
+      />
+
+      <Footer/>
+      </ErrorBoundary>
+      
+
+    </div>
+  )
+}
+
+export default App

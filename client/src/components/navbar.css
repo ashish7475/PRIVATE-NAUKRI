@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Shantell+Sans&display=swap');
+
+.nav-link{
+    background-color: inherit !important;
+    box-shadow: none !important;
+}
+
+.modal-body span{
+    font-family: 'Shantell Sans', cursive;
+    font-size: 1rem;
+}
+
+
+.menu__link {
+    font-size: 1.2rem;
+    color: black;
+    margin: 0 10px;
+    font-weight: 800;
+    display: inline-block;
+    transition: 0.5s;
+    text-decoration: none;
+    opacity: 0.85;
+    font-weight: 300;
+}
+
+
+.menu__link:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+
+.navbar__{
+    box-shadow: 2px 3px 4px !important;
+}
+
+h3{
+    margin-left: 8px !important;
+}
+
+nav img{
+    margin-right: 8px !important;
+}
+
+ .nav_left .btn-light:hover{
+    background-color: #FFECB3 !important;
+}
+
+.modal,.btn{
+    cursor:  auto!important;
+}
+nav .btn-light{
+    background-color: inherit !important;
+}
+
+.bg-success.p-2.text-dark.bg-opacity-10{
+    padding-bottom: 20px !important;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    .d-flex.align-items-center {
+        flex-direction: column!important;
+    }
+        .search__bar {
+            margin-left: 0 !important;
+        }
+    
+
+    
+
+
+}

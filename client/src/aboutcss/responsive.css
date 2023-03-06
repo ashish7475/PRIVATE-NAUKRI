@@ -1,0 +1,138 @@
+/*--------------------------------------------------------------------- File Name: responsive.css ---------------------------------------------------------------------*/
+
+
+/*------------------------------------------------------------------- 991px x 768px ---------------------------------------------------------------------*/
+
+
+
+/*------------------------------------------------------------------- 767px x 599px ---------------------------------------------------------------------*/
+
+
+    
+
+
+/*------------------------------------------------------------------- 599px x 280px ---------------------------------------------------------------------*/
+
+
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+.about_taital {
+    width: 40%;
+}
+.about_taital_main {
+    padding-top: 120px;
+}
+.about_image::after {
+    height: 330px;
+}
+
+.contact_taital {
+    width: 47%;
+}
+
+
+
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+.about_taital {
+    width: 55%;
+}
+.about_image::after {
+    height: 440px;
+}
+.about_taital_main {
+    padding-top: 100px;
+}
+.about_section{
+  padding-bottom: 0px;
+}
+
+.contact_taital {
+    width: 63%;
+}
+
+
+
+.about_taital::after {
+    width: 153px;
+}
+.about_image {
+    padding-left: 0px;
+    padding-top: 15px;
+}
+.about_image::after {
+    height: 341px;
+}
+.about_taital_main {
+    padding-top: 70px;
+}
+
+.about_section_2{
+  padding-bottom: 0px;
+}
+
+.contact_taital {
+  width: 60%;
+    font-size: 30px;
+}
+.contact_taital::after {
+    width: 110px;
+}
+.massage-bt{
+  height: 145px;
+}
+.location_main {
+    display: initial;
+}
+.center{
+  text-align: left;
+}
+
+
+}
+
+@media (max-width: 575px) {
+
+.about_taital {
+    width: 100%;
+    font-size: 30px;
+    padding-left: 150px;
+}
+.about_taital::after {
+    width: 153px;
+}
+.about_image {
+    padding-left: 0px;
+    padding-top: 15px;
+}
+.about_image::after {
+    height: 208px;
+}
+.about_taital_main {
+    padding-top: 70px;
+}
+.services_section{
+  background-size: cover;
+}
+.about_section_2{
+  padding-bottom: 0px;
+}
+
+.contact_taital {
+  width: 100%;
+    font-size: 30px;
+}
+.contact_taital::after {
+    width: 110px;
+}
+
+
+
+
+}
+
+

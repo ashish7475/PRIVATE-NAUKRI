@@ -1,0 +1,89 @@
+<div className="main">
+
+        <section className="signup">
+            <div className="container login">
+                <div className="signup-content">
+                    <div className="signup-form">
+                        <h2 className="form-title">Sign up</h2>
+                        <form  onSubmit={handleSignup}  className="register-form" id="register-form">
+                            <div className="form-group">
+                                <label for="username"><i className="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" onChange={handleSignupChange} name="username" id="username" placeholder="Username"/>
+                            </div>
+                            <div className="form-group">
+                                <label for="email"><i className="zmdi zmdi-email"></i></label>
+                                <input type="email" onChange={handleSignupChange} name="email" id="email" placeholder="Your Email"/>
+                            </div>
+                            <div className="form-group">
+                                <label for="password"><i className="zmdi zmdi-lock"></i></label>
+                                <input type="password" onChange={handleSignupChange} name="password" id="password" placeholder="Password"/>
+                            </div>
+                            <div className="form-group">
+                                <label for="confirmpassword"><i className="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" onChange={handleSignupChange} name="confirmPassword" id="confirmPassword" placeholder="Confirm Passoword"/>
+                            </div>
+                            <div className='form-group'>
+                                <label for="photo">
+                                    <span>Profile Photo</span>
+                                </label>
+                                <input type='file' onChange={(e)=>setImage(e.target.files[0])}/>
+                            </div>
+                            
+                            <div className="form-group form-button">
+                                
+                                <button style={{height:'40px',padding:'8px 25px'}} type="submit"  className="form-submit">Register</button>
+
+                                <Link to='/home'>
+                                    <button className='btn btn-danger btn-outlined' style={{cursor:'pointer !important',marginTop:'5px',marginLeft:'10px'}}>
+                                        Guest Entry
+                                    </button>
+                                </Link>
+                            </div>
+                        </form>
+                    </div>
+                    <div className="signup-image1">
+                        <figure><img style={{width:'400px',height:'400px',borderRadius:'50%'}} src="/images/PRivate1.png" alt="sing up image"/></figure>
+                        <a href="#sign-in" className="signup-image-link">I am already member</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section className="sign-in" id="sign-in">
+            <div className="container login">
+                <div className="signin-content">
+                    <div className="signin-image1">
+                        <figure><img src="/images/Private Naukri.gif" style={{borderRadius:'15%'}} alt="sing up image"/></figure>
+                        
+                    </div>
+
+                    <div className="signin-form">
+                        <h2 className="form-title">Sign In</h2>
+                        <form onSubmit={handleLogin}  className="register-form" id="login-form">
+                            <div className="form-group">
+                                <label for="your_name"><i className="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="your_name" id="your_name" placeholder="Your Name"/>
+                            </div>
+                            <div className="form-group">
+                                <label for="your_pass"><i className="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="your_pass" id="your_pass" placeholder="Password"/>
+                            </div>
+                            
+                            <div className="form-group form-button" style={{display:'flex',alignItems:'start',flexDirection:'column',justifyContent:'center'}}>
+                                <input type="submit" name="signin" id="signin" className="form-submit" value="Log in" />
+                                <Link to='/home'>
+                                    <button className='btn btn-danger btn-outlined' style={{cursor:'pointer !important',marginTop:'5px'}}>Guest Entry
+                                    </button>
+                                </Link>
+                                <a href="#" className="signup-image-link" style={{marginTop:'5px'}}>Create an account</a>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+    <Footer/>
+    
+    </div>

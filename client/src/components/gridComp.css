@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Genos:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap');
+
+.card__title{
+    font-family: 'Genos', sans-serif;
+    font-size: 1.3rem;
+    
+}
+.card__text{
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.card{
+        transform: scale(1);
+        opacity: 1;
+        transition: all 150ms ease-in-out;
+        
+        
+}
+.card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.card:hover .card__title{
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1200px)  {
+    .card:hover {
+            transform: scale(1.1);
+            rotate: -1deg;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+}
+@media screen and (min-width: 1024px){
+.card:hover {
+        transform: scale(1.1);
+        rotate: -1deg;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+}
+@media screen and (max-width: 768px){
+.card:hover {
+        transform: scale(1.1);
+        rotate: -1deg;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+}
+
+
+.action__btn{
+    margin-left: 10px;
+}
+

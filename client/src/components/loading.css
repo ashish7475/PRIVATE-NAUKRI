@@ -1,0 +1,26 @@
+.loading__svg{
+    margin-left: 40%;
+}
+
+@media screen and (max-width:992px) {
+    .loading__svg {
+            margin-left: 25%;
+        }
+}
+
+@media screen and (max-width:768px) {
+    .loading__svg {
+        margin-left: 32%;
+    }
+}
+
+@media screen and (max-width:992px) and  (min-width:768px) {
+    .loading__svg {
+        margin-left: 37%;
+    }
+}
+@media screen and (max-width:550px) {
+    .loading__svg {
+        margin-left: 20%;
+    }
+}

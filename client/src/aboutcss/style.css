@@ -1,0 +1,232 @@
+/*--------------------------------------------------------------------- File Name: style.css ---------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------------- import Fonts ---------------------------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Rajdhani:300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+
+
+
+
+/* about section start */
+.about_section {
+    width: 100%;
+    float: left;
+    padding-bottom: 90px;
+}
+.about_section_2 {
+    width: 100%;
+    float: left;
+  
+    
+}
+.about_image {
+    width: 100%;
+    float: left;
+    padding-top: 40px;
+    padding-left: 22px;
+    padding-top: 37px;
+}
+.about_image img{
+    width: 600px;
+    
+}
+.about_image img:hover{
+    transform: scale(1.1);
+    filter: drop-shadow(28px 28px 14px #555);
+}
+.about_image::after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 390px;
+    background-color: #13a25d;
+    left: 0px;
+    right: initial;
+    top: 0;
+    z-index: -1;
+}
+
+.about_taital {
+    width: 100%;
+    float: left;
+    font-size: 40px;
+    color: #0f0f0f;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    padding-top: 40px;
+}
+.about_taital::after {
+    content: '';
+    position: absolute;
+    width: 293px;
+    height: 2px;
+    background-color: #252525;
+    left: initial;
+    right: 0px;
+    top: 40%;
+    z-index: -1;
+}
+.about_text {
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    color: #0f0f0f;
+    margin: 0px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+.lorem_text {
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    color: #0f0f0f;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+.about_taital_main {
+    width: 100%;
+    float: left;
+    padding-top: 172px;
+}
+.read_bt {
+    width: 170px;
+    float: right;
+    padding-top: 64px;
+}
+.read_bt a {
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #181818;
+    text-align: center;
+    padding: 10px 0px;
+    font-family: 'Roboto', sans-serif;
+}
+.read_bt a:hover {
+    color: #ffffff;
+    background-color: #13a25d;
+}
+
+/* about section end */
+
+
+
+/* contact section start */
+
+.contact_section {
+    width: 100%;
+    float: left;
+    
+    height: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 90px;
+}
+.contact_taital {
+    margin-top: 30px;
+    width: 40%;
+    float: left;
+    font-size: 40px;
+    color: #ffffff;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+.contact_taital::after {
+    content: '';
+    position: absolute;
+    width: 193px;
+    height: 2px;
+    background-color: #ffffff;
+    left: initial;
+    right: 0px;
+    top: 44%;
+}
+.contact_text {
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    color: #ffffff;
+    margin: 0px;
+   font-family: 'Roboto', sans-serif;
+}
+.contact_section_2{
+    width: 100%;
+    float: left;
+    padding-top: 50px;
+    
+}
+.mail_text {
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    color: #727272;
+    border: 0px;
+    background-color: #ffff;
+    padding: 15px;
+    margin-top: 20px;
+   font-family: 'Roboto', sans-serif;
+}
+input.mail_text::placeholder {
+    color: #727272;
+}
+.massage-bt {
+    color: #727272;
+    width: 100%;
+    font-size: 18px;
+    background-color: #ffff;
+    padding: 55px 15px 15px 15px;
+    border: 0px;
+    height: 167px;
+    margin-top: 20px;
+   font-family: 'Roboto', sans-serif;
+}
+textarea#comment::placeholder {
+    color: #727272;
+}
+.map_main{
+    width: 100%;
+    float: left;
+    padding-top: 20px;
+}
+
+.send_bt,.home_bt {
+    width: 150px;
+    float: left;
+    margin-top: 40px;
+    margin-right: 10px;
+}
+
+.send_bt a {
+    width: 100%;
+    float: left;
+    background-color: #13a25d;
+    color: #ffffff;
+    text-align: center;
+    padding: 14px 0px;
+    font-size: 16px;
+   font-family: 'Roboto', sans-serif;
+}
+.send_bt a:hover {
+    background-color: #ffffff;
+    color: #000;
+}
+.home_bt a {
+    width: 100%;
+    float: left;
+    background-color: tomato;
+    color: #ffffff;
+    text-align: center;
+    padding: 14px 0px;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.home_bt a:hover {
+    background-color: #ffffff;
+    color: #000;
+}
+/* contact section end */
+

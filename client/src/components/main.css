@@ -1,0 +1,45 @@
+.main__container{
+    margin-top: 0 !important;
+    padding-bottom: 170px;
+    position: relative;
+    background-color: #0c070d;
+
+    
+    
+}
+.loading__icon{
+    position: absolute;
+    left: 47%;
+    top: 43%;
+}
+
+.main__container::before {
+    content: '';
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    
+    
+    background-color: aliceblue;
+
+    opacity: 0.6;
+}
+
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #0d0d0d #b0e892;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #b0e892;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #0d0d0d;
+    border: 3px solid #ffffff;
+}
