@@ -6,51 +6,64 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useEffect } from 'react';
+import axios from 'axios'
+import Navbar from './components/Navbar';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+  
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+
 
 export default function DenseTable() {
+
+  const [list,setList] = React.useState([])
+
+  useEffect(()=>{
+     const token = sessionStorage.getItem('token');
+     axios.get('http://localhost:5000/appliedhistory',{
+      headers:{'x-access-token':token}
+     }).then((res,err)=>{
+       setList(res.data.appliedJobs)
+       
+     }) 
+  },[])
+
+
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+    <>
+    <Navbar/>
+    {!list.length ? <h1>Not applied to anything yet !</h1> :<><h1 style={{marginTop:'40px'}}><span>Applied History</span></h1>
+    <TableContainer style={{marginTop:'50px',}} component={Paper}>
+      <Table sx={{ minWidth: 650 }}  aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell>Job Title</TableCell>
             <TableCell align="right">Job Id</TableCell>
             <TableCell align="right">Location</TableCell>
-            <TableCell align="right">Type(g)</TableCell>
-            <TableCell align="right">Applied At(g)</TableCell>
+            <TableCell align="right">Type</TableCell>
+            <TableCell align="right">Applied At</TableCell>
             <TableCell align="right">Company</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {list.map((row,i) => (
             <TableRow
-              key={row.name}
+              key={i}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.title}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-              <TableCell align="right">Company</TableCell>
+              <TableCell align="right">{row.jobId}</TableCell>
+              <TableCell align="right">{row.location}</TableCell>
+              <TableCell align="right">{row.type}</TableCell>
+              <TableCell align="right">{row.appliedAt}</TableCell>
+              <TableCell align="right">{row.company}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
+    </TableContainer></>}
+    </>
   );
 }

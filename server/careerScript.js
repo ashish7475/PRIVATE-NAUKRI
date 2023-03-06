@@ -163,7 +163,6 @@ const webScrapeCron = async () => {
 
     const jobs = await scrapeJobListings();
 
-    await AmazonJobListing.deleteMany();
     //* Some jobs might be acquired in time and some might be new , so in order to balance , we delete all before saving to db everytime.
     const now = new Date();
     const year = now.getFullYear();
@@ -175,21 +174,25 @@ const webScrapeCron = async () => {
 
     for (let i = 0; i < jobs.length; i++) {
       //! If listing is already present we skip
-
-      const job = new AmazonJobListing({
-        companyName: "Amazon",
+      const find = await AmazonJobListing.find({
         jobId: jobs[i].jobID,
-        title: jobs[i].title,
-        type: jobs[i].type,
-        location: jobs[i].location,
-        applyUrl: jobs[i].url,
-        description: jobs[i].jobDescription,
-        basicQualification: jobs[i].basicQualification,
-        preferredQualificaton: jobs[i].preferredQualificaton,
-        applied: false,
-        lastUpdated: dateString,
       });
-      await job.save();
+      if (!find.length) {
+        const job = new AmazonJobListing({
+          companyName: "Amazon",
+          jobId: jobs[i].jobID,
+          title: jobs[i].title,
+          type: jobs[i].type,
+          location: jobs[i].location,
+          applyUrl: jobs[i].url,
+          description: jobs[i].jobDescription,
+          basicQualification: jobs[i].basicQualification,
+          preferredQualificaton: jobs[i].preferredQualificaton,
+          applied: [],
+          lastUpdated: dateString,
+        });
+        await job.save();
+      }
     }
 
     await db.close();
@@ -197,5 +200,5 @@ const webScrapeCron = async () => {
     console.log(error);
   }
 };
-
+webScrapeCron();
 export default webScrapeCron;

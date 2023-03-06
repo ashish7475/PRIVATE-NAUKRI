@@ -96,10 +96,13 @@ const Navbar = (props) => {
             <a className="dropdown-item" href="#">Settings</a>
           </li>
           <li>
-            <Link to='/' ><a href='#'  className="dropdown-item">Applied History</a></Link>
+            <Link to='/appliedhistory' ><a href='#'  className="dropdown-item">Applied History</a></Link>
           </li>
           <li>
             <Link to='/testimonial' ><a href="#"  className="dropdown-item">Add Testimonial</a></Link>
+          </li>
+          <li>
+            <Link to='/feedbacks' ><a href="#"  className="dropdown-item">Add Feedback</a></Link>
           </li>
           <li>
             <button className="dropdown-item btn" onClick={handleLogout}><span style={{color:'red'}}>Logout</span></button>

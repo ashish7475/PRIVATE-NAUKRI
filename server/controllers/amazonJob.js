@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import Testimonial from "../models/Testimonials.js";
+import ApplyHistory from "../models/ApplyHistory.js";
 
 const getJobListing = async (req, res) => {
   try {
@@ -102,7 +103,7 @@ const userLogin = async (req, res) => {
     if (isMatch) {
       const token = jwt.sign(
         {
-          name: user.name,
+          username: user.username,
           email: user.email,
         },
         process.env.JWT_SECRET
@@ -145,6 +146,36 @@ const getTestimonials = async (req, res) => {
   res.status(200).json(testimonials);
 };
 
+const getAppliedHistory = async (req, res) => {
+  const username = req.username;
+  const appliedJobs = await ApplyHistory.find({ username });
+  res.status(200).json({ appliedJobs });
+};
+
+const addAppliedHistory = async (req, res) => {
+  try {
+    const { jobId, title, location, type, companyName } = req.body.record;
+    const username = req.username;
+    await AmazonJobListing.updateOne(
+      { jobId },
+      { $push: { applied: { username, appliedAt: new Date() } } }
+    );
+
+    await ApplyHistory.create({
+      username,
+      jobId,
+      title,
+      location,
+      type,
+      company: companyName,
+      appliedAt: new Date(),
+    });
+    res.status(200).json({ message: "Applied Successfully" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   getJobListing,
   getJobDetails,
@@ -153,4 +184,6 @@ export {
   userSignup,
   addTestimonial,
   getTestimonials,
+  getAppliedHistory,
+  addAppliedHistory,
 };

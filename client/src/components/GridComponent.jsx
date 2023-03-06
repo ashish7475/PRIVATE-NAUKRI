@@ -19,6 +19,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 
 const GridComponent = ({ records }) => {
+  const username = JSON.parse(sessionStorage.getItem('User')).username
   const rows = [];
   const navigate =  useNavigate()
   const [openItemId, setOpenItemId] = React.useState(null);
@@ -28,15 +29,19 @@ const GridComponent = ({ records }) => {
 const handleOpenDialog = (itemId) => {
   setOpenItemId(itemId);
 };
-  const handleChangeStatus = async (e,jobId)=>{
+  const handleChangeStatus = async (e,record)=>{
    
-    const data =  await axios.post('http://localhost:5000/change/apply/status',{jobId})
+    const data =  await axios.post('http://localhost:5000/addappliedhistory',{record},{
+      headers:{'x-access-token':sessionStorage.getItem('token')}
+    })
      setOpenItemId(null);
      console.log(data.data)
-     toast.success(data.data)
+     
+     toast.success(data.data.message)
   setTimeout(()=>window.location.reload(),1500)
  
   }
+  console.log(records)
 
   // Divide records into rows of 4
   for (let i = 0; i < records.length; i += 4) {
@@ -55,7 +60,7 @@ const handleOpenDialog = (itemId) => {
             {record.companyName==='Amazon'?<img height='30xp' src='/images/amazon.webp' alt='Amazon'/>
             :<img height='30xp' src='/images/flipkart.png' alt='Amazon'/>}
 
-          <span className={record.applied?'badge badge-success':'badge badge-danger'}>{record.applied?`Applied`:'Not Applied'}</span>
+         {sessionStorage.getItem('token') &&<span className={record.applied.find((ele)=>ele.username===username)?'badge badge-success':'badge badge-danger'}>{record.applied.find((ele)=>ele.username===username)?`Applied`:'Not Applied'}</span>} 
           </MDBCardHeader>
           <MDBCardBody>
             <MDBCardTitle className='card__title'>{record.title}</MDBCardTitle>
@@ -70,7 +75,7 @@ const handleOpenDialog = (itemId) => {
             <MDBBtn>See more</MDBBtn>
             </Link>
            
-      {!record.applied && <Button variant="outlined" color="error" onClick={() => handleOpenDialog(record._id)}>
+      {!record.applied.find((ele)=>ele.username===username) && sessionStorage.getItem('token')  && <Button variant="outlined" color="error" onClick={() => handleOpenDialog(record._id)}>
         Action
       </Button>}
       <Dialog  open={openItemId === record._id} onClose={handleCloseDialog}>
@@ -85,13 +90,11 @@ const handleOpenDialog = (itemId) => {
           <Button style={{marginLeft:'10px'}} onClick={handleCloseDialog} class="btn btn-danger">
             Close
           </Button>
-          <Button style={{marginLeft:'10px'}} onClick={(e)=>handleChangeStatus(e,record.jobId)} class="btn btn-success">
+          <Button style={{marginLeft:'10px'}} onClick={(e)=>handleChangeStatus(e,record)} class="btn btn-success">
             Submit
           </Button>
           </div>
       </Dialog>
-    
-            
           </MDBCardBody>
         </MDBCard>
       </MDBCol>

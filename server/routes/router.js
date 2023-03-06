@@ -1,8 +1,10 @@
 import express from "express";
 import multer from "multer";
 import {
+  addAppliedHistory,
   addTestimonial,
   changeApplyStatus,
+  getAppliedHistory,
   getJobDetails,
   getJobListing,
   getTestimonials,
@@ -23,6 +25,8 @@ const verifyToken = (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    req.username = decoded.username;
   } catch (err) {
     return res.status(401).send("Invalid Token");
   }
@@ -46,5 +50,7 @@ routes.post("/signup", upload.single("image"), userSignup);
 routes.post("/login", userLogin);
 routes.post("/addtestimonial", verifyToken, addTestimonial);
 routes.get("/testimonials", getTestimonials);
+routes.get("/appliedhistory", verifyToken, getAppliedHistory);
+routes.post("/addappliedhistory", verifyToken, addAppliedHistory);
 
 export default routes;

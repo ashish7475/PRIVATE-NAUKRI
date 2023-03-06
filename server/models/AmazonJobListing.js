@@ -21,10 +21,7 @@ const AmazonJobListingSchema = new mongoose.Schema({
   type: String,
   applied: Boolean,
   lastUpdated: String,
-  appliedAt: {
-    type: String,
-    default: "",
-  },
+  applied: { type: [Object], default: [] },
 });
 
 const AmazonJobListing = mongoose.model(
