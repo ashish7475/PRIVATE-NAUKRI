@@ -83,13 +83,13 @@ const LoginSignup = () => {
             toast.error(err);
         }
         else{
-            console.log(res.data)
+            
             if(res.data.status==='error'){
                 toast.error(res.data.message)
             }
             else{
                 toast.success(res.data.message)
-                console.log(res.data)
+                
                 localStorage.setItem('token',res.data.token)
                 localStorage.setItem('User',JSON.stringify(res.data.user))
                 setIsLoggedIn(true)

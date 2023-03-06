@@ -18,6 +18,7 @@ import Profile from "./Profile";
 import Meme from "./Meme";
 import AppliedHistory from "./AppliedHistory";
 import Testimonials from "./Testimonials";
+import ViewTestimonials from "./ViewTestimonials";
 
 
 const Main = () => {
@@ -73,7 +74,8 @@ const Main = () => {
       <Route path="/profile" element={<Profile />} />
       <Route path="/meme" element={<Meme/>}/>
       <Route path='/appliedhistory' element={<AppliedHistory/>}/>
-      
+      <Route path='/testimonial' element={<Testimonials/>}/>
+      <Route path='/viewtestimonial' element={<ViewTestimonials/>}/>
     </Routes>
     </UserContext.Provider>
   </BrowserRouter>

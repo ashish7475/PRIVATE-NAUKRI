@@ -50,7 +50,8 @@ const Navbar = (props) => {
         </li>
         <li className='nav-item'><Link to='/aboutme'><li class="menu__item"><a class="menu__link" href="#">Founder</a></li></Link>
         </li>
-        <li className='nav-item'><Link to='/aboutme'><li class="menu__item"><a class="menu__link" href="#">Testimonials</a></li></Link>
+        <li className='nav-item'><Link to='/aboutme'>
+          <li class="menu__item"><a class="menu__link" href="#">Testimonials</a></li></Link>
         </li>
         <li className='nav-item'><Link to='/'><li class="menu__item"><a class="menu__link" href="#">Steve Jobs</a></li></Link>
         </li>
@@ -98,7 +99,7 @@ const Navbar = (props) => {
             <Link to='/' ><a href='#'  className="dropdown-item">Applied History</a></Link>
           </li>
           <li>
-            <Link to='/' ><a href="#"  className="dropdown-item">Add Testimonial</a></Link>
+            <Link to='/testimonial' ><a href="#"  className="dropdown-item">Add Testimonial</a></Link>
           </li>
           <li>
             <button className="dropdown-item btn" onClick={handleLogout}><span style={{color:'red'}}>Logout</span></button>

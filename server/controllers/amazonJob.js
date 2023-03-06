@@ -123,11 +123,13 @@ const userLogin = async (req, res) => {
 
 const addTestimonial = async (req, res) => {
   try {
-    const { username, name, profilePhotoUrl, testimonial } = req.body;
+    const { username, name, photoUrl, testimonial, title } = req.body;
+    console.log(req.body);
     const newTestimonial = await Testimonial.create({
       username,
+      title,
       name,
-      photoUrl: profilePhotoUrl,
+      photoUrl,
       testimonial,
     });
     res
