@@ -9,7 +9,7 @@ const Navbar = (props) => {
   const navigate = useNavigate()
 
   const handleLogout = ()=>{
-    localStorage.clear()
+    sessionStorage.clear()
     setUserData(null)
     navigate('/loginsignup')
   }

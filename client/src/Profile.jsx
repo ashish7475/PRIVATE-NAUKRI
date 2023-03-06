@@ -21,7 +21,7 @@ const Profile = () => {
     const { userData,isLoggedIn } = React.useContext(UserContext);
     const navigate = useNavigate()
     useEffect(()=>{
-        const token = localStorage.getItem('token')
+        const token = sessionStorage.getItem('token')
         if(!token){
             navigate('/meme')
         }

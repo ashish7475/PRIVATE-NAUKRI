@@ -90,8 +90,8 @@ const LoginSignup = () => {
             else{
                 toast.success(res.data.message)
                 
-                localStorage.setItem('token',res.data.token)
-                localStorage.setItem('User',JSON.stringify(res.data.user))
+                sessionStorage.setItem('token',res.data.token)
+                sessionStorage.setItem('User',JSON.stringify(res.data.user))
                 setIsLoggedIn(true)
                 setUserData(res.data.user)
                 setTimeout(()=>{navigate('/home')})

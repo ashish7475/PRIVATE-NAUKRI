@@ -26,8 +26,8 @@ const Main = () => {
     const [userData,setUserData] = React.useState(null)
     
   useEffect(()=>{
-     const token = localStorage.getItem('token')
-    const user = JSON.parse(localStorage.getItem('User'))
+     const token = sessionStorage.getItem('token')
+    const user = JSON.parse(sessionStorage.getItem('User'))
      if(user){
         setUserData(user);
      }
