@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Animate } from 'react-move';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Animate } from "react-move";
 import { Samy, SvgProxy } from "react-samy-svg";
-import './loading.css'
+import "./loading.css";
 
 export default class Robot1 extends Component {
   static propTypes = {
-    name: PropTypes.string
+    name: PropTypes.string,
   };
 
   constructor(props) {
@@ -18,7 +18,7 @@ export default class Robot1 extends Component {
       leg2Y: -20,
       headRotation: 0,
       headDirection: 1,
-      steamOpacity: 0
+      steamOpacity: 0,
     };
   }
 
@@ -30,7 +30,7 @@ export default class Robot1 extends Component {
     const length = 5;
     return {
       leg1Y: prevState.leg1Y === 0 ? -length : 0,
-      leg2Y: prevState.leg2Y === -length ? 0 : -length
+      leg2Y: prevState.leg2Y === -length ? 0 : -length,
     };
   }
 
@@ -38,19 +38,19 @@ export default class Robot1 extends Component {
     const max = 10;
     return {
       headDirection: -prevState.headDirection,
-      headRotation: max * prevState.headDirection
+      headRotation: max * prevState.headDirection,
     };
   }
 
   steam(prevState) {
     return {
-      steamOpacity: prevState.steamOpacity === 0 ? 1.0 : 0
+      steamOpacity: prevState.steamOpacity === 0 ? 1.0 : 0,
     };
   }
 
   blink(prevState) {
     return {
-      eyeScale: prevState.eyeScale ? 0 : 1
+      eyeScale: prevState.eyeScale ? 0 : 1,
     };
   }
 
@@ -75,27 +75,30 @@ export default class Robot1 extends Component {
   }
 
   render() {
-     return (
-      <div className='loading__svg' >
-        <Samy path="https://raw.githubusercontent.com/hugozap/react-samy-svg/master/examples/robots/gertbot.svg" style={{ width: 268, height: 406 }}>
+    return (
+      <div className="loading__svg">
+        <Samy
+          path="https://raw.githubusercontent.com/hugozap/react-samy-svg/master/examples/robots/gertbot.svg"
+          style={{ width: 268, height: 406 }}
+        >
           <Animate
             start={() => ({
               y: 0,
               leg1: 0,
               leg2: 0,
-              headRotation: 0
+              headRotation: 0,
             })}
             update={() => ({
               y: this.state.bodyY,
               leg1: this.state.leg1Y,
               leg2: -this.state.leg1Y,
               headRotation: this.state.headRotation,
-              steamOpacity: this.state.steamOpacity
+              steamOpacity: this.state.steamOpacity,
             })}
             duration={50}
             easing="easePolyIn" // anything from https://github.com/d3/d3-ease
           >
-            {data => {
+            {(data) => {
               console.log({ data });
               if (data == null) {
                 return null;
@@ -130,17 +133,17 @@ export default class Robot1 extends Component {
           <Animate
             start={() => ({
               headRotation: 0,
-              steamOpacity: 0
+              steamOpacity: 0,
             })}
             // Update your data to whatever you want
             update={() => ({
               headRotation: this.state.headRotation,
-              steamOpacity: this.state.steamOpacity
+              steamOpacity: this.state.steamOpacity,
             })}
             duration={300}
             easing="cubicin"
           >
-            {data => (
+            {(data) => (
               <div>
                 <SvgProxy
                   selector="#head"
@@ -164,5 +167,5 @@ export default class Robot1 extends Component {
 }
 
 const animateBody = () => {
-  console.log('yeah');
+  console.log("yeah");
 };
