@@ -22,6 +22,7 @@ export default function Main(props) {
                         .includes(props.search.toLowerCase())
                     )
               }
+              setRecords={props.setRecords}
             />
           </div>
         )

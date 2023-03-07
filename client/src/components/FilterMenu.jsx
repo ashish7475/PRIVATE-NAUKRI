@@ -76,7 +76,7 @@ const FilterMenu = (props) => {
     });
   }, [companies]);
 
-  console.log(props.filters);
+  
   const handleTypeCheckBox = (e) => {
     if (e.target.name === "internship") {
       setType((prev) => ({ ...prev, internship: !prev.internship }));
@@ -100,7 +100,7 @@ const FilterMenu = (props) => {
         onChange={handlePageChange}
         page={props.currentPage}
         style={{ boxShadow: "0 0 0 !important" }}
-        count={Math.ceil(props.totalRecords / 12.0)}
+        count={Math.ceil(props.from==='Applied'?props.totalRecords/10.0 : props.totalRecords / 12.0)}
         color="secondary"
       />
       <div class="search__bar">

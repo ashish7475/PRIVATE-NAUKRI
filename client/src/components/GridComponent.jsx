@@ -23,7 +23,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, } from "react-toastify";
 
-const GridComponent = ({ records }) => {
+const GridComponent = ({ records,setRecords }) => {
   const username =
     sessionStorage.getItem("token") &&
     JSON.parse(sessionStorage.getItem("User")).username;
@@ -36,6 +36,7 @@ const GridComponent = ({ records }) => {
   const handleOpenDialog = (itemId) => {
     setOpenItemId(itemId);
   };
+  
   const handleChangeStatus = async (e, record) => {
     const data = await axios.post(
       "http://localhost:5000/addappliedhistory",
@@ -44,13 +45,16 @@ const GridComponent = ({ records }) => {
         headers: { "x-access-token": sessionStorage.getItem("token") },
       }
     );
+    const updatedRecord = data.data.updated;
+  const updatedRecords = records.map((r) =>
+    r._id === updatedRecord._id ? updatedRecord : r
+  );
+    setRecords(updatedRecords);
     setOpenItemId(null);
-    console.log(data.data);
-
     toast.success(data.data.message);
-    setTimeout(() => window.location.reload(), 1500);
+    
   };
-  console.log(records);
+
 
   // Divide records into rows of 4
   for (let i = 0; i < records.length; i += 4) {

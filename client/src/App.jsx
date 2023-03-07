@@ -61,6 +61,7 @@ const App = () => {
 
    })
    },[])
+   console.log(filters)
 
    useEffect(()=>{
 
@@ -81,9 +82,7 @@ const App = () => {
      }
    })
    },[currentPage,search,filters])
-  useEffect(()=>{
-     window.scrollTo(0,0)
-  },[])
+
   
   useEffect(()=>{
     try {
@@ -102,6 +101,7 @@ const App = () => {
        />
       <HomeIntro/>
       <FilterMenu 
+      from={'App'}
       totalRecords={totalRecords}
       data={data} 
       setCurrentPage={setCurrentPage} 
@@ -120,6 +120,7 @@ const App = () => {
       style={{paddingBottom:'40px'}}
       currentPage={currentPage}
       currentPageListings={currentPageListing}
+      setRecords={setCurrentPageListings}
       />
 
       <Footer/>

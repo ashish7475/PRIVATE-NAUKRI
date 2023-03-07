@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import AmazonJobListing from "./models/AmazonJobListing.js";
 import ApplyHistory from "./models/ApplyHistory.js";
 
 const URI = `mongodb+srv://ashish729912:hQAIMkyrifmhQH8w@webscrapercluster.sagxtxf.mongodb.net/?retryWrites=true&w=majority`;
@@ -12,6 +13,6 @@ mongoose
   });
 
 const db = mongoose.connection;
-await ApplyHistory.deleteMany();
+await AmazonJobListing.deleteMany();
 
 await db.close();

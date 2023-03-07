@@ -6,8 +6,12 @@ const ApplyHistorySchema = new mongoose.Schema({
   title: String,
   location: String,
   type: String,
-  appliedAt: Date,
+  appliedAt: String,
   company: String,
+  status: {
+    type: String,
+    default: "",
+  },
 });
 
 const ApplyHistory = mongoose.model("ApplyHistory", ApplyHistorySchema);

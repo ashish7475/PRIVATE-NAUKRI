@@ -99,7 +99,7 @@ export default class Robot1 extends Component {
             easing="easePolyIn" // anything from https://github.com/d3/d3-ease
           >
             {(data) => {
-              console.log({ data });
+              
               if (data == null) {
                 return null;
               }

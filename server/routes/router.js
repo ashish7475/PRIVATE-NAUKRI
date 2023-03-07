@@ -8,6 +8,7 @@ import {
   getJobDetails,
   getJobListing,
   getTestimonials,
+  updateStatus,
   userLogin,
   userSignup,
 } from "../controllers/amazonJob.js";
@@ -52,5 +53,6 @@ routes.post("/addtestimonial", verifyToken, addTestimonial);
 routes.get("/testimonials", getTestimonials);
 routes.get("/appliedhistory", verifyToken, getAppliedHistory);
 routes.post("/addappliedhistory", verifyToken, addAppliedHistory);
+routes.post("/updateapplystatus", verifyToken, updateStatus);
 
 export default routes;

@@ -8,11 +8,10 @@ import ApplyHistory from "../models/ApplyHistory.js";
 const getJobListing = async (req, res) => {
   try {
     const searchQuery = req.query.q;
-    const page = parseInt(req.query.page) || 1;
-
-    const type = req.query.filters.type;
-    const companies = req.query.filters.companies;
+    const type = req.query.filters?.type;
+    const companies = req.query.filters?.companies;
     const countries = req.query.filters?.countries || [];
+    const page = parseInt(req.query.page) || 1;
     const pageSize = 12;
     const skip = (page - 1) * pageSize;
     const query = {
@@ -109,7 +108,6 @@ const userLogin = async (req, res) => {
         process.env.JWT_SECRET
       );
 
-      console.log(token);
       res.send({
         message: "Login Successful",
         token: token,
@@ -125,7 +123,7 @@ const userLogin = async (req, res) => {
 const addTestimonial = async (req, res) => {
   try {
     const { username, name, photoUrl, testimonial, title } = req.body;
-    console.log(req.body);
+
     const newTestimonial = await Testimonial.create({
       username,
       title,
@@ -147,9 +145,50 @@ const getTestimonials = async (req, res) => {
 };
 
 const getAppliedHistory = async (req, res) => {
-  const username = req.username;
-  const appliedJobs = await ApplyHistory.find({ username });
-  res.status(200).json({ appliedJobs });
+  try {
+    const searchQuery = req.query.q;
+    const type = req.query.filters.type;
+    const companies = req.query.filters.companies;
+    const countries = req.query.filters?.countries || [];
+    const page = parseInt(req.query.currentPage) || 1;
+    const pageSize = 10;
+    const skip = (page - 1) * pageSize;
+    const query = {
+      title: { $regex: searchQuery, $options: "i" },
+    };
+    if (type != "") {
+      query.type = type;
+    }
+    if (companies && companies.length > 0) {
+      query.company = { $in: companies };
+    }
+    const totalAppliedQuery = await ApplyHistory.find(query).count();
+    const totalApplied = await ApplyHistory.find().count();
+
+    const appliedJobs = await ApplyHistory.find(query)
+      .skip(skip)
+      .limit(pageSize)
+      .exec();
+
+    res.status(200).json({ appliedJobs, totalApplied, totalAppliedQuery });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const updateStatus = async (req, res) => {
+  try {
+    const { jobId, status } = req.body;
+    const username = req.username;
+    const id = parseInt(jobId);
+
+    await ApplyHistory.updateOne({ jobId: id, username }, { status });
+
+    res.status(200).json({ message: `Status changed to ${status}` });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: `Error ${error}` });
+  }
 };
 
 const addAppliedHistory = async (req, res) => {
@@ -160,6 +199,14 @@ const addAppliedHistory = async (req, res) => {
       { jobId },
       { $push: { applied: { username, appliedAt: new Date() } } }
     );
+    const updated = await AmazonJobListing.findOne({ jobId });
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1; // getMonth() returns 0-11, so add 1 to get 1-12
+    const day = now.getDate();
+    const dateString = `${day.toString().padStart(2, "0")}-${month
+      .toString()
+      .padStart(2, "0")}-${year}`;
 
     await ApplyHistory.create({
       username,
@@ -168,9 +215,11 @@ const addAppliedHistory = async (req, res) => {
       location,
       type,
       company: companyName,
-      appliedAt: new Date(),
+      appliedAt: dateString,
+      status: "Applied",
     });
-    res.status(200).json({ message: "Applied Successfully" });
+
+    res.status(200).json({ message: "Applied Successfully", updated });
   } catch (error) {
     console.log(error);
   }
@@ -186,4 +235,5 @@ export {
   getTestimonials,
   getAppliedHistory,
   addAppliedHistory,
+  updateStatus,
 };

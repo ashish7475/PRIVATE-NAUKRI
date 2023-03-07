@@ -24,7 +24,7 @@ const webScrapeCron = async () => {
       const page = await browser.newPage();
 
       await page.goto(
-        `https://www.amazon.jobs/en/job_categories/software-development?offset=${offset}&country%5B%5D=IND&`,
+        `https://www.amazon.jobs/en/job_categories/software-development?offset=${offset}`,
         {
           waitUntil: "load",
           // Remove the timeout
@@ -147,7 +147,7 @@ const webScrapeCron = async () => {
         offset += 10;
         //! Untill we have a next page we keep moving to next page
         if (offset <= limit) {
-          const nextPageUrl = `https://www.amazon.jobs/en/job_categories/software-development?offset=${offset}&country%5B%5D=IND&`;
+          const nextPageUrl = `https://www.amazon.jobs/en/job_categories/software-development?offset=${offset}`;
 
           console.log(offset);
           await page.goto(nextPageUrl);
@@ -168,9 +168,9 @@ const webScrapeCron = async () => {
     const year = now.getFullYear();
     const month = now.getMonth() + 1; // getMonth() returns 0-11, so add 1 to get 1-12
     const day = now.getDate();
-    const dateString = `${year}-${month.toString().padStart(2, "0")}-${day
+    const dateString = `${day.toString().padStart(2, "0")}-${month
       .toString()
-      .padStart(2, "0")}`;
+      .padStart(2, "0")}-${year}`;
 
     for (let i = 0; i < jobs.length; i++) {
       //! If listing is already present we skip

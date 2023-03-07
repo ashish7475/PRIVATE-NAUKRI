@@ -15,9 +15,10 @@ import AnimatedCursor from "react-animated-cursor";
 import UserContext from "./UserContext";
 import Profile from "./Profile";
 import Meme from "./Meme";
-import AppliedHistory from "./AppliedHistory";
+
 import Testimonials from "./Testimonials";
 import ViewTestimonials from "./ViewTestimonials";
+import DenseTable from "./AppliedHistory";
 
 const Main = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -73,7 +74,7 @@ const Main = () => {
           <Route path="/description" element={<Description />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/meme" element={<Meme />} />
-          <Route path="/appliedhistory" element={<AppliedHistory />} />
+          <Route path="/appliedhistory" element={<DenseTable />} />
           <Route path="/testimonial" element={<Testimonials />} />
           <Route path="/viewtestimonial" element={<ViewTestimonials />} />
         </Routes>
