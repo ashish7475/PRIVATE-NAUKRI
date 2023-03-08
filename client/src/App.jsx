@@ -94,7 +94,7 @@ const App = () => {
   },[currentPage])
 
   return (
-    <div>
+    <div className='OUTERMOST__DIV'>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Navbar
        data={data}

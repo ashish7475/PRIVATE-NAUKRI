@@ -23,7 +23,7 @@ import DenseTable from "./AppliedHistory";
 const Main = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [userData, setUserData] = React.useState(null);
-
+  const [image,setImage] = React.useState(null)
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     const user = JSON.parse(sessionStorage.getItem("User"));
@@ -34,6 +34,16 @@ const Main = () => {
       setIsLoggedIn(true);
     }
   }, []);
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    const user = JSON.parse(sessionStorage.getItem("User"));
+    if (user) {
+      setUserData(user);
+    }
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, [image]);
   return (
     <BrowserRouter>
       <div>
@@ -61,7 +71,7 @@ const Main = () => {
         />
       </div>
       <UserContext.Provider
-        value={{ userData, isLoggedIn, setUserData, setIsLoggedIn }}
+        value={{ userData, isLoggedIn, setUserData, setIsLoggedIn,image,setImage }}
       >
         <Routes>
           <Route path="/" element={<Intro />} />

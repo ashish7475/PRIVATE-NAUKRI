@@ -5,6 +5,10 @@ body div#error {
     z-index: 2;
 }
 
+.OUTERMOST__DIV{
+    overflow-x: hidden !important;
+}
+
 body div#error div#box {
     position: absolute;
     top: 0;

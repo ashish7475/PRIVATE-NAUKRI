@@ -120,6 +120,21 @@ const userLogin = async (req, res) => {
   }
 };
 
+const updateProfilePhoto = async (req, res) => {
+  try {
+    const username = req.username;
+
+    const path = req.file.path;
+    await User.updateOne({ username }, { profilePhotoUrl: path });
+    res.status(200).json({
+      message: "Profile Photo Updated Successfully !",
+      url: req.file.path,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const addTestimonial = async (req, res) => {
   try {
     const { username, name, photoUrl, testimonial, title } = req.body;
@@ -147,6 +162,7 @@ const getTestimonials = async (req, res) => {
 const getAppliedHistory = async (req, res) => {
   try {
     const searchQuery = req.query.q;
+    const username = req.username;
     const type = req.query.filters.type;
     const companies = req.query.filters.companies;
     const countries = req.query.filters?.countries || [];
@@ -155,6 +171,7 @@ const getAppliedHistory = async (req, res) => {
     const skip = (page - 1) * pageSize;
     const query = {
       title: { $regex: searchQuery, $options: "i" },
+      username,
     };
     if (type != "") {
       query.type = type;
@@ -176,7 +193,7 @@ const getAppliedHistory = async (req, res) => {
   }
 };
 
-const updateStatus = async (req, res) => {
+const updateAppliedStatus = async (req, res) => {
   try {
     const { jobId, status } = req.body;
     const username = req.username;
@@ -235,5 +252,6 @@ export {
   getTestimonials,
   getAppliedHistory,
   addAppliedHistory,
-  updateStatus,
+  updateAppliedStatus,
+  updateProfilePhoto,
 };

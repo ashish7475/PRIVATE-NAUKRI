@@ -11,13 +11,17 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import UserContext from "./UserContext";
 import { useNavigate } from "react-router-dom";
+import FormData from "form-data";
+import { toast } from "react-toastify";
+import axios from 'axios'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const Profile = () => {
-  const { userData, isLoggedIn } = React.useContext(UserContext);
+  
+  const { userData, isLoggedIn ,setUserData,image,setImage} = React.useContext(UserContext);
   const navigate = useNavigate();
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -25,25 +29,60 @@ const Profile = () => {
       navigate("/meme");
     }
   }, []);
-  const [open, setOpen] = React.useState(false);
+  const [open1, setOpen1] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen1 = () => {
+    setOpen1(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleClose1 = () => {
+    setOpen1(false);
+  };
+  
+  const handleClickOpen2 = () => {
+    setOpen2(true);
   };
 
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    if(image===null){
+      toast.error('Please Select an Image !')
+    }
+    else{
+const formData = new FormData()
+    formData.append('edit-image',image)
+    axios.post('http://localhost:5000/updateprofilephoto',formData,{
+      headers:{'x-access-token':sessionStorage.getItem('token')}
+    }).then((res,err)=>{
+      if(err){
+        toast.error(err)
+      }
+      else{
+        const updatedUserData = {...userData, profilePhotoUrl: res.data.url}; // create new object with updated user data
+      setUserData(updatedUserData);
+      sessionStorage.setItem('User',JSON.stringify(updatedUserData));
+        console.log(res.data)
+        setOpen2(false)
+      }
+
+    })
+    }
+    
+  }
+  console.log(userData)
   return (
     <>
       <Navbar />
 
       <Dialog
-        open={open}
+        open={open1}
         TransitionComponent={Transition}
         keepMounted
-        onClose={handleClose}
+        onClose={handleClose1}
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle>{userData && userData.name}</DialogTitle>
@@ -56,6 +95,24 @@ const Profile = () => {
                 class="img-fluid my-5"
               />
             )}
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        
+        open={open2}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose2}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle style={{marginLeft:'30px'}}>{userData && `Edit Profile Photo`}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            <form onSubmit={handleSubmit}>
+            <input name='ppf' type='file' onChange={(e)=>setImage(e.target.files[0])}/>
+            <button style={{marginLeft:'30px',marginTop:'8px'}} className='btn btn-success' type="submit">Edit</button>
+            </form>
           </DialogContentText>
         </DialogContent>
       </Dialog>
@@ -74,7 +131,7 @@ const Profile = () => {
                   >
                     <Button
                       style={{ borderRadius: "50%" }}
-                      onClick={handleClickOpen}
+                      onClick={handleClickOpen1}
                     >
                       {userData && (
                         <img
@@ -87,7 +144,7 @@ const Profile = () => {
                     </Button>
                     <h5>{userData && userData.name}</h5>
                     <p>Web Designer</p>
-                    <i class="far fa-edit mb-5"></i>
+                    <i onClick={handleClickOpen2} class="far fa-edit mb-5"></i>
                   </div>
                   <div class="col-md-8">
                     <div class="card-body p-4">

@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Typical from "react-typical";
 import styled from "styled-components";
+import './intro.css'
+
 
 const Intro = () => {
   const Division = styled.div`
@@ -142,9 +144,7 @@ const Intro = () => {
     <div className="intro__page">
       <img
         src="/images/jobseek.webp"
-        width="100%"
-        height="750px"
-        style={{ position: "absolute", zIndex: "-20" }}
+        className="steve_jobs"
       />
       <Division>
         <Typical

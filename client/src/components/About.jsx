@@ -19,7 +19,7 @@ const About = () => {
             <div class="row">
               <div class="col-lg-6">
                 <div class="about_image">
-                  <img src="images/about-img.png" />
+                  <img src="images/about-img.png" style={{overflow:'hidden !important'}} />
                 </div>
               </div>
               <div class="col-lg-6">
