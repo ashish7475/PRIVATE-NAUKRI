@@ -25,8 +25,8 @@ const Main = () => {
   const [userData, setUserData] = React.useState(null);
   const [image,setImage] = React.useState(null)
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    const user = JSON.parse(sessionStorage.getItem("User"));
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("User"));
     if (user) {
       setUserData(user);
     }
@@ -35,8 +35,8 @@ const Main = () => {
     }
   }, []);
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    const user = JSON.parse(sessionStorage.getItem("User"));
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("User"));
     if (user) {
       setUserData(user);
     }

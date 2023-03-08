@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 export default function DenseTable() {
   const navigate = useNavigate();
   const [list, setList] = React.useState([]);
+  
   const [search,setSearch] =React.useState('')
   const [currentPageListing,setCurrentPageListings] = React.useState([])
   const [currentPage,setCurrentPage] = React.useState(1)
@@ -69,7 +70,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
     : "Placed";
     
       axios.post('http://localhost:5000/updateapplystatus',{jobId,status:st},{
-        headers:{'x-access-token':sessionStorage.getItem('token')}
+        headers:{'x-access-token':localStorage.getItem('token')}
       }).then((res,err)=>{
         if(err){
           toast.error(`${err}`);
@@ -90,6 +91,10 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
           return item;
         });
         setList(updatedList);
+        if(st!=='Applied'){
+           setTimeout(()=>{toast.info(st==='Interview'?'All the best for the interview !':st==='Placed'?'Your hard work has paid off!! Great Job':'Rejection is protection for something greater that is to come.')},1000)
+        }
+        
         }
       })
       setOpen(false);
@@ -112,7 +117,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
 
  
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/meme");
     }
@@ -139,7 +144,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
   console.log(jobId)
 
     useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/meme");
     }
@@ -171,7 +176,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
       <Navbar />
       
       {!total ? (
-        <h1 style={{marginLeft:'40%',marginTop:'20px'}} >Not applied to anything yet !</h1>
+        <h1 style={{marginLeft:'32%',marginTop:'50px'}} >Not applied to anything yet !</h1>
       ) : (
         <>
           <h1 style={{marginLeft:'38%',marginTop:'8px'}} >
@@ -191,8 +196,8 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
              handleSearch={handleChange}
           />
           
-          <TableContainer  component={Paper} style={{marginBottom:'170px'}}>
-            <Table sx={{ minWidth: 650 }} aria-label="a dense table">
+          <TableContainer  component={Paper} >
+            <Table sx={{ minWidth: 650 }}  aria-label="a dense table">
               <TableHead>
                 <TableRow>
                   <TableCell>Job Title</TableCell>
@@ -263,7 +268,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
          
         </>
       )}
-      <Footer/>
+      <Footer style={{marginTop:'120px'}}/>
     </>
   );
 }

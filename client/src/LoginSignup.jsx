@@ -90,8 +90,8 @@ const LoginSignup = () => {
             else{
                 toast.success(res.data.message)
                 
-                sessionStorage.setItem('token',res.data.token)
-                sessionStorage.setItem('User',JSON.stringify(res.data.user))
+                localStorage.setItem('token',res.data.token)
+                localStorage.setItem('User',JSON.stringify(res.data.user))
                 setIsLoggedIn(true)
                 setUserData(res.data.user)
                 setTimeout(()=>{navigate('/home')})
@@ -167,7 +167,7 @@ const LoginSignup = () => {
             <div className="container login">
                 <div className="signin-content">
                     <div className="signin-image1">
-                        <figure><img src="/images/Private Naukri.gif" style={{borderRadius:'50%'}} alt="sing up image"/></figure>
+                        <figure><img src="/images/Private Naukri.gif" style={{width:'400px',height:'400px',borderRadius:'50%'}} alt="sing up image"/></figure>
                         
                     </div>
 

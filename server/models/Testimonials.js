@@ -6,6 +6,7 @@ const TestimonialSchema = new mongoose.Schema({
   photoUrl: String,
   name: String,
   testimonial: String,
+  positive: Boolean,
 });
 
 const Testimonial = mongoose.model("Testimonials", TestimonialSchema);

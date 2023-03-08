@@ -8,7 +8,7 @@ const Navbar = (props) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    sessionStorage.clear();
+    localStorage.clear();
     setUserData(null);
     navigate("/loginsignup");
   };
@@ -31,7 +31,7 @@ const Navbar = (props) => {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <Link to="/aboutus">
+            
               <Link to="/home">
                 <a className="navbar-brand mt-2 mt-lg-0" href="#">
                   <img
@@ -44,7 +44,7 @@ const Navbar = (props) => {
                   />
                 </a>
               </Link>
-            </Link>
+            
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 nav_left">
               <li className="nav-item">
                 <Link to="/aboutus">
@@ -74,7 +74,7 @@ const Navbar = (props) => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/aboutme">
+                <Link to="/viewTestimonial">
                   <li class="menu__item">
                     <a class="menu__link" href="#">
                       Testimonials
@@ -112,6 +112,7 @@ const Navbar = (props) => {
                         className="rounded-circle"
                         height="80px !important"
                         width="80px !important"
+                        style={{borderRadius:'50% !important'}}
                         alt="Black and White Portrait of a Man"
                         loading="lazy"
                       />

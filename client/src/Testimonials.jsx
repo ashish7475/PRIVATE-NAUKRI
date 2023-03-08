@@ -14,13 +14,13 @@ import { useNavigate } from "react-router-dom";
 
 const Testimonials = () => {
   const navigate = useNavigate();
-  const userData = JSON.parse(sessionStorage.getItem("User"));
+  const userData = JSON.parse(localStorage.getItem("User"));
   const [test, setTest] = React.useState({
     testimonial: "",
     title: "",
   });
   useEffect(() => {
-    if (!sessionStorage.getItem("token")) {
+    if (!localStorage.getItem("token")) {
       navigate("/meme");
     }
   }, []);
@@ -42,7 +42,7 @@ const Testimonials = () => {
         },
         {
           headers: {
-            "x-access-token": sessionStorage.getItem("token"),
+            "x-access-token": localStorage.getItem("token"),
           },
         }
       )

@@ -24,7 +24,7 @@ const Profile = () => {
   const { userData, isLoggedIn ,setUserData,image,setImage} = React.useContext(UserContext);
   const navigate = useNavigate();
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/meme");
     }
@@ -56,7 +56,7 @@ const Profile = () => {
 const formData = new FormData()
     formData.append('edit-image',image)
     axios.post('http://localhost:5000/updateprofilephoto',formData,{
-      headers:{'x-access-token':sessionStorage.getItem('token')}
+      headers:{'x-access-token':localStorage.getItem('token')}
     }).then((res,err)=>{
       if(err){
         toast.error(err)
@@ -64,7 +64,7 @@ const formData = new FormData()
       else{
         const updatedUserData = {...userData, profilePhotoUrl: res.data.url}; // create new object with updated user data
       setUserData(updatedUserData);
-      sessionStorage.setItem('User',JSON.stringify(updatedUserData));
+      localStorage.setItem('User',JSON.stringify(updatedUserData));
         console.log(res.data)
         setOpen2(false)
       }

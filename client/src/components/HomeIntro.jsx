@@ -24,7 +24,7 @@ const HomeIntro = () => {
         position: absolute;
         top: 80px;
         left: 9%;
-        color: black;
+        color: white;
       }
     }
     @media screen and (max-width: 768px) {
@@ -32,11 +32,11 @@ const HomeIntro = () => {
         display: flex;
         font-family: "Courier New", Courier, monospace;
         font-weight: bolder;
-        font-size: 1rem;
+        font-size: 1.4rem;
         position: relative;
         top: 60px;
         left: 9%;
-        color: black;
+        color: white;
       }
     }
   `;

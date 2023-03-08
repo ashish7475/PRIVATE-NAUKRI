@@ -1,0 +1,40 @@
+.testimonials__container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 80px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.testOuter{
+    position: relative;
+}
+.testBack{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.title__test,.name__test,.test__test{
+    
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+    font-weight: 500;
+
+}
+
+.test__test{
+    font-size: 1.2rem;
+}
+
+.carousel-status{
+    font-size: 1rem !important;
+}
+.name__test{
+    font-family: monospace;
+
+}
+.testimonials__container:hover .title__test{
+    text-decoration:underline ;
+}

@@ -25,8 +25,8 @@ import { toast, } from "react-toastify";
 
 const GridComponent = ({ records,setRecords }) => {
   const username =
-    sessionStorage.getItem("token") &&
-    JSON.parse(sessionStorage.getItem("User")).username;
+    localStorage.getItem("token") &&
+    JSON.parse(localStorage.getItem("User")).username;
   const rows = [];
   const navigate = useNavigate();
   const [openItemId, setOpenItemId] = React.useState(null);
@@ -42,7 +42,7 @@ const GridComponent = ({ records,setRecords }) => {
       "http://localhost:5000/addappliedhistory",
       { record },
       {
-        headers: { "x-access-token": sessionStorage.getItem("token") },
+        headers: { "x-access-token": localStorage.getItem("token") },
       }
     );
     const updatedRecord = data.data.updated;
@@ -99,7 +99,7 @@ const GridComponent = ({ records,setRecords }) => {
                     />
                   )}
 
-                  {sessionStorage.getItem("token") && (
+                  {localStorage.getItem("token") && (
                     <span
                       className={
                         record.applied.find((ele) => ele.username === username)
@@ -134,7 +134,7 @@ const GridComponent = ({ records,setRecords }) => {
                   </Link>
 
                   {!record.applied.find((ele) => ele.username === username) &&
-                    sessionStorage.getItem("token") && (
+                    localStorage.getItem("token") && (
                       <Button
                         variant="outlined"
                         color="error"

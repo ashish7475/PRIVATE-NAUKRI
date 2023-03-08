@@ -4,6 +4,9 @@ import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import Testimonial from "../models/Testimonials.js";
 import ApplyHistory from "../models/ApplyHistory.js";
+import Sentiment from "sentiment";
+
+const sentiment = new Sentiment();
 
 const getJobListing = async (req, res) => {
   try {
@@ -30,6 +33,7 @@ const getJobListing = async (req, res) => {
       .skip(skip)
       .limit(pageSize)
       .exec();
+
     res.status(200).json({ data: [...listings], totalListings });
   } catch (error) {
     console.log(error);
@@ -126,6 +130,8 @@ const updateProfilePhoto = async (req, res) => {
 
     const path = req.file.path;
     await User.updateOne({ username }, { profilePhotoUrl: path });
+    await Testimonial.updateMany({ username }, { photoUrl: path });
+
     res.status(200).json({
       message: "Profile Photo Updated Successfully !",
       url: req.file.path,
@@ -139,12 +145,15 @@ const addTestimonial = async (req, res) => {
   try {
     const { username, name, photoUrl, testimonial, title } = req.body;
 
+    const score = sentiment.analyze(testimonial);
+
     const newTestimonial = await Testimonial.create({
       username,
       title,
       name,
       photoUrl,
       testimonial,
+      positive: score.score >= 0 ? true : false,
     });
     res
       .status(200)
@@ -154,7 +163,9 @@ const addTestimonial = async (req, res) => {
   }
 };
 const getTestimonials = async (req, res) => {
-  const testimonials = await Testimonial.find();
+  const testimonials = await Testimonial.find({ positive: true })
+    .limit(10)
+    .exec();
 
   res.status(200).json(testimonials);
 };
