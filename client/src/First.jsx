@@ -19,6 +19,8 @@ import Meme from "./Meme";
 import Testimonials from "./Testimonials";
 import ViewTestimonials from "./ViewTestimonials";
 import DenseTable from "./AppliedHistory";
+import Forget from "./Forget";
+import Reset from "./Reset";
 
 const Main = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -87,6 +89,8 @@ const Main = () => {
           <Route path="/appliedhistory" element={<DenseTable />} />
           <Route path="/testimonial" element={<Testimonials />} />
           <Route path="/viewtestimonial" element={<ViewTestimonials />} />
+          <Route path='/forgetpassword' element={<Forget/>} />
+          <Route path='/resetpassword' element={<Reset/>}/>
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

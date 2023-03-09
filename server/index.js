@@ -26,7 +26,7 @@ app.use((req, response, next) => {
   next();
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT;
 
 app.use("/", routes);
 

@@ -5,6 +5,11 @@ import bcrypt from "bcrypt";
 import Testimonial from "../models/Testimonials.js";
 import ApplyHistory from "../models/ApplyHistory.js";
 import Sentiment from "sentiment";
+import nodemailer from "nodemailer";
+import { sendResetEmail, sendWelcomeMail } from "../utility/index.js";
+import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+import PasswordResetToken from "../models/PasswordResetToken.js";
+dotenv.config();
 
 const sentiment = new Sentiment();
 
@@ -85,7 +90,7 @@ const userSignup = async (req, res) => {
       password: hashedPassword,
       profilePhotoUrl: path,
     });
-
+    sendWelcomeMail({ name, email });
     res
       .status(200)
       .json({ message: "User Registered Successfully!", status: 200 });
@@ -138,6 +143,54 @@ const updateProfilePhoto = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+  }
+};
+
+const resetPassword = async (req, res) => {
+  try {
+    const { newPassword, token } = req.body;
+    const username = req.username;
+    const salt = await bcrypt.genSalt(10);
+    const user = PasswordResetToken.find({ token });
+    if (user) {
+      const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+      await User.updateOne(
+        { username: user.username },
+        { password: hashedPassword }
+      );
+      res.status(200).json({ message: "Password changed successfully." });
+    } else {
+      res.status(500).json({ message: "Invalid Request" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: `${error}` });
+  }
+};
+
+const forgetPassword = async (req, res) => {
+  //! checking if the username exists
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(404).json({ message: "Email not found !" });
+  } else {
+    const name = user.name;
+    const email = user.email;
+    const token = jwt.sign(
+      {
+        name,
+        email,
+      },
+      process.env.JWT_SECRET
+    );
+    await PasswordResetToken.create({ username: user.username, token });
+    sendResetEmail(name, email, token);
+    res
+      .status(200)
+      .json({ message: "Please Check your email for password reset" });
   }
 };
 
@@ -265,4 +318,6 @@ export {
   addAppliedHistory,
   updateAppliedStatus,
   updateProfilePhoto,
+  forgetPassword,
+  resetPassword,
 };

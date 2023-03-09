@@ -206,6 +206,10 @@ const LoginSignup = () => {
                                     </button>
                                 </Link>
                                 <a href="#" className="signup-image-link" style={{marginTop:'5px'}}>Create an account</a>
+
+                                <Link to='/forgetpassword'>
+                                <a href="#" className="signup-image-link" style={{marginTop:'10px'}}>Forgot Password ?</a>
+                                </Link>
                             </div>
                         </form>
                         

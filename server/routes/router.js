@@ -4,10 +4,12 @@ import {
   addAppliedHistory,
   addTestimonial,
   changeApplyStatus,
+  forgetPassword,
   getAppliedHistory,
   getJobDetails,
   getJobListing,
   getTestimonials,
+  resetPassword,
   updateAppliedStatus,
   updateProfilePhoto,
   userLogin,
@@ -50,6 +52,8 @@ routes.get("/jobdetails", getJobDetails);
 routes.post("/change/apply/status", changeApplyStatus);
 routes.post("/signup", upload.single("image"), userSignup);
 routes.post("/login", userLogin);
+routes.post("/forgotpassword", forgetPassword);
+routes.post("/resetpassword", resetPassword);
 routes.post("/addtestimonial", verifyToken, addTestimonial);
 routes.get("/testimonials", getTestimonials);
 routes.get("/appliedhistory", verifyToken, getAppliedHistory);
