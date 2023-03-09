@@ -21,6 +21,7 @@ import ViewTestimonials from "./ViewTestimonials";
 import DenseTable from "./AppliedHistory";
 import Forget from "./Forget";
 import Reset from "./Reset";
+import ApplyStats from "./ApplyStats";
 
 const Main = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -91,6 +92,7 @@ const Main = () => {
           <Route path="/viewtestimonial" element={<ViewTestimonials />} />
           <Route path='/forgetpassword' element={<Forget/>} />
           <Route path='/resetpassword' element={<Reset/>}/>
+           <Route path='/applystats' element={<ApplyStats/>}/>
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

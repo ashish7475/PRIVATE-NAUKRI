@@ -6,6 +6,7 @@ import {
   changeApplyStatus,
   forgetPassword,
   getAppliedHistory,
+  getApplyStats,
   getJobDetails,
   getJobListing,
   getTestimonials,
@@ -57,6 +58,7 @@ routes.post("/resetpassword", resetPassword);
 routes.post("/addtestimonial", verifyToken, addTestimonial);
 routes.get("/testimonials", getTestimonials);
 routes.get("/appliedhistory", verifyToken, getAppliedHistory);
+routes.get("/getappliedstats", verifyToken, getApplyStats);
 routes.post("/addappliedhistory", verifyToken, addAppliedHistory);
 routes.post("/updateapplystatus", verifyToken, updateAppliedStatus);
 routes.post(

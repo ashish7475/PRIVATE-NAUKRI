@@ -30,8 +30,7 @@ const PORT = process.env.PORT;
 
 app.use("/", routes);
 
-const URI =
-  "mongodb+srv://ashish729912:hQAIMkyrifmhQH8w@webscrapercluster.sagxtxf.mongodb.net/?retryWrites=true&w=majority";
+const URI = process.env.URI;
 
 mongoose
   .connect(URI, {

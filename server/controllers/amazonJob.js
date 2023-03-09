@@ -149,16 +149,18 @@ const updateProfilePhoto = async (req, res) => {
 const resetPassword = async (req, res) => {
   try {
     const { newPassword, token } = req.body;
-    const username = req.username;
-    const salt = await bcrypt.genSalt(10);
-    const user = PasswordResetToken.find({ token });
+
+    const user = await PasswordResetToken.findOne({ token });
     if (user) {
+      const salt = await bcrypt.genSalt(10);
+      console.log(newPassword, user.username);
       const hashedPassword = await bcrypt.hash(newPassword, salt);
 
       await User.updateOne(
         { username: user.username },
         { password: hashedPassword }
       );
+      await PasswordResetToken.deleteOne({ token });
       res.status(200).json({ message: "Password changed successfully." });
     } else {
       res.status(500).json({ message: "Invalid Request" });
@@ -306,6 +308,22 @@ const addAppliedHistory = async (req, res) => {
   }
 };
 
+const getApplyStats = async (req, res) => {
+  try {
+    const username = req.username;
+    const appliedJobs = await ApplyHistory.find({ username });
+
+    const rejected = appliedJobs.filter((job) => job.status === "Rejected");
+    const applied = appliedJobs.filter((job) => job.status === "Applied");
+    const interview = appliedJobs.filter((job) => job.status === "Interview");
+    const placed = appliedJobs.filter((job) => job.status === "Placed");
+    res.status(200).json({ appliedJobs, rejected, applied, interview, placed });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: "An error has occured" });
+  }
+};
+
 export {
   getJobListing,
   getJobDetails,
@@ -320,4 +338,5 @@ export {
   updateProfilePhoto,
   forgetPassword,
   resetPassword,
+  getApplyStats,
 };

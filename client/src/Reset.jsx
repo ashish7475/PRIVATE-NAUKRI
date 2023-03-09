@@ -18,7 +18,10 @@ const Reset = () => {
     }
     const handleSubmit = (e)=>{
          e.preventDefault()
-         if(pass.password !== pass.confirmPassword){
+         if(pass.password.length<6){
+            toast.warning('Password must be atleast 6 characters long ')
+         }
+         else if(pass.password !== pass.confirmPassword){
             toast.error(`Passwords don't match !`)
          }
          else if(pass.password===''){
