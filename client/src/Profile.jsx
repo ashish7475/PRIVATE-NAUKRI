@@ -90,7 +90,7 @@ const formData = new FormData()
           <DialogContentText id="alert-dialog-slide-description">
             {userData && (
               <img
-                src={`http://localhost:5000/${userData.profilePhotoUrl}`}
+                src={userData.profilePhotoUrl!==''?`http://localhost:5000/${userData.profilePhotoUrl}`:'/images/avatar.png'}
                 alt="Avatar"
                 class="img-fluid my-5"
               />
@@ -135,7 +135,7 @@ const formData = new FormData()
                     >
                       {userData && (
                         <img
-                          src={`http://localhost:5000/${userData.profilePhotoUrl}`}
+                          src={userData.profilePhotoUrl!==''?`http://localhost:5000/${userData.profilePhotoUrl}`:'/images/avatar.png'}
                           alt="Avatar"
                           class="img-fluid my-5"
                           style={{ borderRadius: "50%" }}
@@ -144,7 +144,7 @@ const formData = new FormData()
                     </Button>
                     <h5>{userData && userData.name}</h5>
                     <p>Web Designer</p>
-                    <i onClick={handleClickOpen2} class="far fa-edit mb-5"></i>
+                    <i onClick={handleClickOpen2} class="far fa-edit mb-5"><span>Edit</span></i>
                   </div>
                   <div class="col-md-8">
                     <div class="card-body p-4">

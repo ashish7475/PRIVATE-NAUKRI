@@ -3,7 +3,7 @@ import multer from "multer";
 import {
   addAppliedHistory,
   addTestimonial,
-  changeApplyStatus,
+  changePassword,
   forgetPassword,
   getAppliedHistory,
   getApplyStats,
@@ -50,11 +50,12 @@ routes.get("/", (req, res) => {
 
 routes.get("/amazon-job-listings", getJobListing);
 routes.get("/jobdetails", getJobDetails);
-routes.post("/change/apply/status", changeApplyStatus);
+
 routes.post("/signup", upload.single("image"), userSignup);
 routes.post("/login", userLogin);
 routes.post("/forgotpassword", forgetPassword);
 routes.post("/resetpassword", resetPassword);
+routes.post("/changepassword", verifyToken, changePassword);
 routes.post("/addtestimonial", verifyToken, addTestimonial);
 routes.get("/testimonials", getTestimonials);
 routes.get("/appliedhistory", verifyToken, getAppliedHistory);

@@ -25,7 +25,7 @@ import { toast, } from "react-toastify";
 
 const GridComponent = ({ records,setRecords }) => {
   const username =
-    localStorage.getItem("token") &&
+    localStorage.getItem("User") &&
     JSON.parse(localStorage.getItem("User")).username;
   const rows = [];
   const navigate = useNavigate();

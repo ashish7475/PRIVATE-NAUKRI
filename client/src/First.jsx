@@ -22,6 +22,8 @@ import DenseTable from "./AppliedHistory";
 import Forget from "./Forget";
 import Reset from "./Reset";
 import ApplyStats from "./ApplyStats";
+import Reminder from "./Reminder";
+import Settings from "./Settings";
 
 const Main = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -93,6 +95,8 @@ const Main = () => {
           <Route path='/forgetpassword' element={<Forget/>} />
           <Route path='/resetpassword' element={<Reset/>}/>
            <Route path='/applystats' element={<ApplyStats/>}/>
+           <Route path='/reminder' element={<Reminder/>}/>
+           <Route path='/settings' element={<Settings/>}/>
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

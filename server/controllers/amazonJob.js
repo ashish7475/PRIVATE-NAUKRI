@@ -57,20 +57,10 @@ const getJobDetails = async (req, res) => {
     console.log(error);
   }
 };
-const changeApplyStatus = async (req, res) => {
-  try {
-    const jobId = req.body.jobId;
-    console.log(jobId);
-    await AmazonJobListing.updateOne({ jobId }, { applied: true });
-    res.send("Applied Status Changed Successfully");
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 const userSignup = async (req, res) => {
   const { name, username, email, password } = req.body;
-  const { path } = req.file;
+  const { path } = req?.file || "";
 
   const salt = await bcrypt.genSalt(10);
 
@@ -164,6 +154,32 @@ const resetPassword = async (req, res) => {
       res.status(200).json({ message: "Password changed successfully." });
     } else {
       res.status(500).json({ message: "Invalid Request" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: `${error}` });
+  }
+};
+
+const changePassword = async (req, res) => {
+  try {
+    const { oldpassword, newpassword } = req.body;
+    const username = req.username;
+
+    const user = await User.findOne({ username });
+    const isMatch = await bcrypt.compare(oldpassword, user.password);
+
+    if (!isMatch) {
+      res.status(202).json({ message: "Old password is incorrect !" });
+    } else {
+      const salt = await bcrypt.genSalt(10);
+
+      const hashedPassword = await bcrypt.hash(newpassword, salt);
+      await User.updateOne({ username }, { password: hashedPassword });
+
+      res.status(200).json({
+        message: "Password Changed Successfully !",
+        password: hashedPassword,
+      });
     }
   } catch (error) {
     res.status(500).json({ message: `${error}` });
@@ -327,7 +343,6 @@ const getApplyStats = async (req, res) => {
 export {
   getJobListing,
   getJobDetails,
-  changeApplyStatus,
   userLogin,
   userSignup,
   addTestimonial,
@@ -339,4 +354,5 @@ export {
   forgetPassword,
   resetPassword,
   getApplyStats,
+  changePassword,
 };

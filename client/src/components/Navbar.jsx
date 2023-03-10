@@ -108,10 +108,10 @@ const Navbar = (props) => {
                   >
                     {userData && (
                       <img
-                        src={`http://localhost:5000/${userData.profilePhotoUrl}`}
+                        src={ userData.profilePhotoUrl!==''?`http://localhost:5000/${userData.profilePhotoUrl}`:'/images/avatar.png'}
                         className="rounded-circle"
-                        height="80px !important"
-                        width="80px !important"
+                        height="50px !important"
+                        width="50px !important"
                         style={{borderRadius:'50% !important'}}
                         alt="Black and White Portrait of a Man"
                         loading="lazy"
@@ -130,10 +130,13 @@ const Navbar = (props) => {
                       </Link>
                     </li>
                     <li>
+                      <Link to="/settings">
                       <a className="dropdown-item" href="#">
                         Settings
                       </a>
+                      </Link>
                     </li>
+
                     <li>
                       <Link to="/appliedhistory">
                         <a href="#" className="dropdown-item">
