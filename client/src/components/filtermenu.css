@@ -4,6 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    padding: 80px 0;
 }
 .filters_form{
     padding: 30px;

@@ -178,7 +178,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
       {!total ? (
         <h1 style={{marginLeft:'32%',marginTop:'50px'}} >Not applied to anything yet !</h1>
       ) : (
-        <>
+        <div className="Table___outer">
           <h1 style={{marginLeft:'38%',marginTop:'8px'}} >
             <span >Applied History</span>
           </h1>
@@ -266,7 +266,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
             </Table>
           </TableContainer>
          
-        </>
+        </div>
       )}
       <Footer style={{marginTop:'120px'}}/>
     </>

@@ -6,7 +6,11 @@ import Testimonial from "../models/Testimonials.js";
 import ApplyHistory from "../models/ApplyHistory.js";
 import Sentiment from "sentiment";
 import nodemailer from "nodemailer";
-import { sendResetEmail, sendWelcomeMail } from "../utility/index.js";
+import {
+  contactUsEmail,
+  sendResetEmail,
+  sendWelcomeMail,
+} from "../utility/index.js";
 import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 import PasswordResetToken from "../models/PasswordResetToken.js";
 dotenv.config();
@@ -333,10 +337,42 @@ const getApplyStats = async (req, res) => {
     const applied = appliedJobs.filter((job) => job.status === "Applied");
     const interview = appliedJobs.filter((job) => job.status === "Interview");
     const placed = appliedJobs.filter((job) => job.status === "Placed");
-    res.status(200).json({ appliedJobs, rejected, applied, interview, placed });
+    const fulltime = appliedJobs.filter((job) => job.type === "Full Time");
+    const internship = appliedJobs.filter((job) => job.type === "Internship");
+    const amazon = appliedJobs.filter((job) => job.company === "Amazon");
+    const google = appliedJobs.filter((job) => job.company === "Google");
+    const apple = appliedJobs.filter((job) => job.company === "Apple");
+    const netflix = appliedJobs.filter((job) => job.company === "Netflix");
+
+    res.status(200).json({
+      appliedJobs,
+      rejected,
+      applied,
+      interview,
+      placed,
+      fulltime,
+      internship,
+      amazon,
+      google,
+      apple,
+      netflix,
+    });
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: "An error has occured" });
+  }
+};
+
+const contactUs = async (req, res) => {
+  try {
+    const { name, email, subject, message } = req.body;
+    contactUsEmail(name, email, subject, message);
+    res.status(200).json({
+      message: "Message sent successfully! Our team will contact you soon.",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: `${error}` });
   }
 };
 
@@ -355,4 +391,5 @@ export {
   resetPassword,
   getApplyStats,
   changePassword,
+  contactUs,
 };

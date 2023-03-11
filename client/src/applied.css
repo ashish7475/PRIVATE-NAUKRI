@@ -4,3 +4,8 @@
     align-items: center;
     justify-content: center;
 }
+
+.Table___outer{
+    padding: 0 40px;
+    padding-bottom: 160px !important;
+}

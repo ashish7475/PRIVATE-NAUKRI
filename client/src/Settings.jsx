@@ -6,9 +6,11 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
+import UserContext from './UserContext'
 
 
 const Settings = () => {
+    const { userData, isLoggedIn ,setUserData,image,setImage} = React.useContext(UserContext);
   const user = JSON.parse(localStorage.getItem('User'))
    const navigate = useNavigate()
    const [pass,setPass] = React.useState({
@@ -81,7 +83,7 @@ console.log(pass)
 				<div class="profile-tab-nav border-right">
 					<div class="p-4">
 						<div class="img-circle text-center mb-3">
-							<img src={`http://localhost:5000/${user.profilePhotoUrl}`} alt="Image" class="shadow"/>
+							<img src={userData.profilePhotoUrl!==""?`http://localhost:5000/${userData.profilePhotoUrl}`:'/images/avatar.png'} alt="Image" class="shadow"/>
 						</div>
 						<h4 class="text-center">{user.name}</h4>
 					</div>
@@ -89,18 +91,6 @@ console.log(pass)
 						<a class="nav-link active" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">
 							<i class="fa fa-key text-center mr-1"></i> 
 							Password
-						</a>
-						<a class="nav-link" id="security-tab" data-toggle="pill" href="#security" role="tab" aria-controls="security" aria-selected="false">
-							<i class="fa fa-user text-center mr-1"></i> 
-							Security
-						</a>
-						<a class="nav-link" id="application-tab" data-toggle="pill" href="#application" role="tab" aria-controls="application" aria-selected="false">
-							<i class="fa fa-tv text-center mr-1"></i> 
-							Application
-						</a>
-						<a class="nav-link" id="notification-tab" data-toggle="pill" href="#notification" role="tab" aria-controls="notification" aria-selected="false">
-							<i class="fa fa-bell text-center mr-1"></i> 
-							Notification
 						</a>
 					</div>
 				</div>
@@ -136,95 +126,7 @@ console.log(pass)
 						</div>
                             
 						</div>
-						
                       </form>  
-					</div>
-					<div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
-						<h3 class="mb-4">Security Settings</h3>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-								  	<label>Login</label>
-								  	<input type="text" class="form-control"/>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-								  	<label>Two-factor auth</label>
-								  	<input type="text" class="form-control"/>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="recovery"/>
-										<label class="form-check-label" for="recovery">
-										Recovery
-										</label>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className='settings-btn'>
-							<button class="btn btn-primary">Update</button>
-							<button class="btn btn-light">Cancel</button>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="application-tab">
-						<h3 class="mb-4">Application Settings</h3>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="app-check"/>
-										<label class="form-check-label" for="app-check">
-										App check
-										</label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="defaultCheck2" />
-										<label class="form-check-label" for="defaultCheck2">
-										Lorem ipsum dolor sit.
-										</label>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className='settings-btn'>
-							<button class="btn btn-primary">Update</button>
-							<button class="btn btn-light">Cancel</button>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
-						<h3 class="mb-4">Notification Settings</h3>
-						<div class="form-group">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="notification1"/>
-								<label class="form-check-label" for="notification1">
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum accusantium accusamus, neque cupiditate quis
-								</label>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="notification2"/ >
-								<label class="form-check-label" for="notification2">
-									hic nesciunt repellat perferendis voluptatum totam porro eligendi.
-								</label>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="notification3"/ >
-								<label class="form-check-label" for="notification3">
-									commodi fugiat molestiae tempora corporis. Sed dignissimos suscipit
-								</label>
-							</div>
-						</div>
-						<div className='settings-btn'>
-							<button class="btn btn-primary">Update</button>
-							<button class="btn btn-light">Cancel</button>
-						</div>
 					</div>
 				</div>
 			</div>

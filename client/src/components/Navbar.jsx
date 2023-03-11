@@ -145,6 +145,13 @@ const Navbar = (props) => {
                       </Link>
                     </li>
                     <li>
+                      <Link to="/applystats">
+                        <a href="#" className="dropdown-item">
+                          Applied Stats
+                        </a>
+                      </Link>
+                    </li>
+                    <li>
                       <Link to="/testimonial">
                         <a href="#" className="dropdown-item">
                           Add Testimonial

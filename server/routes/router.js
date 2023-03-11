@@ -4,6 +4,7 @@ import {
   addAppliedHistory,
   addTestimonial,
   changePassword,
+  contactUs,
   forgetPassword,
   getAppliedHistory,
   getApplyStats,
@@ -50,7 +51,7 @@ routes.get("/", (req, res) => {
 
 routes.get("/amazon-job-listings", getJobListing);
 routes.get("/jobdetails", getJobDetails);
-
+routes.post("/contactus", contactUs);
 routes.post("/signup", upload.single("image"), userSignup);
 routes.post("/login", userLogin);
 routes.post("/forgotpassword", forgetPassword);

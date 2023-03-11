@@ -90,7 +90,7 @@ const formData = new FormData()
           <DialogContentText id="alert-dialog-slide-description">
             {userData && (
               <img
-                src={userData.profilePhotoUrl!==''?`http://localhost:5000/${userData.profilePhotoUrl}`:'/images/avatar.png'}
+                src={userData.profilePhotoUrl!==""?`http://localhost:5000/${userData.profilePhotoUrl}`:'/images/avatar.png'}
                 alt="Avatar"
                 class="img-fluid my-5"
               />
