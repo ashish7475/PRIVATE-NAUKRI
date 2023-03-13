@@ -2,6 +2,7 @@ import nodemailer from "nodemailer";
 import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 import User from "../models/user.js";
 import AmazonJobListing from "../models/AmazonJobListing.js";
+import mongoose from "mongoose";
 dotenv.config();
 
 const sendWelcomeMail = (user) => {
@@ -196,137 +197,366 @@ const contactUsEmail = async (name, email, subject, message) => {
 };
 
 const jobListingsEmail = async () => {
+  const URI = process.env.URI;
+  await mongoose.connect(URI);
+
   const users = await User.find({ notifications: true });
   const emails = users.map((user) => user.email);
-  const jobs = await AmazonJobListing.find().limit(6).exec();
+  const jobs = await AmazonJobListing.find().limit(7).exec();
 
   const transporter = nodemailer.createTransport({
-    service: "Gmail",
+    service: "gmail",
     auth: {
       user: process.env.EMAIL_ADDRESS,
       pass: process.env.EMAIL_PASSWORD,
     },
-    tls: {
-      rejectUnauthorized: false,
-    },
   });
-  const message = `
 
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Listings</title>
-    <style type="text/css">
-      /* Styles for the card component */
-      .card {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        transition: 0.3s;
-        border-radius: 5px;
-        width: 30%;
-        margin: 20px auto;
-      }
-      
-      .card:hover {
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-      }
-      
-      .container {
-        padding: 2px 16px;
-      }
-      
-      /* Styles for the job listings */
-      .job-title {
-        font-weight: bold;
-        font-size: 20px;
-        margin-bottom: 10px;
-      }
-      
-      .company-name {
-        font-style: italic;
-        font-size: 16px;
-        margin-bottom: 10px;
-      }
-      
-      .job-location {
-        font-size: 16px;
-        margin-bottom: 10px;
-      }
-      
-      .job-description {
-        font-size: 16px;
-      }
-    </style>
-  </head>
-  
-  <body>
-    <h1>Job Listings</h1>
-    <span>Checkout the updated listings<span>
-    
-    
-      <div class="card">
-        <div class="container">
-          <h2 class="job-title"> ${jobs[0].title}</h2>
-          <p class="company-name"> ${jobs[0].companyName}</p>
-          <p class="job-location"> ${jobs[0].location}</p>
-          <p class="job-description"> ${jobs[0].jobId}</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="container">
-          <h2 class="job-title"> ${jobs[1].title}</h2>
-          <p class="company-name"> ${jobs[1].companyName}</p>
-          <p class="job-location"> ${jobs[1].location}</p>
-          <p class="job-description"> ${jobs[1].jobId}</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="container">
-          <h2 class="job-title"> ${jobs[2].title}</h2>
-          <p class="company-name"> ${jobs[2].companyName}</p>
-          <p class="job-location"> ${jobs[2].location}</p>
-          <p class="job-description"> ${jobs[2].jobId}</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="container">
-          <h2 class="job-title"> ${jobs[3].title}</h2>
-          <p class="company-name"> ${jobs[3].companyName}</p>
-          <p class="job-location"> ${jobs[3].location}</p>
-          <p class="job-description"> ${jobs[3].jobId}</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="container">
-          <h2 class="job-title"> ${jobs[5].title}</h2>
-          <p class="company-name"> ${jobs[5].companyName}</p>
-          <p class="job-location"> ${jobs[5].location}</p>
-          <p class="job-description"> ${jobs[5].jobId}</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="container">
-          <h2 class="job-title"> ${jobs[4].title}</h2>
-          <p class="company-name"> ${jobs[4].companyName}</p>
-          <p class="job-location"> ${jobs[4].location}</p>
-          <p class="job-description"> ${jobs[4].jobId}</p>
-        </div>
-      </div>
-   
-  </body>
-</html>
-`;
   const mailOptions = {
-    from: process.env.EMAIL_ADDRESS,
+    from: "private.naukri.ashish@gmail.com",
     to: [...emails],
-    subject: "Checkout the Updated Jobs",
-    html: message,
+    subject: "Latest Jobs to check out",
+    html: `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+        * {
+            box-sizing: border-box;
+
+        }
+
+        body {
+            margin: 0;
+            color:white;
+        }
+
+        table {
+            background-color: #28223F;
+            font-family: Montserrat, sans-serif;
+            justify-content: center;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+
+        }
+
+
+ 
+        h3 {
+            margin: 10px 0;
+        }
+
+        h6 {
+            margin: 5px 0;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 21px;
+        }
+
+        .card-container {
+            background-color: #231E39;
+            border-radius: 5px;
+            box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+            color: #B3B8CD;
+            padding-top: 30px;
+            position: relative;
+            width: 350px;
+            max-width: 100%;
+            text-align: center;
+            height: fit-content;
+        }
+
+        td {
+            width: 350px !important;
+        }
+
+        .card-container .pro {
+           
+            background-color: #FEBB0B;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 3px 7px;
+            
+          
+        }
+
+        .card-container .round {
+            border: 1px solid #03BFCB;
+            border-radius: 50%;
+            padding: 7px;
+        }
+
+        button.primary {
+            background-color: #03BFCB;
+            border: 1px solid #03BFCB;
+            border-radius: 3px;
+            
+            font-family: Montserrat, sans-serif;
+            font-weight: 500;
+            padding: 10px 25px;
+        }
+        .pro{
+            color: black;
+
+        }
+
+        button.primary.ghost {
+            background-color: transparent;
+            color: #02899C;
+        }
+
+        .skills {
+            background-color: #1F1A36;
+            text-align: left;
+            padding: 15px;
+            margin-top: 30px;
+        }
+
+        .skills ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .skills ul li {
+            border: 1px solid #2D2747;
+            border-radius: 2px;
+            display: inline-block;
+            font-size: 12px;
+            margin: 0 7px 7px 0;
+            padding: 7px;
+        }
+
+        footer {
+            background-color: #222;
+            color: #fff;
+            font-size: 14px;
+            bottom: 0;
+            position: fixed;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 999;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        footer i {
+            color: red;
+        }
+
+        footer a {
+            color: #3c97bf;
+            text-decoration: none;
+        }
+
+        .footer {
+            width: 100%;
+        }
+        a,span{
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>
+                <table style="padding:20px;">
+                    <tr>
+                        <td>
+                            <div class="card-container">
+                                <span class="pro"> ID- ${jobs[1].jobId}</span>
+                                <h3> ${jobs[1].title}</h3>
+                                <h6>TYPE- ${jobs[1].type} | LOCATION- ${jobs[1].location}</h6>
+                                <p>COMPANY- ${jobs[1].companyName} <br />STATUS</p>
+                                <div class="buttons">
+
+                                    <a href="${jobs[1].applyUrl}">
+                                        <button class="primary">
+                                            Apply
+                                        </button>
+                                    </a>
+                                    <a href="http://localhost:3000/home">
+                                        <button class="primary ghost">
+                                            Learn More
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="skills"><S></S>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="card-container">
+                                <span class="pro">ID- ${jobs[2].jobId}</span>
+                                <h3> ${jobs[2].title}</h3>
+                                <h6>TYPE- ${jobs[2].type} | LOCATION- ${jobs[2].location}</h6>
+                                <p>COMPANY- ${jobs[2].companyName} <br /> STATUS</p>
+                                <div class="buttons">
+
+                                    <a href="${jobs[2].applyUrl}">
+                                        <button class="primary">
+                                            Apply
+                                        </button>
+                                    </a>
+                                    <a href="http://localhost:3000/home">
+                                        <button class="primary ghost">
+                                            Learn More
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="skills"><S></S>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="card-container">
+                                <span class="pro">ID- ${jobs[3].jobId}</span>
+                                <h3> ${jobs[3].title}</h3>
+                                <h6>TYPE- ${jobs[3].type} | LOCATION- ${jobs[3].location}</h6>
+                                <p>COMPANY- ${jobs[3].companyName} <br /> STATUS</p>
+                                <div class="buttons">
+
+                                    <a href="${jobs[3].applyUrl}">
+                                        <button class="primary">
+                                            Apply
+                                        </button>
+                                    </a>
+                                    <a href="http://localhost:3000/home">
+                                        <button class="primary ghost">
+                                            Learn More
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="skills"><S></S>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="card-container">
+                                <span class="pro">ID- ${jobs[4].jobId}</span>
+                                <h3> ${jobs[4].title}</h3>
+                                <h6>TYPE- ${jobs[4].type} | LOCATION- ${jobs[4].location}</h6>
+                                <p>COMPANY- ${jobs[4].companyName} <br /> STATUS</p>
+                                <div class="buttons">
+
+                                    <a href="${jobs[4].applyUrl}">
+                                        <button class="primary">
+                                            Apply
+                                        </button>
+                                    </a>
+                                    <a href="http://localhost:3000/home">
+                                        <button class="primary ghost">
+                                            Learn More
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="skills"><S></S>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="card-container">
+                                <span class="pro">ID- ${jobs[5].jobId}</span>
+                                <h3>${jobs[5].title}</h3>
+                                <h6>TYPE- ${jobs[5].type} | LOCATION- ${jobs[5].location}</h6>
+                                <p>COMPANY- ${jobs[5].companyName} <br /> STATUS</p>
+                                <div class="buttons">
+
+                                    <a href="${jobs[5].applyUrl}">
+                                        <button class="primary">
+                                            Apply
+                                        </button>
+                                    </a>
+                                    <a href="http://localhost:3000/home">
+                                        <button class="primary ghost">
+                                            Learn More
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="skills"><S></S>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="card-container">
+                                <span class="pro">ID- ${jobs[6].jobId}- ${jobs[6].jobId}</span>
+                                <h3> ${jobs[6].title}</h3>
+                                <h6>TYPE- ${jobs[6].type} | LOCATION- ${jobs[6].location}</h6>
+                                <p>COMPANY- ${jobs[6].companyName} <br /> STATUS</p>
+                                <div class="buttons">
+
+                                    <a href="${jobs[6].applyUrl}">
+                                        <button class="primary">
+                                            Apply
+                                        </button>
+                                    </a>
+                                    <a href="http://localhost:3000/home">
+                                        <button class="primary ghost">
+                                            Learn More
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="skills"><S></S>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <footer>
+                    <table class="footer">
+                        <tr>
+                            <td>
+                                <a target="_blank" href="https://forms.gle/pqs6zfrd7TUyPpCw7">Feedbacks</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a target="_blank" href="https://florin-pop.com">Unsubscribe</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Created with ❤️ by Ashish Kumar</span>
+                            </td>
+                        </tr>
+                    </table>
+                </footer>
+            </td>
+        </tr>
+
+        </div>
+</body>
+
+</html>`,
   };
-  transporter.sendMail(mailOptions, (err, info) => {
-    if (err) {
-      console.log(err);
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
     } else {
-      console.log(info);
+      console.log("Email sent: " + info.response);
     }
   });
 };

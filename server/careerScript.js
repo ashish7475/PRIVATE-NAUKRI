@@ -165,4 +165,4 @@ const webScrapeCron = async () => {
   await db.close();
 };
 
-webScrapeCron();
+export { webScrapeCron };
