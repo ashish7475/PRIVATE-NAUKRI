@@ -118,7 +118,7 @@ const sendResetEmail = (name, email, token) => {
   });
 };
 
-const contactUsEmail = async (name, email, subject, message) => {
+const contactUsEmail = (name, email, subject, message) => {
   const transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {

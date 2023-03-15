@@ -49,7 +49,7 @@ const Intro = () => {
       display: flex;
       flex-direction: row;
       float: left;
-      top: 47%;
+      top: 20%;
       padding: 0.5rem;
       margin: 0 1% 0 1%;
       border: 2px solid yellow;
@@ -71,20 +71,19 @@ const Intro = () => {
       font-size: 4rem;
       position: relative;
       float: left;
-      left: 55%;
+      left: 25%;
       color: yellow;
-      margin-top: 11%;
+      margin-top: 3%;
     }
     @media screen and (max-width: 1179px) and (min-width: 763px) {
       span {
         display: flex;
-
         font-family: "Courier New", Courier, monospace;
         font-weight: bolder;
         font-size: 3rem;
         position: relative;
-        top: 80px;
-        left: 55%;
+        top: 20px;
+        left: 15%;
         color: yellow;
       }
     }
@@ -114,7 +113,7 @@ const Intro = () => {
         display: flex;
         flex-direction: row;
         float: left;
-        top: 40%;
+        top: 18%;
         padding: 0.5rem;
         border: 2px solid yellow;
         background-color: transparent;
@@ -134,8 +133,8 @@ const Intro = () => {
         font-weight: bolder;
         font-size: 2rem;
         position: relative;
-        top: 100px;
-        left: 49%;
+        top: 10px;
+        left: 9%;
         color: yellow;
       }
     }
@@ -143,17 +142,17 @@ const Intro = () => {
   return (
     <div className="intro__page">
       <img
-        src="/images/jobseek.webp"
+        src="/images/msd.webp"
         className="steve_jobs"
       />
       <Division>
         <Typical
           steps={[
-            "Stay Hungry",
+            "Till the fullstop comes,",
             1000,
-            "Stay Foolish",
+            "The sentence is not over",
             1000,
-            "--Steve Jobs",
+            "--MSD",
             1000,
           ]}
           loop={Infinity}
@@ -161,7 +160,7 @@ const Intro = () => {
         />
         <pre className="postClass">
           {`
-                </h1>
+               
             `}
         </pre>
 

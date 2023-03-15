@@ -86,7 +86,7 @@ const Navbar = (props) => {
                 <Link to="/">
                   <li class="menu__item">
                     <a class="menu__link" href="#">
-                      Steve Jobs
+                      MSD
                     </a>
                   </li>
                 </Link>
