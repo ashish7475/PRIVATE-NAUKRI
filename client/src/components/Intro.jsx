@@ -6,6 +6,8 @@ import './intro.css'
 
 
 const Intro = () => {
+
+  const ran = Math.ceil(Math.random()*11)
   const Division = styled.div`
     color: grey;
     z-index: 100;
@@ -142,7 +144,7 @@ const Intro = () => {
   return (
     <div className="intro__page">
       <img
-        src="/images/msd.webp"
+        src={`/images/msd${ran}.webp`}
         className="steve_jobs"
       />
       <Division>
@@ -152,7 +154,7 @@ const Intro = () => {
             1000,
             "The sentence is not over",
             1000,
-            "--MSD",
+            "Mahendra Singh Dhoni",
             1000,
           ]}
           loop={Infinity}

@@ -42,6 +42,9 @@ const getJobListing = async (req, res) => {
       .skip(skip)
       .limit(pageSize)
       .exec();
+    const ls = await AmazonJobListing.find({
+      title: { $regex: searchQuery, $options: "i" },
+    });
 
     res.status(200).json({ data: [...listings], totalListings });
   } catch (error) {

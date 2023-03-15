@@ -77,21 +77,38 @@ const App = () => {
        setData(res.data.data)
        setCurrentPageListings(res.data.data)
        setTotalRecords(res.data.totalListings)
+       setCurrentPage(1)          
+       //! if we dont do this if records are less than current pages length then screeen would be empty while their still be pages
      } catch (error) {
        console.log(error)
      }
    })
-   },[currentPage,search,filters])
+   },[search,filters])
+
+   
+   useEffect(()=>{
+
+    axios.get('http://localhost:5000/amazon-job-listings',{
+      params:{
+        q:search,
+        page:currentPage,
+        filters,
+      }
+    }).then((res,err)=>{
+     try {
+      console.log(res.data.data.length)
+       setData(res.data.data)
+       setCurrentPageListings(res.data.data)
+       setTotalRecords(res.data.totalListings)         
+       //! if we dont do this if records are less than current pages length then screeen would be empty while their still be pages
+     } catch (error) {
+       console.log(error)
+     }
+   })
+   },[currentPage])
 
   
-  useEffect(()=>{
-    try {
-        setCurrentPageListings(data)
-    } catch (error) {
-      toast.error("Error ",error)
-    }
-    
-  },[currentPage])
+
 
   return (
     <div className='OUTERMOST__DIV'>

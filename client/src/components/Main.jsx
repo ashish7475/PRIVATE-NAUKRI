@@ -13,15 +13,7 @@ export default function Main(props) {
         props.currentPageListings && (
           <div className="main__container">
             <GridComponent
-              records={
-                !props.search
-                  ? props?.currentPageListings
-                  : props.data.filter((ele) =>
-                      ele.title
-                        .toLowerCase()
-                        .includes(props.search.toLowerCase())
-                    )
-              }
+              records={props.currentPageListings}
               setRecords={props.setRecords}
             />
           </div>

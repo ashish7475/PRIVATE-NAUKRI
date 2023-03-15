@@ -164,7 +164,31 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
         setCurrentPageListings(res.data.appliedJobs)
         setTotalRecords(res.data.totalAppliedQuery)
       });
-  }, [filters,search,currentPage]);
+  }, [currentPage]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/meme");
+    }
+    axios
+      .get("http://localhost:5000/appliedhistory", {
+        headers: { "x-access-token": token },
+        params:{
+          q:search,
+          currentPage,
+          filters:{...filters}
+        }
+
+      })
+      .then((res, err) => {
+        setList(res.data.appliedJobs);
+        setTotal(res.data.totalApplied)
+        setCurrentPageListings(res.data.appliedJobs)
+        setCurrentPage(1)
+        setTotalRecords(res.data.totalAppliedQuery)
+      });
+  }, [filters,search]);
 
       useEffect(() => {
      window.scrollBy(0,100) // Scroll window by 100 pixels on page load
