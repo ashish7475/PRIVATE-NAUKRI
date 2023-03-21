@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 import User from "../models/user.js";
-import AmazonJobListing from "../models/AmazonJobListing.js";
+import JobListing from "../models/JobListing.js";
 import mongoose from "mongoose";
 dotenv.config();
 
@@ -202,7 +202,7 @@ const jobListingsEmail = async () => {
 
   const users = await User.find({ notifications: true });
   const emails = users.map((user) => user.email);
-  const jobs = await AmazonJobListing.find().limit(7).exec();
+  const jobs = await JobListing.find().limit(7).exec();
 
   const transporter = nodemailer.createTransport({
     service: "gmail",

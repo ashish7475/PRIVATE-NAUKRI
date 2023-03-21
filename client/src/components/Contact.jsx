@@ -53,7 +53,7 @@ const Contact = () => {
     }
   }, []);
   
-  console.log(formData)
+  
   return (
     <>
       <Navbar />

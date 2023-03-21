@@ -35,7 +35,7 @@ const Forget = () => {
   const handleChange = (e)=>{
     setEmail(e.target.value)
   }
- console.log(email)
+ 
 
   return (
     <>

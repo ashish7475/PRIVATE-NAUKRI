@@ -1,14 +1,19 @@
 import cron from "node-cron";
-import { webScrapeCron } from "./careerScript.js";
+import { webScrapeCron } from "./amazonScript.js";
+import { webScrapeCronGoogle } from "./googleScript.js";
 import { jobListingsEmail } from "./utility/index.js";
 
-// Schedule the task to run at 1:45 AM every day
 cron.schedule("* 10 * * *", async () => {
-  console.log("Running careerScript.js");
+  console.log("Running Amazon Scrape");
   await webScrapeCron();
 });
 
-cron.schedule("23 0 * * *", async () => {
-  console.log(`Email sent`);
-  jobListingsEmail();
+cron.schedule("30 10 * * *", async () => {
+  console.log("Running Google Scrape");
+  await webScrapeCronGoogle();
+});
+
+cron.schedule("27 0 * * *", async () => {
+  console.log("Email Sent");
+  await jobListingsEmail();
 });

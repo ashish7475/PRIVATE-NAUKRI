@@ -44,7 +44,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
     setSearch(e.target.value)
   }
    const handleChangeStatus = (e, status) => {
-    setCurrentRecordStatus((prev)=>({applied:false,interview:false,placed:false,rejected:false}))
+    setCurrentRecordStatus({applied:false,interview:false,placed:false,rejected:false})
     setCurrentRecordStatus((prev) => {
     const obj =
       status === "Applied"
@@ -102,7 +102,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
 
   }
    const handleClickOpen = (e,status,jobId,itemId) => {
-    
+    console.log(status)
    const obj =  status==='Applied'?{applied:true}:(status==='Interview'?{interview:true}:(status==='Rejected'?{rejected:true}:{placed:true}))
     setCurrentRecordStatus((prev)=>({...prev,...obj}))
     setjobId(jobId)
@@ -112,6 +112,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
 
   const handleClose = () => {
     setOpenItemId(null);
+    setCurrentRecordStatus({applied:false,interview:false,placed:false,rejected:false})
   };
   const statuses = ['Applied','Interview','Placed','Rejected']
 
@@ -141,7 +142,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
     
   }, []);
 
-  console.log(jobId)
+ 
 
     useEffect(() => {
     const token = localStorage.getItem("token");

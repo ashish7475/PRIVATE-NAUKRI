@@ -72,7 +72,7 @@ const Settings = () => {
         }
 
     }
-console.log(pass)
+
   return (
     <>
     <Navbar/>

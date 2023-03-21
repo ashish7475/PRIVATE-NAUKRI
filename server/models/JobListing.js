@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const AmazonJobListingSchema = new mongoose.Schema({
+const JobListingSchema = new mongoose.Schema({
   companyName: String,
   jobId: Number,
   title: String,
@@ -22,11 +22,12 @@ const AmazonJobListingSchema = new mongoose.Schema({
   applied: Boolean,
   lastUpdated: String,
   applied: { type: [Object], default: [] },
+  responsibilities: {
+    type: String,
+    default: "",
+  },
 });
 
-const AmazonJobListing = mongoose.model(
-  "AmazonJobListing",
-  AmazonJobListingSchema
-);
+const JobListing = mongoose.model("JobListing", JobListingSchema);
 
-export default AmazonJobListing;
+export default JobListing;

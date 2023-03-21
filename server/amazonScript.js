@@ -1,7 +1,7 @@
 import { Cluster } from "puppeteer-cluster";
 import puppeteer from "puppeteer";
 import mongoose from "mongoose";
-import AmazonJobListing from "./models/AmazonJobListing.js";
+import JobListing from "./models/JobListing.js";
 import { config } from "dotenv";
 
 const webScrapeCron = async () => {
@@ -28,7 +28,7 @@ const webScrapeCron = async () => {
       const jobListingLinks = await page.$$(
         "#search-results-box > div.search-page > div > div > div.container > content > div > div > div.col-md-8.search-page-job-list > div > div > div> a"
       );
-      console.log(jobListingLinks.length);
+
       for (const jobListingLink of jobListingLinks) {
         const location = await jobListingLink.$eval(
           "div.info.first.col-12.col-md-8 > p",
@@ -100,8 +100,6 @@ const webScrapeCron = async () => {
             ? "Internship"
             : "Full Time";
 
-        console.log(type);
-
         jobListings.push({
           title,
           jobID,
@@ -141,11 +139,11 @@ const webScrapeCron = async () => {
 
   for (let i = 0; i < jobs.length; i++) {
     //! If listing is already present we skip
-    const find = await AmazonJobListing.find({
+    const find = await JobListing.find({
       jobId: jobs[i].jobID,
     });
     if (!find.length) {
-      const job = new AmazonJobListing({
+      const job = new JobListing({
         companyName: "Amazon",
         jobId: jobs[i].jobID,
         title: jobs[i].title,
@@ -157,6 +155,7 @@ const webScrapeCron = async () => {
         preferredQualificaton: jobs[i].preferredQualificaton,
         applied: [],
         lastUpdated: dateString,
+        responsibilities: "",
       });
       await job.save();
     }
@@ -164,5 +163,6 @@ const webScrapeCron = async () => {
 
   await db.close();
 };
+webScrapeCron();
 
 export { webScrapeCron };

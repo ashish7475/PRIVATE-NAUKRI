@@ -1,4 +1,4 @@
-import AmazonJobListing from "../models/AmazonJobListing.js";
+import JobListing from "../models/JobListing.js";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
@@ -36,13 +36,13 @@ const getJobListing = async (req, res) => {
       query.companyName = { $in: companies };
     }
 
-    const totalListings = await AmazonJobListing.find(query).count();
+    const totalListings = await JobListing.find(query).count();
 
-    const listings = await AmazonJobListing.find(query)
+    const listings = await JobListing.find(query)
       .skip(skip)
       .limit(pageSize)
       .exec();
-    const ls = await AmazonJobListing.find({
+    const ls = await JobListing.find({
       title: { $regex: searchQuery, $options: "i" },
     });
 
@@ -57,7 +57,7 @@ const getJobDetails = async (req, res) => {
   try {
     const jobId = req.query.jobId;
 
-    const job = await AmazonJobListing.findOne({ jobId });
+    const job = await JobListing.findOne({ jobId });
 
     res.status(200).json(job);
   } catch (error) {
@@ -98,7 +98,6 @@ const userLogin = async (req, res) => {
   const { username, password } = req.body;
 
   const user = await User.findOne({ username });
-  console.log(user);
 
   if (!user) {
     res.send({ message: "User not registered !", status: "error" });
@@ -301,11 +300,12 @@ const addAppliedHistory = async (req, res) => {
   try {
     const { jobId, title, location, type, companyName } = req.body.record;
     const username = req.username;
-    await AmazonJobListing.updateOne(
+    console.log(jobId);
+    await JobListing.updateOne(
       { jobId },
       { $push: { applied: { username, appliedAt: new Date() } } }
     );
-    const updated = await AmazonJobListing.findOne({ jobId });
+    const updated = await JobListing.findOne({ jobId });
     const now = new Date();
     const year = now.getFullYear();
     const month = now.getMonth() + 1; // getMonth() returns 0-11, so add 1 to get 1-12

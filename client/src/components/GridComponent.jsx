@@ -91,13 +91,13 @@ const GridComponent = ({ records,setRecords }) => {
                 >
                   {record.companyName === "Amazon" ? (
                     <img height="30xp" src="/images/amazon.webp" alt="Amazon" />
-                  ) : (
+                  ) : record.companyName==='Google'? (
                     <img
                       height="30xp"
-                      src="/images/flipkart.png"
-                      alt="Amazon"
+                      src="/images/google.webp"
+                      alt="Google"
                     />
-                  )}
+                  ):''}
 
                   {localStorage.getItem("token") && (
                     <span
@@ -120,8 +120,9 @@ const GridComponent = ({ records,setRecords }) => {
                   <MDBCardText className="card__text">
                     {`Location: ${record.location} `}
                     <br />
-                    {`Job ID: ${record.jobId}`}
-                    <br />
+                    {record.jobId!==null &&<> Job ID: {record.jobId}
+                    <br /></>
+                    }
                     {`Type: ${record.type}`}
                   </MDBCardText>
                   <Link

@@ -65,7 +65,7 @@ const formData = new FormData()
         const updatedUserData = {...userData, profilePhotoUrl: res.data.url}; // create new object with updated user data
       setUserData(updatedUserData);
       localStorage.setItem('User',JSON.stringify(updatedUserData));
-        console.log(res.data)
+       
         setOpen2(false)
       }
 
@@ -73,7 +73,7 @@ const formData = new FormData()
     }
     
   }
-  console.log(userData)
+  
   return (
     <>
       <Navbar />

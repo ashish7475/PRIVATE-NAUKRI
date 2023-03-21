@@ -44,7 +44,7 @@ const App = () => {
 
   useEffect(()=>{
     
-    axios.get('http://localhost:5000/amazon-job-listings',{
+    axios.get('http://localhost:5000/job-listings',{
       params:{
         q:search,
         page:currentPage,
@@ -65,7 +65,7 @@ const App = () => {
 
    useEffect(()=>{
 
-    axios.get('http://localhost:5000/amazon-job-listings',{
+    axios.get('http://localhost:5000/job-listings',{
       params:{
         q:search,
         page:currentPage,
@@ -73,7 +73,7 @@ const App = () => {
       }
     }).then((res,err)=>{
      try {
-      console.log(res.data.data.length)
+      
        setData(res.data.data)
        setCurrentPageListings(res.data.data)
        setTotalRecords(res.data.totalListings)
@@ -88,7 +88,7 @@ const App = () => {
    
    useEffect(()=>{
 
-    axios.get('http://localhost:5000/amazon-job-listings',{
+    axios.get('http://localhost:5000/job-listings',{
       params:{
         q:search,
         page:currentPage,
@@ -96,7 +96,7 @@ const App = () => {
       }
     }).then((res,err)=>{
      try {
-      console.log(res.data.data.length)
+      
        setData(res.data.data)
        setCurrentPageListings(res.data.data)
        setTotalRecords(res.data.totalListings)         

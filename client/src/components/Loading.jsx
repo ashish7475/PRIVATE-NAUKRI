@@ -167,5 +167,5 @@ export default class Robot1 extends Component {
 }
 
 const animateBody = () => {
-  console.log("yeah");
+
 };

@@ -17,7 +17,7 @@ const ViewTestimonials = () => {
         toast.error(`${err}`);
       }
       else{
-        console.log(res.data)
+        
         setTestimonials(res.data)
       }
     })

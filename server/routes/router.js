@@ -43,13 +43,13 @@ routes.get("/", (req, res) => {
   res.send(`<h1>Welcome to my Node Server . This is the home route.</h1>
             <h3> Useful Routes :-</h3>
             <ol>
-              <li> /amazon-job-listings</li>
+              <li> /job-listings</li>
               <li> /filter-jobs</li>
             </ol>
   `);
 });
 
-routes.get("/amazon-job-listings", getJobListing);
+routes.get("/job-listings", getJobListing);
 routes.get("/jobdetails", getJobDetails);
 routes.post("/contactus", contactUs);
 routes.post("/signup", upload.single("image"), userSignup);

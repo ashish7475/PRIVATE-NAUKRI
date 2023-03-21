@@ -22,7 +22,7 @@ const ApplyStats = () => {
       }
       
   },[])
-  console.log(data)
+
   
 const data1 = {
   labels: ['Applied', 'Interview', 'Placed', 'Rejected'],
