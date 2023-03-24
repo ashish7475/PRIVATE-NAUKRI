@@ -46,6 +46,8 @@ TESTOMONIALS
 ![Screenshot (282)](https://user-images.githubusercontent.com/96125918/227496565-c6edacdf-2930-4ade-9600-716cf5504030.png)
 
 
+
+
 <h3>AFTER USER LOGIN : </h3>
 
 HOMEPAGE
@@ -89,14 +91,20 @@ ADD FEEDBACKS
 IF YOU TRY TO VISIT PROTECTED ROUTE BEFORE LOGGIN IN - MEME
 ![Screenshot (297)](https://user-images.githubusercontent.com/96125918/227497565-a2fe794a-e8fb-453e-81c2-08a5be8faad8.png)
 
+Welcome EMAIL
+![Screenshot (304)](https://user-images.githubusercontent.com/96125918/227499570-37c29925-5f96-4c8e-82c0-fbf251aed30d.png)
 
+FORGET PASSWORD
+![Screenshot (299)](https://user-images.githubusercontent.com/96125918/227499168-54bb04a6-cb69-4f50-ae72-c7a1b16a0d41.png)
 
+RESET PASSWORD - EMAIL
+![Screenshot (300)](https://user-images.githubusercontent.com/96125918/227499454-4a7675db-f197-4081-9bf9-3887331ad0a8.png)
 
+RESET PASSWORD
+![Screenshot (301)](https://user-images.githubusercontent.com/96125918/227499372-eace27fd-46e4-4c80-9525-7717a24ece0d.png)
 
-
-
-
-
+JOB LISTINGS EMAIL
+![Screenshot (303)](https://user-images.githubusercontent.com/96125918/227499621-73091706-65d9-47e9-8f4d-86378ddb6ba9.png)
 
 
 
