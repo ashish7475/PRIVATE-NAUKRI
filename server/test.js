@@ -9,9 +9,8 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import fs from "fs";
 
-const URI = `mongodb+srv://ashish729912:hQAIMkyrifmhQH8w@webscrapercluster.sagxtxf.mongodb.net/?retryWrites=true&w=majority`;
 mongoose
-  .connect(URI, {
+  .connect(process.env.URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

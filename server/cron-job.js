@@ -13,7 +13,7 @@ cron.schedule("30 10 * * *", async () => {
   await webScrapeCronGoogle();
 });
 
-cron.schedule("27 0 * * *", async () => {
+cron.schedule("21 1 * * *", async () => {
   console.log("Email Sent");
   await jobListingsEmail();
 });

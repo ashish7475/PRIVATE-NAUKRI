@@ -18,6 +18,7 @@ import {
   userSignup,
 } from "../controllers/amazonJob.js";
 import jwt from "jsonwebtoken";
+import User from "../models/user.js";
 
 const routes = express.Router();
 
@@ -40,13 +41,7 @@ const verifyToken = (req, res, next) => {
 };
 
 routes.get("/", (req, res) => {
-  res.send(`<h1>Welcome to my Node Server . This is the home route.</h1>
-            <h3> Useful Routes :-</h3>
-            <ol>
-              <li> /job-listings</li>
-              <li> /filter-jobs</li>
-            </ol>
-  `);
+  res.send(`<h1>Welcome to Private Naukri . This is the home route.</h1>`);
 });
 
 routes.get("/job-listings", getJobListing);
@@ -69,5 +64,13 @@ routes.post(
   upload.single("edit-image"),
   updateProfilePhoto
 );
+
+routes.get("/unsubscribe/:email", async (req, res) => {
+  const email = req.params.email;
+  await User.updateOne({ email }, { notifications: false });
+  res.send(
+    "<h1>Unsubscribed Successfully</h1><p>You have successfully unsubscribed from our mailing list.</p>"
+  );
+});
 
 export default routes;

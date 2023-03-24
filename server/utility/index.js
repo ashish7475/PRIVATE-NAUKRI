@@ -212,11 +212,12 @@ const jobListingsEmail = async () => {
     },
   });
 
-  const mailOptions = {
-    from: "private.naukri.ashish@gmail.com",
-    to: [...emails],
-    subject: "Latest Jobs to check out",
-    html: `<!DOCTYPE html>
+  emails.forEach((email) => {
+    const mailOptions = {
+      from: "private.naukri.ashish@gmail.com",
+      to: email,
+      subject: "Latest Jobs to check out",
+      html: `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -533,7 +534,7 @@ const jobListingsEmail = async () => {
                         </tr>
                         <tr>
                             <td>
-                                <a target="_blank" href="https://florin-pop.com">Unsubscribe</a>
+                                <a target="_blank" href="http://localhost:5000/unsubscribe/${email}">Unsubscribe</a>
                             </td>
                         </tr>
                         <tr>
@@ -550,14 +551,15 @@ const jobListingsEmail = async () => {
 </body>
 
 </html>`,
-  };
+    };
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
   });
 };
 
