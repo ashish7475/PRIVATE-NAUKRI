@@ -1,6 +1,9 @@
 # PRIVATE-NAUKRI
 Web app build using MERN stack and web scarping in Javascript
 
+![PRivate](https://user-images.githubusercontent.com/96125918/227444064-76bab147-1210-4366-865b-b2287a93839e.png)
+
+
 Introduction: 
 <ol>
 
