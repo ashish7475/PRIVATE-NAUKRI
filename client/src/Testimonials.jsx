@@ -74,7 +74,10 @@ const Testimonials = () => {
   return (
     <>
       <Navbar />
+      
       <div className="testimonials">
+        <h1>Add Testimonial</h1>
+      <span>Please <b><i>avoid foul language!</i></b> Thank you. Feel free to also submit your feedbacks in the google form <span style={{fontSize:'1.5rem'}}>✅</span></span>
         <Card sx={{ minWidth: 275 }}>
           <CardContent>
             <form onSubmit={handleSubmit}>

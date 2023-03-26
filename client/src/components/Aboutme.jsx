@@ -103,6 +103,7 @@ const Aboutme = () => {
             className="feedback__anchor"
             href="#"
             style={{
+              textDecoration:'bold',
               marginLeft: "4px",
               display: "flex",
               justifyContent: "center",
@@ -111,7 +112,7 @@ const Aboutme = () => {
           >
             <span
               class="material-symbols-outlined"
-              style={{ fontSize: "2rem", color: "#FF0303" }}
+              style={{ fontSize: "2rem", color: "#FF0303",fontWeight:'bolder' }}
             >
               add_comment
             </span>

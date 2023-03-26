@@ -41,16 +41,7 @@ const Contact = () => {
   useEffect(() => {
 
     window.scrollTo(0, 100); // Scroll window by 100 pixels on page load
-    const user  = localStorage.getItem('User') ? JSON.parse(localStorage.getItem('User')):null;
-    if(user){
 
-      setFormData((prev)=>({
-        ...prev,
-        name:user.name,
-        email:user.email,
-
-      }))
-    }
   }, []);
   
   
@@ -65,7 +56,7 @@ const Contact = () => {
           <h1 className="contact_taital">Contact Us</h1>
 
           <p className="contact_text">
-            We here you and We are here for you !
+            We hear you and We are here for you !
           </p>
           <div className="contact_section_2 layout_padding">
             <div className="row">
