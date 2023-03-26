@@ -1,0 +1,112 @@
+.unsub__outer {
+			font-family: Arial, sans-serif;
+			background-color: #f5f5f5;
+			color: #444;
+			margin: 0;
+			padding: 0;
+			line-height: 1.5;
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		
+		.unsub__container {
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			align-items: center;
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 30px;
+			background-color: #fff;
+			box-shadow: 0 0 10px rgba(0,0,0,0.1);
+		}
+
+		.unsub__h1 {
+			font-size: 32px;
+			margin: 0 0 20px;
+			text-align: center;
+		}
+
+		.unsub__p {
+			margin: 0 0 20px;
+			text-align: center;
+		}
+
+		.unsub__button {
+			border: none;
+				margin-bottom: 50px;
+			display: inline-block;
+			padding: 10px 20px;
+			background-color: #007bff;
+			color: #fff;
+			text-decoration: none;
+			border-radius: 9px;
+			box-shadow: 2px 3px 5px black;
+			transition: background-color 0.3s;
+		}
+
+		.unsub__button:hover {
+			background-color: #0056b3;
+			color: yellow;
+		}
+	.message__outer{
+		width: 70%;
+		height: fit-content;
+		padding: 20px;
+		border: 1px dashed gray ;
+		filter: drop-shadow(1px 2px 2px black);
+		font-family: monospace;
+	}
+	.message{
+		text-align: center;
+	}
+
+	.dont__go{
+		border-radius: 0% 0% 50% 50%;
+	}
+	.footer__p{
+		font-weight: bold;
+		
+	}
+
+		
+	
+		.text1 {
+			font-family: "Yanone Kaffeesatz";
+			font-size: 20px;
+			display: flex;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			user-select: none;
+	
+			
+	
+				
+			}
+						.wrapper1 {
+							padding-left: 20px;
+							padding-right: 20px;
+							padding-top: 20px;
+						}
+							.letter1 {
+								transition: ease-out 1s;
+								transform: translateY(40%);
+							}
+			
+							.shadow1 {
+								transform: scale(1, -1);
+								color: #999;
+								transition: ease-in 5s, ease-out 5s;
+							}
+				.letter1:hover {
+					transform: translateY(-200%);
+				}
+		
+				.shadow1:hover {
+					opacity: 0;
+					transform: translateY(200%);
+				}

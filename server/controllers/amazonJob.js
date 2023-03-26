@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import Testimonial from "../models/Testimonials.js";
+import cron from "node-cron";
 import ApplyHistory from "../models/ApplyHistory.js";
 import Sentiment from "sentiment";
 import nodemailer from "nodemailer";
@@ -379,6 +380,59 @@ const contactUs = async (req, res) => {
   }
 };
 
+const setInterviewReminder = (req, res) => {
+  const email = req.body.email;
+  const dateString = req.body.date;
+  const phone = req.body.phone;
+  const choice = req.body.choice;
+
+  if (choice === "Email") {
+    cron.schedule("13 15 * * *", async () => {
+      const transporter = nodemailer.createTransport({
+        service: "Gmail",
+        auth: {
+          user: process.env.EMAIL_ADDRESS,
+          pass: process.env.EMAIL_PASSWORD,
+        },
+        tls: {
+          rejectUnauthorized: false,
+        },
+      });
+      const message = `
+  <html lang="en">
+<body style='font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;' >
+  <div class="container" style=' max-width: 800px;
+      margin: 0 auto;'>
+    Interview Reminder
+    </div>
+  </div>
+</body>
+</html>
+  `;
+
+      const mailOptions = {
+        from: process.env.EMAIL_ADDRESS,
+        to: email,
+        subject: "Interview Reminder - JOB TITLE",
+        html: message,
+      };
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          res.status(400).json({
+            message:
+              "Oops! There was a problem with the request.Please try again later after sometime.",
+          });
+        } else {
+          console.log(info);
+          res.status(200).json({ message: "Reminder set successfully." });
+        }
+      });
+    });
+  }
+};
+
 export {
   getJobListing,
   getJobDetails,
@@ -391,6 +445,7 @@ export {
   updateAppliedStatus,
   updateProfilePhoto,
   forgetPassword,
+  setInterviewReminder,
   resetPassword,
   getApplyStats,
   changePassword,

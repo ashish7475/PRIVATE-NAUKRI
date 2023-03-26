@@ -18,5 +18,6 @@ mongoose
     console.log("Mongoose Connected");
   });
 
-await JobListing.deleteMany();
-await ApplyHistory.deleteMany();
+// await JobListing.deleteMany();
+// await ApplyHistory.deleteMany();
+await User.deleteMany();

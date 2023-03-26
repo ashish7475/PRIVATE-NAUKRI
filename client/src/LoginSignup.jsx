@@ -64,6 +64,7 @@ const LoginSignup = () => {
                         password:'',
                         confirmPassword:'',
                      })
+                     setImage(null)
                      window.scrollTo(0, 1100);
                 }
             }

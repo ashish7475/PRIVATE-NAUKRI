@@ -12,6 +12,7 @@ import {
   getJobListing,
   getTestimonials,
   resetPassword,
+  setInterviewReminder,
   updateAppliedStatus,
   updateProfilePhoto,
   userLogin,
@@ -19,6 +20,7 @@ import {
 } from "../controllers/amazonJob.js";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
+import path from "path";
 
 const routes = express.Router();
 
@@ -64,13 +66,22 @@ routes.post(
   upload.single("edit-image"),
   updateProfilePhoto
 );
+routes.post("/setinterviewreminder", setInterviewReminder);
 
-routes.get("/unsubscribe/:email", async (req, res) => {
-  const email = req.params.email;
-  await User.updateOne({ email }, { notifications: false });
-  res.send(
-    "<h1>Unsubscribed Successfully</h1><p>You have successfully unsubscribed from our mailing list.</p>"
-  );
+routes.post("/unsubscribe", async (req, res) => {
+  const { email } = req.body;
+  const user = User.findOne({ email });
+
+  if (user.notifications) {
+    await User.updateOne({ email }, { notifications: false });
+
+    res.status(200).json({
+      message:
+        "You have successfully unsubscribed. You ll no longer receive any mails of job listings from us.If you wish to resubscribe to our services please change the status from the settings.",
+    });
+  } else {
+    res.status(200).json({ message: "You are already unsubscribed." });
+  }
 });
 
 export default routes;

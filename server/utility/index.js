@@ -534,7 +534,7 @@ const jobListingsEmail = async () => {
                         </tr>
                         <tr>
                             <td>
-                                <a target="_blank" href="http://localhost:5000/unsubscribe/${email}">Unsubscribe</a>
+                                <a target="_blank" href="http://localhost:3000/unsubscribe/${email}">Unsubscribe</a>
                             </td>
                         </tr>
                         <tr>
@@ -561,6 +561,20 @@ const jobListingsEmail = async () => {
       }
     });
   });
+};
+
+const setInterviewReminderSMS = async (phone) => {
+  const accountSid = process.env.TWILIO_ACCOUNT_SID;
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  const client = require("twilio")(accountSid, authToken);
+
+  client.messages
+    .create({
+      body: "This is the ship that made the Kessel Run in fourteen parsecs?",
+      from: "+15017122661",
+      to: phone,
+    })
+    .then((message) => console.log(message.sid));
 };
 
 export { sendWelcomeMail, sendResetEmail, contactUsEmail, jobListingsEmail };
