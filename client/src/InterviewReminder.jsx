@@ -92,12 +92,14 @@ const InterviewReminder = () => {
             const user = JSON.parse(localStorage.getItem('User'));
            axios.post('http://localhost:5000/setinterviewreminder',
            {
+            company,
             email:user.email
             ,jobId:interview
             ,phone
             ,choice:selectedValue
             ,date
-            ,time
+            ,time,
+            username:user.username,
           }
            ,{
             headers:

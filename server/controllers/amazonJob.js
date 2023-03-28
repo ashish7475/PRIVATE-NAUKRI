@@ -384,30 +384,36 @@ const setInterviewReminder = async (req, res) => {
   const email = req.body.email;
   const date = req.body.date;
   const time = req.body.time;
+  const username = req.body.username;
   const phone = req.body.phone;
   const choice = req.body.choice;
   const jobId = req.body.jobId;
-  const { title } = await JobListing.findOne({ jobId });
-
+  const job = await JobListing.findOne({ jobId });
+  const title = job.title;
+  const type = job.type;
+  const company = req.body.company;
   const year = new Date(date).getFullYear();
   const month = new Date(date).getMonth();
   const day = new Date(date).getDate();
   const [hrs, min, sec] = time.split(":");
   // ${sec} ${min} ${hrs} ${day} ${month} * ${year}
   if (choice === "email") {
-    cron.schedule(`19 16 * * *`, async () => {
-      console.log("Reminder Starting");
-      const transporter = nodemailer.createTransport({
-        service: "Gmail",
-        auth: {
-          user: process.env.EMAIL_ADDRESS,
-          pass: process.env.EMAIL_PASSWORD,
-        },
-        tls: {
-          rejectUnauthorized: false,
-        },
-      });
-      const message = `
+    console.log(`${sec} ${min} ${hrs} ${day} ${month} * ${year}`);
+    cron.schedule(
+      `${sec} ${min} ${hrs} ${day} ${month + 1} * ${year}`,
+      async () => {
+        console.log("Reminder Starting");
+        const transporter = nodemailer.createTransport({
+          service: "Gmail",
+          auth: {
+            user: process.env.EMAIL_ADDRESS,
+            pass: process.env.EMAIL_PASSWORD,
+          },
+          tls: {
+            rejectUnauthorized: false,
+          },
+        });
+        const message = `
      <html lang="en">
    <body style='font-family: Arial, sans-serif;
          font-size: 16px;
@@ -434,25 +440,22 @@ const setInterviewReminder = async (req, res) => {
    </body>
    </html>
      `;
-      const mailOptions = {
-        from: process.env.EMAIL_ADDRESS,
-        to: email,
-        subject: `Interview Reminder - ${title}`,
-        html: message,
-      };
-      transporter
-        .sendMail(mailOptions, (err, info) => {
+        const mailOptions = {
+          from: process.env.EMAIL_ADDRESS,
+          to: email,
+          subject: `Interview Reminder - ${title}`,
+          html: message,
+        };
+        transporter.sendMail(mailOptions, (err, info) => {
           if (err) {
             console.log(err);
           } else {
             console.log(info);
             res.status(200).json({ message: "Reminder set successfully." });
           }
-        })
-        .catch((err) => {
-          console.error(err);
         });
-    });
+      }
+    );
   } else if (choice == "textmessage") {
   }
   res.status(200).json("HELLO WORLD");
