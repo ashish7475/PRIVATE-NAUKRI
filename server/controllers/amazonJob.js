@@ -431,11 +431,16 @@ const setInterviewReminder = async (req, res) => {
        <br>
       <span> PRIVATE NAUKRI <span>
        </div>
-       <footer>
-       <i>You are receiving this mail because you had set a reminder from your profile.</i>
-       <i>In case you had not set any such reminder please <a href='http://localhost:3000/contactus'>contact us</a></i>
-       <span>Please do not reply to this email.This is an auto generated email and our support team wont be able to answer to any mails if replied.In case of any queries please mail us at private.naukri.ashish@gmail.com</span>
-       </footer>
+       
+      
+       
+       <div class="disclaimer" style="margin-top: 2rem;
+      font-size: 14px;
+      color: #999;">
+      <p> You are receiving this mail because you had set a reminder from your profile.
+       In case you had not set any such reminder please <a href='http://localhost:3000/contactus'>contact us</a>
+       Please do not reply to this email.This is an auto generated email and our support team wont be able to answer to any mails if replied.<br>In case of any queries please mail us at private.naukri.ashish@gmail.com</p>
+    </div>
      </div>
    </body>
    </html>
@@ -451,14 +456,13 @@ const setInterviewReminder = async (req, res) => {
             console.log(err);
           } else {
             console.log(info);
-            res.status(200).json({ message: "Reminder set successfully." });
           }
         });
       }
     );
+    res.status(200).json({ message: "Reminder set successfully." });
   } else if (choice == "textmessage") {
   }
-  res.status(200).json("HELLO WORLD");
 };
 const getInterviews = async (req, res) => {
   try {

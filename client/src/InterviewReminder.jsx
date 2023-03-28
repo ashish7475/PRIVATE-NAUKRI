@@ -17,7 +17,7 @@ const InterviewReminder = () => {
     const [selectedValue,setSelectedValue] = React.useState('')
    
     const [email,setEmail] = React.useState('')
-     const [time, setTime] = React.useState('10:00');
+     const [time, setTime] = React.useState('');
      const [phone,setPhone] = React.useState('')
     const [date, setDate] = React.useState(new Date());
     const [company,setCompany] = React.useState('')
@@ -50,7 +50,34 @@ const InterviewReminder = () => {
     
     
     const handleSubmit = (e)=>{
-        e.preventDefault()
+      e.preventDefault()
+        if(email==''){
+          toast.error('Please enter a valid email address.');
+          return
+          
+        }
+        else if(company==='' || company==='Company'){
+          toast.error('Please select a valid company.')
+          return
+          
+        }
+        else if(type==='' || type==='Type'){
+          toast.error('Please select a valid type of job');
+          return
+         
+        }
+        else if(interview=='' || interview=='Job Interview'){
+          toast.error('Please select a valid job interview.')
+          return
+        }
+        else if(time===''){
+          toast.error('Please choose a valid time.')
+          return
+          
+        }
+        
+        
+        
         const currentDate = new Date();
         const day = String(currentDate.getDate()).padStart(2, '0');
         const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // January is 0!
@@ -107,6 +134,23 @@ const InterviewReminder = () => {
               'x-access-token':localStorage.getItem('token')
             }
 
+           }).then((res,err)=>{
+            if(err){
+              console.log(err);
+            }
+            else{
+              if(res.status===200){
+                toast.info(res.data.message)
+                
+                setEmail('')
+                setInterview('Job Interview')
+                setTime('')
+                
+              }
+              else{
+                toast.error('An error has occured please try again!')
+              }
+            }
            })
         }
         else if(selectedValue==='textmessage'){
@@ -161,6 +205,8 @@ const InterviewReminder = () => {
                else{
                  if(res.status===202){
                    toast.error(res.data.message);
+                   setInterviews([])
+                   setInterview('')
                  }
                  else{
                    setInterviews(res.data.jobs)
