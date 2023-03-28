@@ -8,6 +8,7 @@ import {
   forgetPassword,
   getAppliedHistory,
   getApplyStats,
+  getInterviews,
   getJobDetails,
   getJobListing,
   getTestimonials,
@@ -66,7 +67,8 @@ routes.post(
   upload.single("edit-image"),
   updateProfilePhoto
 );
-routes.post("/setinterviewreminder", setInterviewReminder);
+routes.post("/setinterviewreminder", verifyToken, setInterviewReminder); //! add verifyToken
+routes.post("/getinterviews", verifyToken, getInterviews); //! add verifyToken
 
 routes.post("/unsubscribe", async (req, res) => {
   const { email } = req.body;

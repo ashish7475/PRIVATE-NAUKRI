@@ -62,15 +62,23 @@
     border: 1px solid black;
     height: 34px;
 }
-#root>div.wrapper>ul>li>div>div>form>div:nth-child(4)>div{
+#root>div.wrapper>ul>li>div>div>form>div:nth-child(6)>div{
     display: block;
         height: 37px;
         border: 1px solid;
 }
-#root>div.wrapper>ul>li>div>div>form>div:nth-child(4)>div>div>input{
+#root>div.wrapper>ul>li>div>div>form>div:nth-child(6)>div>div>input{
     text-align: center;
 }
-#root>div.wrapper>ul>li>div>div>form>div:nth-child(4)>div>div>span{
+#root>div.wrapper>ul>li>div>div>form>div:nth-child(6)>div>div>span{
     font-weight: bold;
     color: black;
+}
+
+#interview{
+    font-family: cursive;
+    
+}
+#interview>option{
+     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

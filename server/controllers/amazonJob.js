@@ -380,14 +380,23 @@ const contactUs = async (req, res) => {
   }
 };
 
-const setInterviewReminder = (req, res) => {
+const setInterviewReminder = async (req, res) => {
   const email = req.body.email;
-  const dateString = req.body.date;
+  const date = req.body.date;
+  const time = req.body.time;
   const phone = req.body.phone;
   const choice = req.body.choice;
+  const jobId = req.body.jobId;
+  const { title } = await JobListing.findOne({ jobId });
 
-  if (choice === "Email") {
-    cron.schedule("13 15 * * *", async () => {
+  const year = new Date(date).getFullYear();
+  const month = new Date(date).getMonth();
+  const day = new Date(date).getDate();
+  const [hrs, min, sec] = time.split(":");
+  // ${sec} ${min} ${hrs} ${day} ${month} * ${year}
+  if (choice === "email") {
+    cron.schedule(`19 16 * * *`, async () => {
+      console.log("Reminder Starting");
       const transporter = nodemailer.createTransport({
         service: "Gmail",
         auth: {
@@ -399,37 +408,82 @@ const setInterviewReminder = (req, res) => {
         },
       });
       const message = `
-  <html lang="en">
-<body style='font-family: Arial, sans-serif;
-      font-size: 16px;
-      line-height: 1.5;' >
-  <div class="container" style=' max-width: 800px;
-      margin: 0 auto;'>
-    Interview Reminder
-    </div>
-  </div>
-</body>
-</html>
-  `;
-
+     <html lang="en">
+   <body style='font-family: Arial, sans-serif;
+         font-size: 16px;
+         line-height: 1.5;' >
+     <div class="container" style=' max-width: 800px;
+         margin: 0 auto;'>
+       Dear ${username},
+       <br>
+       You have an upcoming interview at ${company} for ${type} titled ${title} (job-id ${jobId}).
+       Please be sure to arrive at least 10-15 minutes before your scheduled interview time to complete any necessary paperwork and to ensure a prompt start time.
+       <br>
+       If you have any questions or concerns regarding the interview or its location, please do not hesitate to contact ${company} careers team. They are there to help yu in any way.
+       We wish you the best of luck with your interview.
+       Sincerely,
+       <br>
+      <span> PRIVATE NAUKRI <span>
+       </div>
+       <footer>
+       <i>You are receiving this mail because you had set a reminder from your profile.</i>
+       <i>In case you had not set any such reminder please <a href='http://localhost:3000/contactus'>contact us</a></i>
+       <span>Please do not reply to this email.This is an auto generated email and our support team wont be able to answer to any mails if replied.In case of any queries please mail us at private.naukri.ashish@gmail.com</span>
+       </footer>
+     </div>
+   </body>
+   </html>
+     `;
       const mailOptions = {
         from: process.env.EMAIL_ADDRESS,
         to: email,
-        subject: "Interview Reminder - JOB TITLE",
+        subject: `Interview Reminder - ${title}`,
         html: message,
       };
-      transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
-          res.status(400).json({
-            message:
-              "Oops! There was a problem with the request.Please try again later after sometime.",
-          });
-        } else {
-          console.log(info);
-          res.status(200).json({ message: "Reminder set successfully." });
-        }
-      });
+      transporter
+        .sendMail(mailOptions, (err, info) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(info);
+            res.status(200).json({ message: "Reminder set successfully." });
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     });
+  } else if (choice == "textmessage") {
+  }
+  res.status(200).json("HELLO WORLD");
+};
+const getInterviews = async (req, res) => {
+  try {
+    const { username, company, type } = req.body;
+
+    const query = {};
+    if (company !== null || company != undefined || company != "") {
+      query.company = company;
+    }
+    if (type !== "") {
+      query.type = type;
+    }
+
+    const jobs = await ApplyHistory.find({
+      username,
+      ...query,
+      status: "Interview",
+    });
+    if (jobs.length === 0) {
+      res.status(202).json({
+        message: `You dont have any ${type} job interviews from ${company}`,
+      });
+    } else {
+      res.status(200).json({ jobs });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: error });
   }
 };
 
@@ -450,4 +504,5 @@ export {
   getApplyStats,
   changePassword,
   contactUs,
+  getInterviews,
 };

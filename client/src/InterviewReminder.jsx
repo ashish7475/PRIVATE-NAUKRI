@@ -8,20 +8,36 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import DatePicker from "react-datepicker";
 import { toast } from 'react-toastify';
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 
 const InterviewReminder = () => {
+  const navigate = useNavigate()
     const [selectedValue,setSelectedValue] = React.useState('')
-    const [interview,setInterview] = React.useState('')
+   
     const [email,setEmail] = React.useState('')
      const [time, setTime] = React.useState('10:00');
      const [phone,setPhone] = React.useState('')
     const [date, setDate] = React.useState(new Date());
+    const [company,setCompany] = React.useState('')
+    const [type,setType] = React.useState('')
+    const [interviews,setInterviews] = React.useState([])
+    const [interview,setInterview] = React.useState('')
+
+    const handleCompanyChange = (e)=>{
+      setCompany(e.target.value)
+    }
+    const handleTypeChange = (e)=>{
+      setType(e.target.value)
+    }
+
     dayjs.extend(customParseFormat);
+    
+
     const onChange = (time, timeString) => {
      setTime(timeString)
-};
-
+    };
     const handleSelect = (e)=>{
        setSelectedValue(e.target.value)
     }
@@ -32,8 +48,9 @@ const InterviewReminder = () => {
        setEmail(e.target.value)
     }
     
-    console.log(new Date(), date)
+    
     const handleSubmit = (e)=>{
+        e.preventDefault()
         const currentDate = new Date();
         const day = String(currentDate.getDate()).padStart(2, '0');
         const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // January is 0!
@@ -46,7 +63,7 @@ const InterviewReminder = () => {
         const year1 = String(reminderDate.getFullYear()).slice(-2);
         
         const reminderFormattedDate= `${day1} ${month1} ${year1}`;
-       e.preventDefault()
+       
        if(formattedDate>reminderFormattedDate){
         
         toast.error('Reminder Date must be equal or greater current Date.')
@@ -56,18 +73,55 @@ const InterviewReminder = () => {
         const hours = date1?.getUTCHours().toString().padStart(2, '0');
         const minutes = date1?.getUTCMinutes().toString().padStart(2, '0');
         const seconds = date1?.getUTCSeconds().toString().padStart(2, '0');
-        const formattedTime = `${hours}:${minutes}:${seconds}`;
-        
-        if(time<formattedTime){
+        let formattedTime = `${hours}:${minutes}:${seconds}`;
+          
+        let updatedSelectedTime=time;
+        let updatedCurrentTime=formattedTime;
+        const [selhrs,selmin,selsec]= time.split(':')
+        if(selhrs=='00'){
+          updatedSelectedTime = `24:${selmin}:${selsec}`
+        }
+        if(hours =='00'){
+          updatedCurrentTime = `24:${minutes}:${seconds}`
+        }
+        if(updatedSelectedTime<updatedCurrentTime){
             toast.error('Reminder Time must be greater than current time.')
         }
         else{
-        toast.success('Reminder Set.')
+          if(selectedValue==='email'){
+            const user = JSON.parse(localStorage.getItem('User'));
+           axios.post('http://localhost:5000/setinterviewreminder',
+           {
+            email:user.email
+            ,jobId:interview
+            ,phone
+            ,choice:selectedValue
+            ,date
+            ,time
+          }
+           ,{
+            headers:
+            {
+              'x-access-token':localStorage.getItem('token')
+            }
+
+           })
+        }
+        else if(selectedValue==='textmessage'){
+            if(phone.toString().length!==10){
+              toast.error('Phone Number must be exactly 10 characters.');
+            }
+        }
+        else{
+
+        }
+       //! toast.success('Reminder Set.')
        }
        }
        else{
         toast.success('Reminder Set.')
        }
+       
        
        
     }
@@ -78,8 +132,46 @@ const InterviewReminder = () => {
       if(user.length){
         setEmail((JSON.parse(user)).email)
       }
+      else{
+        navigate('/meme')
+      }
     }, [])
-    console.log(phone)
+
+    useEffect(()=>{
+      const user = JSON.parse(localStorage.getItem('User'));
+      if(company!=='' || type!==''){
+         axios.post('http://localhost:5000/getinterviews',
+             {
+               username:user.username
+               ,company
+               ,type
+             },
+             {
+               headers:{
+                 'x-access-token': localStorage.getItem('token')
+               }
+             }
+             ).then((res,err)=>{
+               console.log(res)
+               if(err){
+                 toast.error('An error has occured',err);
+               }
+               else{
+                 if(res.status===202){
+                   toast.error(res.data.message);
+                 }
+                 else{
+                   setInterviews(res.data.jobs)
+                 }
+       
+               }
+             })
+      
+      }
+      
+    
+    },[type,company])
+    
     
   return (
     <><Navbar/>
@@ -102,18 +194,37 @@ const InterviewReminder = () => {
        
   <div class="col-md-12">
     <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" id="inputEmail4" value={email} onChange={handleEmailChange}/>
+    <input type="email" class="form-control" id="inputEmail4" placeholder='Email...' value={email} onChange={handleEmailChange}/>
   </div>
-  
-  <div class="col-12">
-    <label for="interview" class="form-label">Select Job Interview</label>
-     <select value={interview} class="form-select" id='interview'  aria-label="Select Job Interview" onChange={handleChangeInterview}>
-  <option selected>Select Job Interview</option>
-  <option value="email">Email</option>
-  <option value="textmessage">Text Message</option>
-  <option value="voicecall">Voice Call</option>
+   <div class="col-6">
+    <label for="companies" class="form-label">Company</label>
+     <select value={company} class="form-select" id='companies'  aria-label="Company" onChange={handleCompanyChange}>
+  <option selected>Company</option>
+  <option value="Google">Google</option>
+  <option value="Amazon">Amazon</option>
+  <option value="Flipkart">Flipkart</option>
 </select>
   </div>
+  <div class="col-6">
+    <label for="Type" class="form-label">Type</label>
+     <select value={type} class="form-select" id='Type'  aria-label="Type" onChange={handleTypeChange}>
+  <option selected>Type</option>
+  <option value="Full Time">Full Time</option>
+  <option value="Internship">Internship</option>
+</select>
+  </div>
+  <div class="col-12">
+    <label for="interview" class="form-label">Job Interviews</label>
+     <select value={interview} class="form-select" id='interview'  aria-label="Job Interview" onChange={handleChangeInterview}>
+  <option selected>Job Interview</option>
+  {interviews?.length && interviews.map(interview=>(
+      <option key={interview.jobId} value={interview.jobId}>
+     <p> Title: <b>{interview.title}</b> | Job ID: <span><i>{interview.jobId}</i></span> </p>
+      </option>
+    ))}
+</select>
+  </div>
+  
   <div class="col-md-6">
     <label for="date" class="form-label">Date</label>
     <DatePicker selected={date} onChange={(date) => setDate(date)} />
@@ -132,7 +243,7 @@ const InterviewReminder = () => {
     </li>
     
   </ul> }
-  {selectedValue==='textmessage' && <ul class="items">
+  {(selectedValue==='textmessage' || selectedValue==='voicecall') && <ul class="items">
     <li class="item">
       <div class="inner">
         <div className='int__outer'>
@@ -140,19 +251,40 @@ const InterviewReminder = () => {
        
   <div class="col-md-12">
     <label for="phone" class="form-label">Phone Number</label>
-    <input type="number" class="form-control" id="phone" value={phone} onChange={(e)=>{setPhone(e.target.value)}}
+    <input type="number" class="form-control" id="phone" placeholder='Phone no...' value={phone} onChange={(e)=>{setPhone(e.target.value)}}
     />
   </div>
-  
-  <div class="col-12">
-    <label for="interview" class="form-label">Select Job Interview</label>
-     <select value={interview} class="form-select" id='interview'  aria-label="Select Job Interview" onChange={handleChangeInterview}>
-  <option selected>Select Job Interview</option>
-  <option value="email">Email</option>
-  <option value="textmessage">Text Message</option>
-  <option value="voicecall">Voice Call</option>
+  <div class="col-6">
+    <label for="companies" class="form-label">Company</label>
+     <select value={company} class="form-select" id='companies'  aria-label="Company" onChange={handleCompanyChange}>
+  <option selected>Company</option>
+  <option value="Google">Google</option>
+  <option value="Amazon">Amazon</option>
+  <option value="Flipkart">Flipkart</option>
 </select>
   </div>
+  <div class="col-6">
+    <label for="Type" class="form-label">Type</label>
+     <select value={type} class="form-select" id='Type'  aria-label="Type" onChange={handleTypeChange}>
+  <option selected>Type</option>
+  <option value="Full Time">Full Time</option>
+  <option value="Internship">Internship</option>
+</select>
+  </div>
+  <div class="col-12">
+    <label for="interview" class="form-label">Job Interviews</label>
+     <select value={interview} class="form-select" id='interview'  aria-label="Job Interview" onChange={handleChangeInterview}>
+  <option selected>Job Interview</option>
+  {interviews && interviews.map(interview=>(
+      <option key={interview.jobId} value={interview.jobId}>
+     <p> Title: <b>{interview.title}</b> | Job ID: <span><i>{interview.jobId}</i></span> </p>
+      </option>
+    ))}
+</select>
+  </div>
+  
+
+  
   <div class="col-md-6">
     <label for="date" class="form-label">Date</label>
     <DatePicker selected={date} onChange={(date) => setDate(date)} />
@@ -177,59 +309,3 @@ const InterviewReminder = () => {
 }
 
 export default InterviewReminder
-
-
-/*<ul class="items">
-    <li class="item">
-      <div class="inner">
-        <div className='int__outer'>
-    <form class="row g-3 form3">
-        <h3>Interview Reminder</h3>
-  <div class="col-md-6">
-    <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" id="inputEmail4"/>
-  </div>
-  <div class="col-md-6">
-    <label for="inputPassword4" class="form-label">Phone Number</label>
-    <input type="password" class="form-control" id="inputPassword4"/>
-  </div>
-  <div class="col-12">
-    <label for="inputAddress" class="form-label">Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"/>
-  </div>
-  <div class="col-12">
-    <label for="inputAddress2" class="form-label">Address 2</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"/>
-  </div>
-  <div class="col-md-6">
-    <label for="inputCity" class="form-label">City</label>
-    <input type="text" class="form-control" id="inputCity"/>
-  </div>
-  <div class="col-md-4">
-    <label for="inputState" class="form-label">State</label>
-    <select id="inputState" class="form-select">
-      <option selected>Choose...</option>
-      <option>...</option>
-    </select>
-  </div>
-  <div class="col-md-2">
-    <label for="inputZip" class="form-label">Zip</label>
-    <input type="text" class="form-control" id="inputZip"/>
-  </div>
-  <div class="col-12">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="gridCheck"/>
-      <label class="form-check-label" for="gridCheck">
-        Check me out
-      </label>
-    </div>
-  </div>
-  <div class="col-12">
-    <button type="submit" class="btn btn-primary">Sign in</button>
-  </div>
-</form>
-        </div>
-      </div>
-    </li>
-    
-  </ul> */

@@ -136,6 +136,13 @@ const Navbar = (props) => {
                       </a>
                       </Link>
                     </li>
+                    <li>
+                      <Link to="/interviewreminder">
+                        <a href="#" className="dropdown-item">
+                          Interview Reminder
+                        </a>
+                      </Link>
+                    </li>
 
                     <li>
                       <Link to="/appliedhistory">
