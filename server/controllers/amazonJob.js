@@ -461,8 +461,8 @@ const setInterviewReminder = async (req, res) => {
        Please be sure to arrive at least 10-15 minutes before your scheduled interview time to complete any necessary paperwork and to ensure a prompt start time.
        <br>
        If you have any questions or concerns regarding the interview or its location, please do not hesitate to contact ${company} careers team. They are there to help yu in any way.
-       We wish you the best of luck with your interview.
-       Sincerely,
+       We wish you the best of luck with your interview.<br>
+       <span>Sincerely</span>
        <br>
       <span> PRIVATE NAUKRI <span>
        </div>
@@ -493,13 +493,14 @@ const setInterviewReminder = async (req, res) => {
               console.log(info);
             }
           });
+          await InterviewReminder.deleteOne({ username, jobId });
         },
         {
           timezone: "Asia/Kolkata", // Set the timezone
           id: username + jobId, // Use the user's cron job ID as the job ID
         }
       );
-      console.log(username + jobId);
+
       cronJob.start();
       res.status(200).json({ message: "Reminder set successfully." });
     }
@@ -570,7 +571,6 @@ const deleteInterviewReminder = async (req, res) => {
           console.log("Stopped Reminder");
         },
         {
-          scheduled: false,
           timezone: "Asia/Kolkata", // Set the timezone
           id: username + jobId, // Use the user's cron job ID as the job ID
         }
@@ -660,18 +660,24 @@ const resumeInterviewReminder = async (req, res) => {
               console.log(info);
             }
           });
+          await InterviewReminder.deleteOne({ username, jobId });
         },
         {
-          scheduled: false,
           timezone: "Asia/Kolkata", // Set the timezone
           id: username + jobId, // Use the user's cron job ID as the job ID
         }
       );
-      cr.start();
-      await InterviewReminder.updateOne(
-        { username, jobId },
-        { status: "Active" }
-      );
+      setTimeout(() => {
+        cr.start();
+        InterviewReminder.updateOne(
+          { username, jobId },
+          { status: "Active" }
+        ).then(() => {
+          res.status(200).json({
+            message: `Reminder for Job ID : ${jobId} resumed.`,
+          });
+        });
+      }, 5000);
 
       res.status(200).json({
         message: `Reminder for Job ID : ${jobId} resumed. You ll be recieving the reminder on the same time.`,

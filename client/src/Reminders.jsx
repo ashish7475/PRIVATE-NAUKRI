@@ -102,7 +102,7 @@ const Reminders = () => {
             toast.success(res.data.message)
             setLoading(false)
            const changedReminders = reminders.filter(rem=>rem.jobId!=jobId);
-            
+            setTotal(total-1)
             setReminders(changedReminders)
           }
         }
@@ -198,7 +198,7 @@ const handleChange=(e)=>{
                     
                     <TableCell align="right">{row.company}</TableCell>
                     <TableCell align="right">{row.type}</TableCell>
-                    <TableCell align="right">{`${new Date(row.reminderDate).getDate()}/${new Date(row.reminderDate).getMonth()}/${new Date(row.reminderDate).getFullYear()}`}</TableCell>
+                    <TableCell align="right">{`${new Date(row.reminderDate).getDate()}/${new Date(row.reminderDate).getMonth()+1}/${new Date(row.reminderDate).getFullYear()}`}</TableCell>
                     <TableCell align="right">{row.reminderTime}</TableCell>
                     <TableCell align="right"><span className={row.status==='Active'
                         ? `badge badge-success`:'badge badge-danger'}>{row.status}</span></TableCell>
