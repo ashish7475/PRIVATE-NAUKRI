@@ -14,10 +14,12 @@ import {
 } from "../utility/index.js";
 import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 import PasswordResetToken from "../models/PasswordResetToken.js";
+import InterviewReminder from "../models/InterviewReminder.js";
 dotenv.config();
 
-const sentiment = new Sentiment();
+const sentiment = new Sentiment(); //! npm package for sorting testimonials
 
+//! JOB Listings START
 const getJobListing = async (req, res) => {
   try {
     const searchQuery = req.query.q;
@@ -94,6 +96,10 @@ const userSignup = async (req, res) => {
       .json({ message: "User Registered Successfully!", status: 200 });
   }
 };
+
+//! JOB LISTINGS END
+
+//! USER START
 
 const userLogin = async (req, res) => {
   const { username, password } = req.body;
@@ -218,6 +224,9 @@ const forgetPassword = async (req, res) => {
       .json({ message: "Please Check your email for password reset" });
   }
 };
+//! USER ENDS
+
+//! TESTIMONIALS START
 
 const addTestimonial = async (req, res) => {
   try {
@@ -247,6 +256,10 @@ const getTestimonials = async (req, res) => {
 
   res.status(200).json(testimonials);
 };
+
+//! TESTIMONIALS END
+
+//! APPLY HISTORY START
 
 const getAppliedHistory = async (req, res) => {
   try {
@@ -367,6 +380,10 @@ const getApplyStats = async (req, res) => {
   }
 };
 
+const deleteApplyHistory = async (req, res) => {};
+
+//! APPLY HISTORY ENDS
+
 const contactUs = async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
@@ -379,6 +396,8 @@ const contactUs = async (req, res) => {
     res.status(400).json({ message: `${error}` });
   }
 };
+
+//! INTERVIEWS REMINDERS STARTS
 
 const setInterviewReminder = async (req, res) => {
   const email = req.body.email;
@@ -398,22 +417,38 @@ const setInterviewReminder = async (req, res) => {
   const [hrs, min, sec] = time.split(":");
   // ${sec} ${min} ${hrs} ${day} ${month} * ${year}
   if (choice === "email") {
-    console.log(`${sec} ${min} ${hrs} ${day} ${month} * ${year}`);
-    cron.schedule(
-      `${sec} ${min} ${hrs} ${day} ${month + 1} * ${year}`,
-      async () => {
-        console.log("Reminder Starting");
-        const transporter = nodemailer.createTransport({
-          service: "Gmail",
-          auth: {
-            user: process.env.EMAIL_ADDRESS,
-            pass: process.env.EMAIL_PASSWORD,
-          },
-          tls: {
-            rejectUnauthorized: false,
-          },
-        });
-        const message = `
+    const cronJ = await InterviewReminder.find({ username, jobId });
+
+    if (cronJ.length) {
+      res.status(203).json({ message: `Reminder already set for this job` });
+    } else {
+      await InterviewReminder.create({
+        username,
+        jobId,
+        title,
+        type,
+        company,
+        reminderDate: date,
+        reminderTime: time,
+        cronExpression: `${sec} ${min} ${hrs} ${day} ${month + 1} * ${year}`,
+        status: "Active",
+      });
+
+      const cronJob = cron.schedule(
+        `${sec} ${min} ${hrs} ${day} ${month + 1} * ${year}`,
+        async () => {
+          console.log("Reminder Starting");
+          const transporter = nodemailer.createTransport({
+            service: "Gmail",
+            auth: {
+              user: process.env.EMAIL_ADDRESS,
+              pass: process.env.EMAIL_PASSWORD,
+            },
+            tls: {
+              rejectUnauthorized: false,
+            },
+          });
+          const message = `
      <html lang="en">
    <body style='font-family: Arial, sans-serif;
          font-size: 16px;
@@ -445,25 +480,210 @@ const setInterviewReminder = async (req, res) => {
    </body>
    </html>
      `;
-        const mailOptions = {
-          from: process.env.EMAIL_ADDRESS,
-          to: email,
-          subject: `Interview Reminder - ${title}`,
-          html: message,
-        };
-        transporter.sendMail(mailOptions, (err, info) => {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(info);
-          }
-        });
-      }
-    );
-    res.status(200).json({ message: "Reminder set successfully." });
+          const mailOptions = {
+            from: process.env.EMAIL_ADDRESS,
+            to: email,
+            subject: `Interview Reminder - ${title}`,
+            html: message,
+          };
+          transporter.sendMail(mailOptions, (err, info) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(info);
+            }
+          });
+        },
+        {
+          timezone: "Asia/Kolkata", // Set the timezone
+          id: username + jobId, // Use the user's cron job ID as the job ID
+        }
+      );
+      console.log(username + jobId);
+      cronJob.start();
+      res.status(200).json({ message: "Reminder set successfully." });
+    }
   } else if (choice == "textmessage") {
   }
 };
+const getInterviewReminder = async (req, res) => {
+  try {
+    const username = req.username;
+    const reminders = await InterviewReminder.find({ username });
+    if (!reminders.length) {
+      res.status(202).json({ message: "No Reminders found." });
+    } else {
+      res.status(200).json({ reminders });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+const stopInterviewReminder = async (req, res) => {
+  try {
+    const username = req.body.username;
+    const jobId = req.body.jobId;
+
+    const cronJob = await InterviewReminder.findOne({ username, jobId });
+
+    if (cronJob) {
+      const cr = cron.schedule(
+        cronJob.cronExpression,
+        () => {
+          console.log("Stopped Reminder");
+        },
+        {
+          timezone: "Asia/Kolkata", // Set the timezone
+          id: username + jobId, // Use the user's cron job ID as the job ID
+        }
+      );
+
+      setTimeout(() => {
+        cr.stop();
+        InterviewReminder.updateOne(
+          { username, jobId },
+          { status: "Stopped" }
+        ).then(() => {
+          res.status(200).json({
+            message: `Reminder for Job ID : ${jobId} stopped. You'll no longer receive the reminder. You can resume the reminder before the set date and time.`,
+          });
+        });
+      }, 5000); // delay for 5 seconds before stopping the job
+    } else {
+      res.status(202).json({ message: "No cron job found" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const deleteInterviewReminder = async (req, res) => {
+  try {
+    const username = req.body.username;
+    const jobId = req.body.jobId;
+
+    const cronJob = await InterviewReminder.findOne({ username, jobId });
+    if (cronJob) {
+      const cr = cron.schedule(
+        cronJob.cronExpression,
+        () => {
+          console.log("Stopped Reminder");
+        },
+        {
+          scheduled: false,
+          timezone: "Asia/Kolkata", // Set the timezone
+          id: username + jobId, // Use the user's cron job ID as the job ID
+        }
+      );
+      setTimeout(() => {
+        cr.stop();
+        InterviewReminder.deleteOne({ username, jobId }).then(() => {
+          res.status(200).json({
+            message: `Reminder for Job ID : ${jobId} deleted. You'll no longer receive the reminder.`,
+          });
+        });
+      }, 5000);
+    } else {
+      res.status(202).json({ message: "No cron job found" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+const resumeInterviewReminder = async (req, res) => {
+  try {
+    const username = req.body.username;
+    const jobId = req.body.jobId;
+
+    const cronJob = await InterviewReminder.findOne({
+      username,
+      jobId,
+      status: "Stopped",
+    });
+    if (cronJob) {
+      const cr = cron.schedule(
+        cronJob.cronExpression,
+        async () => {
+          console.log("Reminder Starting");
+          const transporter = nodemailer.createTransport({
+            service: "Gmail",
+            auth: {
+              user: process.env.EMAIL_ADDRESS,
+              pass: process.env.EMAIL_PASSWORD,
+            },
+            tls: {
+              rejectUnauthorized: false,
+            },
+          });
+          const message = `
+     <html lang="en">
+   <body style='font-family: Arial, sans-serif;
+         font-size: 16px;
+         line-height: 1.5;' >
+     <div class="container" style=' max-width: 800px;
+         margin: 0 auto;'>
+       Dear ${username},
+       <br>
+       You have an upcoming interview at ${cronJob.company} for ${cronJob.type} titled ${cronJob.title} (job-id ${jobId}).
+       Please be sure to arrive at least 10-15 minutes before your scheduled interview time to complete any necessary paperwork and to ensure a prompt start time.
+       <br>
+       If you have any questions or concerns regarding the interview or its location, please do not hesitate to contact ${cronJob.company} careers team. They are there to help yu in any way.
+       We wish you the best of luck with your interview.
+       Sincerely,
+       <br>
+      <span> PRIVATE NAUKRI <span>
+       </div>
+       
+      
+       
+       <div class="disclaimer" style="margin-top: 2rem;
+      font-size: 14px;
+      color: #999;">
+      <p> You are receiving this mail because you had set a reminder from your profile.
+       In case you had not set any such reminder please <a href='http://localhost:3000/contactus'>contact us</a>
+       Please do not reply to this email.This is an auto generated email and our support team wont be able to answer to any mails if replied.<br>In case of any queries please mail us at private.naukri.ashish@gmail.com</p>
+    </div>
+     </div>
+   </body>
+   </html>
+     `;
+          const mailOptions = {
+            from: process.env.EMAIL_ADDRESS,
+            to: email,
+            subject: `Interview Reminder - ${cronJob.title}`,
+            html: message,
+          };
+          transporter.sendMail(mailOptions, (err, info) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(info);
+            }
+          });
+        },
+        {
+          scheduled: false,
+          timezone: "Asia/Kolkata", // Set the timezone
+          id: username + jobId, // Use the user's cron job ID as the job ID
+        }
+      );
+      cr.start();
+      await InterviewReminder.updateOne(
+        { username, jobId },
+        { status: "Active" }
+      );
+
+      res.status(200).json({
+        message: `Reminder for Job ID : ${jobId} resumed. You ll be recieving the reminder on the same time.`,
+      });
+    } else {
+      res.status(202).json({ message: "No reminder found" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const getInterviews = async (req, res) => {
   try {
     const { username, company, type } = req.body;
@@ -494,6 +714,8 @@ const getInterviews = async (req, res) => {
   }
 };
 
+//! INTERVIEWS REMINDERS ENDS
+
 export {
   getJobListing,
   getJobDetails,
@@ -512,4 +734,9 @@ export {
   changePassword,
   contactUs,
   getInterviews,
+  deleteApplyHistory,
+  deleteInterviewReminder,
+  stopInterviewReminder,
+  getInterviewReminder,
+  resumeInterviewReminder,
 };

@@ -102,17 +102,18 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
 
   }
    const handleClickOpen = (e,status,jobId,itemId) => {
-    console.log(status)
-   const obj =  status==='Applied'?{applied:true}:(status==='Interview'?{interview:true}:(status==='Rejected'?{rejected:true}:{placed:true}))
-    setCurrentRecordStatus((prev)=>({...prev,...obj}))
-    setjobId(jobId)
-    setOpenItemId(itemId);
+    const obj =  status==='Applied'?{applied:true}:(status==='Interview'?{interview:true}:(status==='Rejected'?{rejected:true}:{placed:true}))
+     setCurrentRecordStatus((prev)=>({...prev,...obj}))
+     setjobId(jobId)
+     setOpenItemId(itemId);
     
   };
 
   const handleClose = () => {
+
     setOpenItemId(null);
-    setCurrentRecordStatus({applied:false,interview:false,placed:false,rejected:false})
+    setCurrentRecordStatus({applied:false,interview:false,placed:false,rejected:false});
+
   };
   const statuses = ['Applied','Interview','Placed','Rejected']
 

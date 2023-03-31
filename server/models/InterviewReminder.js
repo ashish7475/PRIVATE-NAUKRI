@@ -7,7 +7,9 @@ const InterviewReminderSchema = new mongoose.Schema({
   type: String,
   company: String,
   reminderDate: String,
-  hasOccured: Boolean,
+  reminderTime: String,
+  cronExpression: String,
+  status: String,
 });
 
 const InterviewReminder = mongoose.model(

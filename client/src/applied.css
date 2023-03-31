@@ -9,3 +9,13 @@
     padding: 0 40px;
     padding-bottom: 160px !important;
 }
+
+.reminders_icons>span{
+    margin-left: 5px;
+    font-size:26px;
+    cursor: pointer;
+}
+.active{
+    color: red;
+    font-weight: bolder;
+}

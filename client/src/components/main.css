@@ -43,3 +43,6 @@
     background-color: #0d0d0d;
     border: 3px solid #ffffff;
 }
+#root>div.OUTERMOST__DIV>div.loading__svg>svg{
+    margin-bottom: 170px;
+}

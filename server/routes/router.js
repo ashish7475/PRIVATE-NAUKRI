@@ -2,9 +2,12 @@ import express from "express";
 import multer from "multer";
 import {
   addAppliedHistory,
+  getInterviewReminder,
   addTestimonial,
   changePassword,
   contactUs,
+  deleteApplyHistory,
+  deleteInterviewReminder,
   forgetPassword,
   getAppliedHistory,
   getApplyStats,
@@ -13,7 +16,9 @@ import {
   getJobListing,
   getTestimonials,
   resetPassword,
+  resumeInterviewReminder,
   setInterviewReminder,
+  stopInterviewReminder,
   updateAppliedStatus,
   updateProfilePhoto,
   userLogin,
@@ -49,14 +54,19 @@ routes.get("/", (req, res) => {
 
 routes.get("/job-listings", getJobListing);
 routes.get("/jobdetails", getJobDetails);
+
 routes.post("/contactus", contactUs);
+
 routes.post("/signup", upload.single("image"), userSignup);
 routes.post("/login", userLogin);
+
 routes.post("/forgotpassword", forgetPassword);
 routes.post("/resetpassword", resetPassword);
 routes.post("/changepassword", verifyToken, changePassword);
+
 routes.post("/addtestimonial", verifyToken, addTestimonial);
 routes.get("/testimonials", getTestimonials);
+
 routes.get("/appliedhistory", verifyToken, getAppliedHistory);
 routes.get("/getappliedstats", verifyToken, getApplyStats);
 routes.post("/addappliedhistory", verifyToken, addAppliedHistory);
@@ -67,8 +77,14 @@ routes.post(
   upload.single("edit-image"),
   updateProfilePhoto
 );
+routes.post("/deleteapplyhistory", deleteApplyHistory); //! add verifyToken
+
 routes.post("/setinterviewreminder", verifyToken, setInterviewReminder); //! add verifyToken
-routes.post("/getinterviews", verifyToken, getInterviews); //! add verifyToken
+routes.post("/getinterviews", verifyToken, getInterviews);
+routes.get("/getreminders", verifyToken, getInterviewReminder); //! add verifyToken
+routes.post("/stopreminder", stopInterviewReminder); //! add verifyToken
+routes.post("/deletereminder", deleteInterviewReminder); //! add verifyToken
+routes.post("/resumereminder", resumeInterviewReminder); //! add verifyToken
 
 routes.post("/unsubscribe", async (req, res) => {
   const { email } = req.body;

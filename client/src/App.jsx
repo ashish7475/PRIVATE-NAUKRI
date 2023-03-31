@@ -4,7 +4,7 @@ import Main from './components/Main'
 import Navbar from './components/Navbar'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import AnimatedCursor from "react-animated-cursor";
+
 import FilterMenu from './components/FilterMenu';
 import axios from 'axios';
 import HomeIntro from './components/HomeIntro';

@@ -139,13 +139,12 @@ const InterviewReminder = () => {
               console.log(err);
             }
             else{
-              if(res.status===200){
+              if(res.status===203){
+                toast.error(res.data.message)
+              }
+              else if(res.status===200){
                 toast.info(res.data.message)
-                
-                setEmail('')
-                setInterview('Job Interview')
-                setTime('')
-                
+                setInterview('') 
               }
               else{
                 toast.error('An error has occured please try again!')

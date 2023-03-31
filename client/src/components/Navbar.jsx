@@ -82,15 +82,6 @@ const Navbar = (props) => {
                   </li>
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/">
-                  <li class="menu__item">
-                    <a class="menu__link" href="#">
-                      MSD
-                    </a>
-                  </li>
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -140,6 +131,13 @@ const Navbar = (props) => {
                       <Link to="/interviewreminder">
                         <a href="#" className="dropdown-item">
                           Interview Reminder
+                        </a>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/reminders">
+                        <a href="#" className="dropdown-item">
+                          Reminders
                         </a>
                       </Link>
                     </li>

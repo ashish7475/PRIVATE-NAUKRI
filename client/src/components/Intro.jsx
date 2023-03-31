@@ -30,7 +30,7 @@ const Intro = () => {
       position: relative;
       float: left;
       top: 40%;
-      left: 40%;
+      left: 30%;
     }
     .preClass {
       text-align: left;
@@ -46,25 +46,7 @@ const Intro = () => {
       top: 63%;
     }
 
-    .ContactMe {
-      position: absolute;
-      display: flex;
-      flex-direction: row;
-      float: left;
-      top: 20%;
-      padding: 0.5rem;
-      margin: 0 1% 0 1%;
-      border: 2px solid yellow;
-      background-color: transparent;
-      color: #f9f871;
-      left: 54%;
-    }
-
-    .ContactMe:hover {
-      background-color: yellow;
-      color: black;
-      font-weight: bold;
-    }
+    
     span {
       display: flex;
       color: white;
@@ -73,7 +55,7 @@ const Intro = () => {
       font-size: 4rem;
       position: relative;
       float: left;
-      left: 25%;
+      left: 20%;
       color: yellow;
       margin-top: 3%;
     }
@@ -110,24 +92,6 @@ const Intro = () => {
         top: 55%;
       }
 
-      .ContactMe {
-        position: absolute;
-        display: flex;
-        flex-direction: row;
-        float: left;
-        top: 18%;
-        padding: 0.5rem;
-        border: 2px solid yellow;
-        background-color: transparent;
-        color: #f9f871;
-        left: 57%;
-      }
-
-      .ContactMe:hover {
-        background-color: yellow;
-        color: black;
-        font-weight: bold;
-      }
       span {
         display: flex;
         color: white;
@@ -144,30 +108,26 @@ const Intro = () => {
   return (
     <div className="intro__page">
       <img
-        src={`/images/msd${ran}.webp`}
-        className="steve_jobs"
+        src={`/images/job-back.webp`}
+        className="job_back"
       />
       <Division>
         <Typical
           steps={[
-            "Till the fullstop comes,",
+            "Looking for a job 🤕",
             1000,
-            "The sentence is not over",
+            "You are at the right place 😀",
             1000,
-            "Mahendra Singh Dhoni",
+            "Top MNC'S all in one place 👌🏼",
+            1000,
+            "Checkout the latest jobs 👇🏼",
             1000,
           ]}
           loop={Infinity}
           wrapper="span"
         />
-        <pre className="postClass">
-          {`
-               
-            `}
-        </pre>
-
         <Link to="/home">
-          <button className="ContactMe">Lets Begin !</button>
+          <button className="home-btn">Lets Begin</button>
         </Link>
       </Division>
     </div>

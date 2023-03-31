@@ -3,7 +3,6 @@ import Typical from "react-typical";
 import "./HomeIntro.css";
 import styled from "styled-components";
 
-const HomeIntro = () => {
   const Division = styled.div`
     span {
       display: flex;
@@ -40,24 +39,12 @@ const HomeIntro = () => {
       }
     }
   `;
+
+const HomeIntro = () => {
+
   return (
     <div className="home_intro">
-      <Division>
-        <Typical
-          steps={[
-            "Looking for a job 🤕",
-            1000,
-            "You are at the right place 😀",
-            1000,
-            "Top MNC'S all in one place 👌🏼",
-            1000,
-            "Checkout the latest jobs 👇🏼",
-            1000,
-          ]}
-          loop={Infinity}
-          wrapper="span"
-        />
-      </Division>
+      
       <img className="home__intro" src="/images/intro.gif" />
     </div>
   );
