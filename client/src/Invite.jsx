@@ -39,6 +39,11 @@ const Invite = () => {
         setLoading(false)
         setOpen(false)
       }
+      else if(res.status===202){
+        toast.error(res.data.message)
+        setLoading(false)
+        setOpen(false)
+      }
       else{
         toast.success(`${res.data.message}`)
         setEmails('')

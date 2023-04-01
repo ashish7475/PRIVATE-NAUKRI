@@ -184,19 +184,7 @@ const handleChange=(e)=>{
           <h1 style={{marginLeft:'38%',marginTop:'38px',marginBottom:'20px'}} >
             <span >Interview Reminders</span>
           </h1>
-          <FilterMenu
-             from={'Applied'}
-             totalRecords={total}
-             data={reminders} 
-             setCurrentPage={setCurrentPage} 
-             currentPage={currentPage} 
-             setCurrentPageListings={setCurrentPageListings}
-             currentPageListings={currentPageListing}
-             filters={filters}
-             setFilters = {setFilters}
-             search={search}
-             handleSearch={handleChange}
-        />
+          
       
           
           <TableContainer  component={Paper} >

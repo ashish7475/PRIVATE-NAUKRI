@@ -8,7 +8,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import DatePicker from "react-datepicker";
 import { toast } from 'react-toastify';
 import "react-datepicker/dist/react-datepicker.css";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Slide from "@mui/material/Slide";
 import {
   MDBCard,
@@ -124,13 +124,15 @@ const InterviewReminder = () => {
        }
        else if(formattedDate==reminderFormattedDate){
         const date1 = new Date(new Date().getTime());
-        const hours = date1?.getUTCHours().toString().padStart(2, '0');
-        const minutes = date1?.getUTCMinutes().toString().padStart(2, '0');
-        const seconds = date1?.getUTCSeconds().toString().padStart(2, '0');
+        const hours = date1?.getHours().toString().padStart(2, '0');
+        const minutes = date1?.getMinutes().toString().padStart(2, '0');
+        const seconds = date1?.getSeconds().toString().padStart(2, '0');
         let formattedTime = `${hours}:${minutes}:${seconds}`;
           
         let updatedSelectedTime=time;
         let updatedCurrentTime=formattedTime;
+        console.log(updatedSelectedTime<updatedCurrentTime)
+        console.log(updatedSelectedTime + updatedCurrentTime)
         const [selhrs,selmin,selsec]= time.split(':')
         if(selhrs=='00'){
           updatedSelectedTime = `24:${selmin}:${selsec}`
@@ -344,7 +346,11 @@ const InterviewReminder = () => {
       <MDBCardBody>
         <img src='/images/wait.gif' style={{    width: '300px',
     height: '200px'}}/>
-        <MDBCardText>Users ll be required to just fill up the phone numbers that they want to recieve the respective reminder at , and BOOOM!! you ll be getting the reminder at just the right time.</MDBCardText>
+        <MDBCardText>Users ll be required to just fill up the phone numbers that they want to recieve the respective reminder at , and BOOOM!! you ll be getting the reminder at just the right time.
+         <br/> INVITE YOUR FRIENDS TO HELP US GROW FASTER AND BRING YOU MORE SERVICES.
+          <br/>
+         <Link to='/invite'> <button className='btn btn-primary'>Invite Friends</button></Link>
+        </MDBCardText>
       </MDBCardBody>
     </MDBCard>
      

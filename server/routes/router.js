@@ -24,6 +24,7 @@ import {
   userLogin,
   userSignup,
   inviteFriends,
+  setCustomReminder,
 } from "../controllers/amazonJob.js";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
@@ -86,6 +87,7 @@ routes.get("/getreminders", verifyToken, getInterviewReminder); //! add verifyTo
 routes.post("/stopreminder", stopInterviewReminder); //! add verifyToken
 routes.post("/deletereminder", deleteInterviewReminder); //! add verifyToken
 routes.post("/resumereminder", resumeInterviewReminder); //! add verifyToken
+routes.post("/customreminder", verifyToken, setCustomReminder);
 
 routes.post("/unsubscribe", async (req, res) => {
   const { email } = req.body;

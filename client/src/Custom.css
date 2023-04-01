@@ -1,0 +1,90 @@
+.wrapper {
+    box-sizing: border-box;
+    padding: 50px;
+    margin: 0;
+    padding-bottom: 170px;
+}
+
+.items {
+    display: flex;
+    justify-content: center;
+}
+
+.item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(131.83deg, #FFFAFA 0%, #FFF7F7 99.21%);
+    width: 60%;
+    text-align: center;
+    height: fit-content;
+    border-radius: 16px;
+    position: relative;
+}
+
+.item:not(:last-child) {
+    margin-right: 100px;
+}
+
+.item::before {
+    position: absolute;
+    content: "";
+    top: -2px;
+    bottom: -2px;
+    left: -2px;
+    right: -2px;
+    background-image: linear-gradient(312.25deg, #FFC4BC 0%, rgba(255, 255, 255, 0) 66.19%);
+    z-index: -1;
+    border-radius: 18px;
+}
+
+.inner {
+    background-color: #fff;
+    width: 100%+20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: fit-content+200px;
+    box-shadow: 0 40px 80px #FBE4E0;
+    border-radius: 14px;
+}
+
+.form3 {
+    padding: 40px;
+}
+
+#root>div.wrapper>ul>li>div>div>form>div.col-md-6>div.react-datepicker-wrapper>div>input {
+    border: 1px solid gray;
+    text-align: center;
+    border-radius: 6px;
+}
+
+#root>div.wrapper>ul>li>div>div>form>div:nth-child(4)>span>input {
+    text-align: center;
+    border: 1px solid black;
+    height: 34px;
+}
+
+#root>div.wrapper>ul>li>div>div>form>div:nth-child(6)>div {
+    display: block;
+    height: 37px;
+    border: 1px solid;
+}
+
+#root>div.wrapper>ul>li>div>div>form>div:nth-child(6)>div>div>input {
+    text-align: center;
+}
+
+#root>div.wrapper>ul>li>div>div>form>div:nth-child(6)>div>div>span {
+    font-weight: bold;
+    color: black;
+}
+
+#interview {
+    font-family: cursive;
+
+}
+
+#interview>option {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

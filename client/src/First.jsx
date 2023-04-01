@@ -28,6 +28,7 @@ import Unsubscribe from "./Unsubscribe";
 import InterviewReminder from "./InterviewReminder";
 import Reminders from "./Reminders";
 import Invite from "./Invite";
+import CustomReminder from "./CustomReminder";
 
 const Main = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -104,6 +105,7 @@ const Main = () => {
            <Route path="/unsubscribe/:email" element={<Unsubscribe/>}/>
            <Route path ='/interviewreminder' element={<InterviewReminder/>}/>
            <Route path = '/reminders' element={<Reminders/>}/>
+            <Route path = '/customreminder' element={<CustomReminder/>}/>
            <Route path = '/invite' element={<Invite/>}/>
         </Routes>
       </UserContext.Provider>

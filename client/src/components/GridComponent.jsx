@@ -118,7 +118,7 @@ const GridComponent = ({ records,setRecords }) => {
                     {record.title}
                   </MDBCardTitle>
                   <MDBCardText className="card__text">
-                    {`Location: ${record.location} `}
+                    {`Location: ${record.location==undefined?'Remote':record.location} `}
                     <br />
                     {record.jobId!==null &&<> Job ID: {record.jobId}
                     <br /></>

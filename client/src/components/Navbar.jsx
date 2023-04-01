@@ -135,9 +135,16 @@ const Navbar = (props) => {
                       </Link>
                     </li>
                     <li>
+                      <Link to="/customreminder">
+                        <a href="#" className="dropdown-item">
+                          Custom Reminder
+                        </a>
+                      </Link>
+                    </li>
+                    <li>
                       <Link to="/reminders">
                         <a href="#" className="dropdown-item">
-                          Reminders
+                          View Reminders
                         </a>
                       </Link>
                     </li>
