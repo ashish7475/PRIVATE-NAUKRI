@@ -1,23 +1,21 @@
-import mongoose from "mongoose";
-import JobListing from "./models/JobListing.js";
-import ApplyHistory from "./models/ApplyHistory.js";
-import Testimonial from "./models/Testimonials.js";
-import nodemailer from "nodemailer";
-import PasswordResetToken from "./models/PasswordResetToken.js";
-import User from "./models/user.js";
-import * as dotenv from "dotenv";
-dotenv.config();
-import fs from "fs";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-mongoose
-  .connect(process.env.URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("Mongoose Connected");
-  });
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCRkIrvdGkaALpqqVF84PkV6AMmO6B_I0Q",
+  authDomain: "private-naukri-37d23.firebaseapp.com",
+  projectId: "private-naukri-37d23",
+  storageBucket: "private-naukri-37d23.appspot.com",
+  messagingSenderId: "628309949486",
+  appId: "1:628309949486:web:f9634993964d9258d7f3bf",
+  measurementId: "G-65DJGTPQPB",
+};
 
-// await JobListing.deleteMany();
-// await ApplyHistory.deleteMany();
-await User.deleteMany();
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);

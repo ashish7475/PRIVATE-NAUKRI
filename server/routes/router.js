@@ -23,6 +23,7 @@ import {
   updateProfilePhoto,
   userLogin,
   userSignup,
+  inviteFriends,
 } from "../controllers/amazonJob.js";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
@@ -101,5 +102,7 @@ routes.post("/unsubscribe", async (req, res) => {
     res.status(200).json({ message: "You are already unsubscribed." });
   }
 });
+
+routes.post("/invite", inviteFriends);
 
 export default routes;

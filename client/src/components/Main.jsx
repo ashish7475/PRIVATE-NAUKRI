@@ -8,7 +8,7 @@ export default function Main(props) {
   return (
     <>
       {!props.currentPageListings?.length ? (
-        <RobotAnimated />
+        <div style={{marginLeft:'40%',paddingBottom:'170px'}}><RobotAnimated /></div>
       ) : (
         props.currentPageListings && (
           <div className="main__container">

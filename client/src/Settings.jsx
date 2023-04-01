@@ -7,9 +7,21 @@ import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
 import UserContext from './UserContext'
+import { Slide } from "@mui/material";
+import RobotAnimated from "./components/Loading";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const Settings = () => {
+    const [open,setOpen] = React.useState(false)
+    const [loading,setLoading] = React.useState(false)
     const { userData, isLoggedIn ,setUserData,image,setImage} = React.useContext(UserContext);
   const user = JSON.parse(localStorage.getItem('User'))
    const navigate = useNavigate()
@@ -47,6 +59,8 @@ const Settings = () => {
             toast.error('Old password and new password cannot be same !')
         }
         else{
+            setLoading(true)
+            setOpen(true)
             axios.post('http://localhost:5000/changepassword',{...pass},{
                 headers:{'x-access-token':token}
             }).then((res,err)=>{
@@ -63,9 +77,13 @@ const Settings = () => {
                     user.password = res.data.password;
                     localStorage.setItem('User',JSON.stringify(user))
                     setPass({oldpassword:'',newpassword:'',confirmPassword:''})
+                    setLoading(false)
+                    setOpen(false)
                    }
                    else{
                     toast.error(`${res.data.message}`)
+                    setLoading(false)
+                    setOpen(false)
                    }
                 }
             })
@@ -76,6 +94,17 @@ const Settings = () => {
   return (
     <>
     <Navbar/>
+    {loading &&   <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>Hang on a moment. Crafting your request</DialogTitle>
+        <DialogContent>
+          <div style={{marginLeft:'12%'}}><RobotAnimated  /></div>
+        </DialogContent>
+      </Dialog> }
     <section className='settings'>
 		<div class="container" style={{marginTop:'20px'}}> 
 			<h1 class="mb-5">Account Settings</h1>

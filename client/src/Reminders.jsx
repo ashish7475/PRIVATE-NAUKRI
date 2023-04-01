@@ -12,13 +12,24 @@ import Navbar from "./components/Navbar";
 import { useNavigate } from "react-router-dom";
 import FilterMenu from './components/FilterMenu'
 import Footer from "./components/Footer";
-import { Checkbox, Dialog, DialogTitle, FormControlLabel } from "@mui/material";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import './applied.css'
 import { toast } from "react-toastify";
+import { Slide } from "@mui/material";
+import RobotAnimated from "./components/Loading";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const Reminders = () => {
-  
+  const [open,setOpen] = React.useState(false)
+    const [loading,setLoading] = React.useState(false)
   const [user,setUser] = React.useState(null)
    const [search,setSearch] =React.useState('')
   const [currentPageListing,setCurrentPageListings] = React.useState([])
@@ -29,14 +40,13 @@ const Reminders = () => {
     countries:[]
   })
   const [jobId,setjobId] = React.useState('')
-  const [loading,setLoading] = React.useState(false)
     const [reminders,setReminders] = React.useState([])
     const [total,setTotal] = React.useState([])
     const navigate = useNavigate()
 
     const handleResumeReminder = (e,jobId)=>{
       setLoading(true)
-      
+      setOpen(true)
       axios.post('http://localhost:5000/resumereminder',{username:user.username,jobId}).then((res,err)=>{
         if(err){
           console.log(err);
@@ -44,6 +54,8 @@ const Reminders = () => {
         else{
           if(res.status==202){
             toast.error(res.data.message);
+            setLoading(false)
+            setOpen(false)
           }
           else{
             toast.success(res.data.message)
@@ -56,6 +68,7 @@ const Reminders = () => {
             console.log(reminders);
             setReminders(changedReminders)
             setLoading(false)
+            setOpen(false)
           }
         }
       })
@@ -63,7 +76,7 @@ const Reminders = () => {
     }
     const handleStopReminder = (e,jobId)=>{
       setLoading(true)
-      
+      setOpen(true)
       axios.post('http://localhost:5000/stopreminder',{username:user.username,jobId}).then((res,err)=>{
         if(err){
           console.log(err);
@@ -71,6 +84,8 @@ const Reminders = () => {
         else{
           if(res.status==202){
             toast.error(res.data.message);
+            setLoading(false)
+            setOpen(false)
           }
           else{
             toast.success(res.data.message)
@@ -83,13 +98,14 @@ const Reminders = () => {
             console.log(reminders);
             setReminders(changedReminders)
             setLoading(false)
+            setOpen(false)
           }
         }
       })
     }
     const handleDeleteReminder = (e,jobId)=>{
        setLoading(true)
-      
+       setOpen(true)
       axios.post('http://localhost:5000/deletereminder',{username:user.username,jobId}).then((res,err)=>{
         if(err){
           console.log(err);
@@ -97,13 +113,17 @@ const Reminders = () => {
         else{
           if(res.status==202){
             toast.error(res.data.message);
+            setLoading(false)
+            setOpen(false)
           }
           else{
             toast.success(res.data.message)
-            setLoading(false)
+            
            const changedReminders = reminders.filter(rem=>rem.jobId!=jobId);
             setTotal(total-1)
             setReminders(changedReminders)
+            setLoading(false)
+            setOpen(false)
           }
         }
       })
@@ -146,7 +166,17 @@ const handleChange=(e)=>{
   return (
     <>
       <Navbar />
-      
+       {loading &&   <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>Hang on a moment. Crafting your request</DialogTitle>
+        <DialogContent>
+          <div style={{marginLeft:'12%'}}><RobotAnimated  /></div>
+        </DialogContent>
+      </Dialog> }
       {!total ? (
         <h1 style={{marginLeft:'32%',marginTop:'50px'}} >No Reminders found!</h1>
       ) : (

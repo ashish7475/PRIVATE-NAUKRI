@@ -2,9 +2,23 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import axios from 'axios'
 import {toast} from 'react-toastify'
+import { Slide } from "@mui/material";
+import RobotAnimated from "./Loading";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const Contact = () => {
-
+  const [email,setEmail] = React.useState('')
+  const [name,setName] = React.useState('')
+const [open,setOpen] = React.useState(false)
+    const [loading,setLoading] = React.useState(false)
   const [ formData,setFormData] = useState({
     name:'',
     email:'',
@@ -19,15 +33,21 @@ const Contact = () => {
   }
   const handleSubmit = (e)=>{
     e.preventDefault()
+    setLoading(true)
+    setOpen(true)
     axios.post('http://localhost:5000/contactus',{...formData}).then((res,err)=>{
       if(err){
         toast.error(`${err}`)
       }
       else if(res.status===400){
         toast.error(`${res.data.message}`)
+        setLoading(false)
+        setOpen(false)
       }
       else{
         toast.success(`${res.data.message}`)
+        setLoading(false)
+        setOpen(false)
         setFormData({
           name:'',
           email:'',
@@ -39,7 +59,11 @@ const Contact = () => {
   }
 
   useEffect(() => {
-
+    const user = JSON.parse(localStorage.getItem('User'));
+    if(user){
+      setEmail(user.email)
+      setName(user.name)
+    }
     window.scrollTo(0, 100); // Scroll window by 100 pixels on page load
 
   }, []);
@@ -48,6 +72,17 @@ const Contact = () => {
   return (
     <>
       <Navbar />
+      {loading &&   <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>Hang on a moment. Crafting your request</DialogTitle>
+        <DialogContent>
+          <div style={{marginLeft:'12%'}}><RobotAnimated  /></div>
+        </DialogContent>
+      </Dialog> }
       <div
         className="contact_section layout_padding margin_top90"
         style={{ backgroundImage: `url('/images/contact-bg.png')` }}
@@ -68,7 +103,7 @@ const Contact = () => {
                     className="mail_text"
                     placeholder="Full Name"
                     name="name"
-                    value={formData.name}
+                    value={name!==''?name:formData.name}
                     onChange={handleChange}
                   />
                   
@@ -77,7 +112,7 @@ const Contact = () => {
                     className="mail_text"
                     placeholder="Email"
                     name="email"
-                    value={formData.email}
+                    value={email!==''?email:formData.email}
                     onChange={handleChange}
                   />
                   <input
@@ -90,7 +125,7 @@ const Contact = () => {
                   />
                   <textarea
                     className="massage-bt"
-                    placeholder="Messege"
+                    placeholder="Message"
                     rows="5"
                     id="comment"
                     name="message"

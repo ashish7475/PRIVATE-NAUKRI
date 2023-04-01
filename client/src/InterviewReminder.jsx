@@ -9,10 +9,35 @@ import DatePicker from "react-datepicker";
 import { toast } from 'react-toastify';
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
+import Slide from "@mui/material/Slide";
+import {
+  MDBCard,
+  MDBCardHeader,
+  MDBCardBody,
+  MDBCardTitle,
+  MDBCardText,
+  MDBCardFooter,
+  MDBBtn,
+   MDBInput,
+} from 'mdb-react-ui-kit';
+import RobotAnimated from "./components/Loading";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import axios from 'axios'
+import Upcoming from './components/Upcoming';
 
-
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 const InterviewReminder = () => {
+   const [open,setOpen] = React.useState(false)
+   const [loading,setLoading] = React.useState(false)
+    
+
+
   const navigate = useNavigate()
     const [selectedValue,setSelectedValue] = React.useState('')
    
@@ -76,7 +101,9 @@ const InterviewReminder = () => {
           
         }
         
-        
+        setLoading(true)
+        setOpen(true)
+
         
         const currentDate = new Date();
         const day = String(currentDate.getDate()).padStart(2, '0');
@@ -137,17 +164,26 @@ const InterviewReminder = () => {
            }).then((res,err)=>{
             if(err){
               console.log(err);
+              setLoading(false)
+              setOpen(false)
             }
             else{
               if(res.status===203){
                 toast.error(res.data.message)
+                setLoading(false)
+                    setOpen(false)
               }
               else if(res.status===200){
                 toast.info(res.data.message)
                 setInterview('') 
+                setLoading(false)
+                setOpen(false)
+        
               }
               else{
                 toast.error('An error has occured please try again!')
+                setLoading(false)
+                setOpen(false)
               }
             }
            })
@@ -222,6 +258,17 @@ const InterviewReminder = () => {
     
   return (
     <><Navbar/>
+    {loading &&   <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>Hang on a moment. Crafting your request</DialogTitle>
+        <DialogContent>
+          <div style={{marginLeft:'12%'}}><RobotAnimated  /></div>
+        </DialogContent>
+      </Dialog> }
   <div class="wrapper">
     <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',marginBottom:'30px'}}>
      <h2 style={{textAlign:'center',marginBottom:'15px',fontFamily:'cursive'}}>Interview Reminder</h2>
@@ -290,7 +337,19 @@ const InterviewReminder = () => {
     </li>
     
   </ul> }
-  {(selectedValue==='textmessage' || selectedValue==='voicecall') && <ul class="items">
+  { (selectedValue==='textmessage' || selectedValue==='voicecall') &&
+  <>
+     <MDBCard alignment='center'>
+      <MDBCardHeader><span><h4>{selectedValue} Reminders is still in making </h4></span></MDBCardHeader>
+      <MDBCardBody>
+        <img src='/images/wait.gif' style={{    width: '300px',
+    height: '200px'}}/>
+        <MDBCardText>Users ll be required to just fill up the phone numbers that they want to recieve the respective reminder at , and BOOOM!! you ll be getting the reminder at just the right time.</MDBCardText>
+      </MDBCardBody>
+    </MDBCard>
+     
+      </>
+   /*<ul class="items">
     <li class="item">
       <div class="inner">
         <div className='int__outer'>
@@ -349,7 +408,8 @@ const InterviewReminder = () => {
       </div>
     </li>
     
-  </ul> }
+  </ul> } */}
+  
 </div>
 <Footer/>
 </>)
