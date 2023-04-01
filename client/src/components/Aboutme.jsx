@@ -4,7 +4,7 @@ import "../aboutcss/style.css";
 import "../aboutcss/responsive.css";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
-import Typical from "react-typical";
+
 import styled from "styled-components";
 
 const Aboutme = () => {
@@ -123,18 +123,7 @@ const Aboutme = () => {
         <h1 class="about_taital">About Me</h1>
         <div className="aboutme__subheading" onClick={handleTypist}>
           <Division>
-            <Typical
-              steps={[
-                "Ashish Kumar",
-                1000,
-                "Founder and CEO Private Naukri",
-                1000,
-                "Web Developer",
-                1000,
-              ]}
-              loop={Infinity}
-              wrapper="span"
-            />
+           
           </Division>
         </div>
         <div class="about_section_2">

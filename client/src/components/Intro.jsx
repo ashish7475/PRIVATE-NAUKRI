@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Typical from "react-typical";
+
 import styled from "styled-components";
 import './intro.css'
 
@@ -112,20 +112,7 @@ const Intro = () => {
         className="job_back"
       />
       <Division>
-        <Typical
-          steps={[
-            "Looking for a job 🤕",
-            1000,
-            "You are at the right place 😀",
-            1000,
-            "Top MNC'S all in one place 👌🏼",
-            1000,
-            "Checkout the latest jobs 👇🏼",
-            1000,
-          ]}
-          loop={Infinity}
-          wrapper="span"
-        />
+        
         <Link to="/home">
           <button className="home-btn">Lets Begin</button>
         </Link>

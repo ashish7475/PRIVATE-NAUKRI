@@ -1,5 +1,5 @@
 import React from "react";
-import Typical from "react-typical";
+
 import "./HomeIntro.css";
 import styled from "styled-components";
 
