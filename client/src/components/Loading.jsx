@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Animate } from "react-move";
-import { Samy, SvgProxy } from "react-samy-svg";
 import "./loading.css";
 
 export default class Robot1 extends Component {
@@ -77,90 +76,8 @@ export default class Robot1 extends Component {
   render() {
     return (
       <div className="loading__svg">
-        <Samy
-          path="https://raw.githubusercontent.com/hugozap/react-samy-svg/master/examples/robots/gertbot.svg"
-          style={{ width: 268, height: 406 }}
-        >
-          <Animate
-            start={() => ({
-              y: 0,
-              leg1: 0,
-              leg2: 0,
-              headRotation: 0,
-            })}
-            update={() => ({
-              y: this.state.bodyY,
-              leg1: this.state.leg1Y,
-              leg2: -this.state.leg1Y,
-              headRotation: this.state.headRotation,
-              steamOpacity: this.state.steamOpacity,
-            })}
-            duration={50}
-            easing="easePolyIn" // anything from https://github.com/d3/d3-ease
-          >
-            {(data) => {
-              
-              if (data == null) {
-                return null;
-              }
-              return (
-                <div>
-                  <SvgProxy
-                    selector="#core"
-                    transform={`translate(0 ${data.y})`}
-                  />
-                  <SvgProxy
-                    selector="#arm1"
-                    transform={`translate(0 ${data.y * 0.5})`}
-                  />
-                  <SvgProxy
-                    selector="#arm2"
-                    transform={`translate(0 ${-data.y * 0.5})`}
-                  />
-                  <SvgProxy
-                    selector="#leg1"
-                    transform={`translate(0 ${data.leg1})`}
-                  />
-                  <SvgProxy
-                    selector="#leg2"
-                    transform={`translate(0 ${data.leg2})`}
-                  />
-                </div>
-              );
-            }}
-          </Animate>
-
-          <Animate
-            start={() => ({
-              headRotation: 0,
-              steamOpacity: 0,
-            })}
-            // Update your data to whatever you want
-            update={() => ({
-              headRotation: this.state.headRotation,
-              steamOpacity: this.state.steamOpacity,
-            })}
-            duration={300}
-            easing="cubicin"
-          >
-            {(data) => (
-              <div>
-                <SvgProxy
-                  selector="#head"
-                  transform={`rotate(${data.headRotation} 134 176)`}
-                />
-                <SvgProxy
-                  selector="#steam:nth-child(odd)"
-                  fill-opacity={data.steamOpacity}
-                />
-                <SvgProxy
-                  selector="#steam:nth-child(even)"
-                  fill-opacity={1 - data.steamOpacity}
-                />
-              </div>
-            )}
-          </Animate>
-        </Samy>
+        
+          HELLO
       </div>
     );
   }
