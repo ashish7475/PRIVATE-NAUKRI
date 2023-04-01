@@ -58,7 +58,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
   });
     
   }
-  const handleSubmit = (e)=>{
+  const handleSubmit = (e,currentStatus)=>{
       e.preventDefault();
       
       const st = currentRecordStatus.applied
@@ -68,12 +68,23 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
     : currentRecordStatus.rejected
     ? "Rejected"
     : "Placed";
-    
-      axios.post('http://localhost:5000/updateapplystatus',{jobId,status:st},{
+     
+     
+      axios.post('http://localhost:5000/updateapplystatus',{jobId,status:st,currentStatus},{
         headers:{'x-access-token':localStorage.getItem('token')}
       }).then((res,err)=>{
         if(err){
           toast.error(`${err}`);
+        }
+        else if(res.status===203){
+          toast.error(res.data.message)
+          setOpenItemId(null);
+          setCurrentRecordStatus({
+          applied: false,
+          interview: false,
+          placed: false,
+          rejected: false,
+        });
         }
         else{
           toast.success(`${res.data.message}`)
@@ -268,7 +279,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
           <span>Current Status : {row.status}</span>
         </DialogTitle>
         
-        <form key={i} onSubmit={handleSubmit} className="status__change__form">
+        <form key={i} onSubmit={(e)=>{handleSubmit(e,row.status)}} className="status__change__form">
           {statuses.filter(st=>st!==row.status).map(ele=>(
             <FormControlLabel
               label={ele}

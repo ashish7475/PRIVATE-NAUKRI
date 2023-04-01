@@ -298,13 +298,21 @@ const getAppliedHistory = async (req, res) => {
 
 const updateAppliedStatus = async (req, res) => {
   try {
-    const { jobId, status } = req.body;
+    const { jobId, status, currentStatus } = req.body;
     const username = req.username;
     const id = parseInt(jobId);
 
-    await ApplyHistory.updateOne({ jobId: id, username }, { status });
+    const reminder = await InterviewReminder.find({ username, jobId });
+    if (currentStatus === "Interview" && reminder.length) {
+      res.status(203).json({
+        message:
+          "This job has an active interview reminder set. Please delete the reminder for this job and then change the status.",
+      });
+    } else {
+      await ApplyHistory.updateOne({ jobId: id, username }, { status });
 
-    res.status(200).json({ message: `Status changed to ${status}` });
+      res.status(200).json({ message: `Status changed to ${status}` });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: `Error ${error}` });
