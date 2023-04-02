@@ -40,6 +40,7 @@
     "react-scroll": "^1.8.9",
     "react-simple-typewriter": "^5.0.1",
     "react-slick": "^0.29.0",
+    "react-spinners": "^0.13.8",
     "react-spring": "^9.7.1",
     "react-time-picker": "^5.2.0",
     "react-toastify": "^9.1.1",

@@ -14,6 +14,7 @@ import FilterMenu from './components/FilterMenu'
 import Footer from "./components/Footer";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import './applied.css'
+import './reminders.css'
 import { toast } from "react-toastify";
 import { Slide } from "@mui/material";
 import RobotAnimated from "./components/Loading";
@@ -22,12 +23,17 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+
+
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const Reminders = () => {
+  const[color,setColor] = React.useState('yellow')
   const [open,setOpen] = React.useState(false)
     const [loading,setLoading] = React.useState(false)
   const [user,setUser] = React.useState(null)
@@ -171,10 +177,17 @@ const handleChange=(e)=>{
         TransitionComponent={Transition}
         keepMounted
         aria-describedby="alert-dialog-slide-description"
+        
       >
-        <DialogTitle>Hang on a moment. Crafting your request</DialogTitle>
+        
         <DialogContent>
-          <div style={{marginLeft:'12%'}}><RobotAnimated  /></div>
+          <div style={{width:'100%',height:'100%',display:'flex',alignItems:'center'}}><ClimbingBoxLoader
+        color={'black'}
+        loading={loading}
+        size={25}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      /></div>
         </DialogContent>
       </Dialog> }
       {!total ? (

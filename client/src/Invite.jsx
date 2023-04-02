@@ -9,6 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import {toast} from 'react-toastify'
 import RobotAnimated from "./components/Loading";
 import { Slide } from "@mui/material";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -63,16 +64,22 @@ const Invite = () => {
   return (
     <>
       <Navbar />
-      {loading &&   <Dialog
+      {loading &&  <Dialog
         open={open}
         TransitionComponent={Transition}
         keepMounted
-        onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
+        
       >
-        <DialogTitle>Hang on a moment. Crafting your request</DialogTitle>
+        
         <DialogContent>
-          <div style={{marginLeft:'12%'}}><RobotAnimated  /></div>
+          <div style={{width:'100%',height:'100%',display:'flex',alignItems:'center'}}><ClimbingBoxLoader
+        color={'black'}
+        loading={loading}
+        size={25}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      /></div>
         </DialogContent>
       </Dialog> }
     

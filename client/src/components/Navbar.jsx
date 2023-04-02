@@ -178,6 +178,13 @@ const Navbar = (props) => {
                       </Link>
                     </li>
                     <li>
+                      <Link to="/invite">
+                        <a href="#" className="dropdown-item">
+                          Invite Friends
+                        </a>
+                      </Link>
+                    </li>
+                    <li>
                       <button
                         className="dropdown-item btn"
                         onClick={handleLogout}

@@ -667,7 +667,10 @@ const deleteInterviewReminder = async (req, res) => {
     if (cronJob) {
       const jobs = cron.getTasks();
       setTimeout(() => {
-        jobs.get(username + jobId).stop();
+        const job = jobs.get(username + jobId);
+        if (job !== undefined) {
+          job.stop();
+        }
         InterviewReminder.deleteOne({ username, jobId }).then(() => {
           res.status(200).json({
             message: `Reminder for Job ID : ${jobId} deleted. You'll no longer receive the reminder.`,
