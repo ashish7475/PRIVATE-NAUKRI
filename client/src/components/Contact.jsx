@@ -59,11 +59,7 @@ const [open,setOpen] = React.useState(false)
   }
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('User'));
-    if(user){
-      setEmail(user.email)
-      setName(user.name)
-    }
+    
     window.scrollTo(0, 100); // Scroll window by 100 pixels on page load
 
   }, []);
@@ -103,7 +99,7 @@ const [open,setOpen] = React.useState(false)
                     className="mail_text"
                     placeholder="Full Name"
                     name="name"
-                    value={name!==''?name:formData.name}
+                    value={formData.name}
                     onChange={handleChange}
                   />
                   
@@ -112,7 +108,7 @@ const [open,setOpen] = React.useState(false)
                     className="mail_text"
                     placeholder="Email"
                     name="email"
-                    value={email!==''?email:formData.email}
+                    value={formData.email}
                     onChange={handleChange}
                   />
                   <input
