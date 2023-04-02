@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fortawesome/fontawesome-free": "^6.3.0",
     "@mui/icons-material": "^5.11.11",
@@ -37,6 +38,7 @@
     "react-router-dom": "^6.8.2",
     "react-scripts": "^5.0.1",
     "react-scroll": "^1.8.9",
+    "react-simple-typewriter": "^5.0.1",
     "react-slick": "^0.29.0",
     "react-spring": "^9.7.1",
     "react-time-picker": "^5.2.0",

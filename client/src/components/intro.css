@@ -11,6 +11,7 @@ overflow: hidden !important;
 
 
 }
+
 .job_back {
     position: absolute;
     z-index: -20;
@@ -25,6 +26,7 @@ overflow: hidden !important;
    padding: 12px;
    border-radius: 8px;
    filter: drop-shadow(2px 3px 5px black);
+   margin-top: 30px;
 
 
 }
@@ -37,4 +39,13 @@ overflow: hidden !important;
 }
 #root>div.intro__page>div>span{
     margin-top: 20%;
+}
+#root>div.intro__page>div>span.styles-module_blinkingCursor__yugAC.styles-module_blinking__9VXRT{
+    display: none;
+}
+#root>div.intro__page>div>span:nth-child(1){
+    font-family: cursive;
+    font-size: 4rem;
+    color: yellow;
+    font-weight: bold;
 }

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 
 import styled from "styled-components";
+import { Typewriter } from "react-simple-typewriter";
 
 const Aboutme = () => {
   const Division = styled.div`
@@ -122,9 +123,7 @@ const Aboutme = () => {
       <div class="container">
         <h1 class="about_taital">About Me</h1>
         <div className="aboutme__subheading" onClick={handleTypist}>
-          <Division>
-           
-          </Division>
+          <Typewriter words={['Ashish Kumar','Founder and CEO PRIVATE NAUKRI','FULL stack developer','I am the guy 👌']} loop typeSpeed={50} deleteSpeed={80} delaySpeed={500} cursorBlinking={true}/>
         </div>
         <div class="about_section_2">
           <div class="row">
