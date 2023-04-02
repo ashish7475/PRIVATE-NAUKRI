@@ -22,7 +22,6 @@ import DenseTable from "./AppliedHistory";
 import Forget from "./Forget";
 import Reset from "./Reset";
 import ApplyStats from "./ApplyStats";
-import Reminder from "./Reminder";
 import Settings from "./Settings";
 import Unsubscribe from "./Unsubscribe";
 import InterviewReminder from "./InterviewReminder";
@@ -100,7 +99,7 @@ const Main = () => {
           <Route path='/forgetpassword' element={<Forget/>} />
           <Route path='/resetpassword' element={<Reset/>}/>
            <Route path='/applystats' element={<ApplyStats/>}/>
-           <Route path='/reminder' element={<Reminder/>}/>
+           
            <Route path='/settings' element={<Settings/>}/>
            <Route path="/unsubscribe/:email" element={<Unsubscribe/>}/>
            <Route path ='/interviewreminder' element={<InterviewReminder/>}/>
