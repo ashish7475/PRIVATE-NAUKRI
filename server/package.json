@@ -36,7 +36,6 @@
     "path": "^0.12.7",
     "puppeteer": "^19.7.4",
     "puppeteer-cluster": "^0.23.0",
-    "react-loading": "^2.0.3",
     "request": "^2.88.2",
     "sentiment": "^5.0.2",
     "uuid": "^9.0.0"
