@@ -170,7 +170,7 @@ const resetPassword = async (req, res) => {
       res.status(500).json({ message: "Invalid Request" });
     }
   } catch (error) {
-    res.status(500).json({ message: `${error}` });
+    console.log(error);
   }
 };
 
@@ -196,7 +196,7 @@ const changePassword = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(500).json({ message: `${error}` });
+    console.log(error);
   }
 };
 
@@ -247,7 +247,7 @@ const addTestimonial = async (req, res) => {
       .status(200)
       .json({ message: "Testimonial Added Successfully", status: "ok" });
   } catch (error) {
-    res.json({ message: error, status: "error" });
+    console.log(error);
   }
 };
 const getTestimonials = async (req, res) => {
@@ -315,7 +315,6 @@ const updateAppliedStatus = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: `Error ${error}` });
   }
 };
 
@@ -385,7 +384,6 @@ const getApplyStats = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ message: "An error has occured" });
   }
 };
 
@@ -402,7 +400,6 @@ const contactUs = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ message: `${error}` });
   }
 };
 
@@ -745,7 +742,6 @@ const getInterviews = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(400).json({ message: error });
   }
 };
 
