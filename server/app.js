@@ -29,19 +29,23 @@ app.use((req, response, next) => {
 const URI = process.env.URI;
 const PORT = process.env.PORT || 5000;
 
-const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(URI);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
-};
-app.use("/", routes);
+try {
+  const connectDB = async () => {
+    try {
+      const conn = await mongoose.connect(URI);
+      console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+      console.log(error);
+      process.exit(1);
+    }
+  };
+  app.use("/", routes);
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log("listening for requests");
+  connectDB().then(() => {
+    app.listen(PORT, () => {
+      console.log("listening for requests");
+    });
   });
-});
+} catch (error) {
+  console.log(error);
+}
