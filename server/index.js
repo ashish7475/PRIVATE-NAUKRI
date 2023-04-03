@@ -26,20 +26,22 @@ app.use((req, response, next) => {
   next();
 });
 
-const PORT = process.env.PORT;
+const URI = process.env.URI;
+const PORT = process.env.PORT || 5000;
 
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
 app.use("/", routes);
 
-const URI = process.env.URI;
-
-mongoose
-  .connect(URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    app.listen(process.env.PORT || 5000, () =>
-      console.log(`Server running on PORT ${PORT}`)
-    );
-    console.log("Mongoose Connected");
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("listening for requests");
   });
+});
