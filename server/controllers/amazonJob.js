@@ -778,23 +778,23 @@ const inviteFriends = (req, res) => {
     <h1>Private Naukri</h1>
     <div class="message" style="margin-bottom: 1rem;">
       <p>An invite from your friend ${userEmail}</p>
-      <p>Thank you for signing up for Private Naukri! We're excited to have you join our community and hope you'll find our app to be a valuable tool for your professional career.</p>
-      <p>At Private Company, our mission is to help job seekers get placed at their dream companies. We believe our app can help you achieve your goals and make your life easier. Moreover, it can help you analyze yourself based on your performance at various opportunities provided by us.</p>
-      <p>Please don't hesitate to reach out to us if you have any questions or feedback about the app. Our team is always happy to help. You can provide honest feedback and add testimonials based on your experience.</p>
-      <p>Again, thank you for joining us, and we hope you enjoy using Private Naukri!</p>
-      <p>Best regards,</p>
-      <p>Ashish Kumar</p>
-      <p>Founder and CEO, Private Naukri</p>
+      <p>
+I wanted to personally invite you to join PRIVATE NAUKRI, the ultimate job board application that will help you find your dream job faster and easier than ever before.
+<br>
+With PRIVATE NAUKRI, you can:
+<br>
+<ol>
+
+<li>Set interview reminders to ensure that you never miss an important interview again.</li>
+<li>Analyze your performance through powerful statistics to help you improve your job search strategy.</li>
+<li>Discover new job opportunities that match your skills and experience.</li>
+</ol>
+<br>
+
+So what are you waiting for? Join PRIVATE NAUKRI today and take your job search to the next level!
+
     </div>
-    <div class="contact" style='margin-top: 1rem;
-      font-style: italic;'>
-      <p>If you have any questions or concerns, please visit our website or contact us directly.</p>
-    </div>
-    <div class="disclaimer" style="margin-top: 2rem;
-      font-size: 14px;
-      color: #999;">
-      <p>Please do not reply to this email. This message is automatically generated and the mailbox is not monitored. If you have any questions or concerns, please visit our website or contact us directly. Thank you for your understanding.</p>
-    </div>
+    
   </div>
 </body>
 </html>
@@ -803,7 +803,7 @@ const inviteFriends = (req, res) => {
       const mailOptions = {
         from: process.env.EMAIL_ADDRESS,
         to: Emails,
-        subject: "You are invited to Private Naukri",
+        subject: "Join PRIVATE NAUKRI and Supercharge Your Job Search!",
         html: message,
       };
       transporter.sendMail(mailOptions, (err, info) => {
