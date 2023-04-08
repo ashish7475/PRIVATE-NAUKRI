@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer";
 import { Cluster } from "puppeteer-cluster";
-import JobListing from "./models/JobListing.js";
+import JobListing from "../models/JobListing.js";
 import mongoose from "mongoose";
 
 const webScrapeCronGoogle = async () => {

@@ -1,7 +1,7 @@
 import { Cluster } from "puppeteer-cluster";
 import puppeteer from "puppeteer";
 import mongoose from "mongoose";
-import JobListing from "./models/JobListing.js";
+import JobListing from "../models/JobListing.js";
 import { config } from "dotenv";
 
 const webScrapeCron = async () => {
