@@ -32,7 +32,9 @@ const PORT = process.env.PORT || 5000;
 try {
   const connectDB = async () => {
     try {
-      const conn = await mongoose.connect(URI);
+      const conn = await mongoose.connect(
+        "mongodb+srv://ashish729912:hQAIMkyrifmhQH8w@webscrapercluster.sagxtxf.mongodb.net/?retryWrites=true&w=majority"
+      );
       console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
       console.log(error);
