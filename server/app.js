@@ -45,7 +45,7 @@ try {
 
   connectDB().then(() => {
     app.listen(PORT, () => {
-      console.log("listening for requests");
+      console.log("listening for requests at PORT", PORT);
     });
   });
 } catch (error) {
