@@ -13,7 +13,7 @@ const Forget = () => {
       toast.error(`Please enter a valid email !`)
     }
     else{
-      axios.post('http://localhost:5000/forgotpassword',{email}).then((res,err)=>{
+      axios.post('https://private-naukri-production.up.railway.app/forgotpassword',{email}).then((res,err)=>{
           if(err){
             toast.error(`${err}`)
           }

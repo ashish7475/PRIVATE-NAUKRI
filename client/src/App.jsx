@@ -44,7 +44,7 @@ const App = () => {
 
   useEffect(()=>{
     
-    axios.get('http://localhost:5000/job-listings',{
+    axios.get('https://private-naukri-production.up.railway.app/job-listings',{
       params:{
         q:search,
         page:currentPage,
@@ -65,7 +65,7 @@ const App = () => {
 
    useEffect(()=>{
 
-    axios.get('http://localhost:5000/job-listings',{
+    axios.get('https://private-naukri-production.up.railway.app/job-listings',{
       params:{
         q:search,
         page:currentPage,
@@ -88,7 +88,7 @@ const App = () => {
    
    useEffect(()=>{
 
-    axios.get('http://localhost:5000/job-listings',{
+    axios.get('https://private-naukri-production.up.railway.app/job-listings',{
       params:{
         q:search,
         page:currentPage,

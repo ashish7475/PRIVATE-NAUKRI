@@ -14,7 +14,7 @@ const ApplyStats = () => {
   useEffect(()=>{
       const token = localStorage.getItem('token');
       if(token){
-        axios.get('http://localhost:5000/getappliedstats',{
+        axios.get('https://private-naukri-production.up.railway.app/getappliedstats',{
         headers:{'x-access-token':token}
       }).then(res=>{
         setData(res.data)

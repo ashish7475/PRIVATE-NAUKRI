@@ -61,7 +61,7 @@ const Settings = () => {
         else{
             setLoading(true)
             setOpen(true)
-            axios.post('http://localhost:5000/changepassword',{...pass},{
+            axios.post('https://private-naukri-production.up.railway.app/changepassword',{...pass},{
                 headers:{'x-access-token':token}
             }).then((res,err)=>{
                 if(err){
@@ -112,7 +112,7 @@ const Settings = () => {
 				<div class="profile-tab-nav border-right">
 					<div class="p-4">
 						<div class="img-circle text-center mb-3">
-							<img src={userData.profilePhotoUrl!==""?`http://localhost:5000/${userData.profilePhotoUrl}`:'/images/avatar.png'} alt="Image" class="shadow"/>
+							<img src={userData.profilePhotoUrl!==""?`https://private-naukri-production.up.railway.app/${userData.profilePhotoUrl}`:'/images/avatar.png'} alt="Image" class="shadow"/>
 						</div>
 						<h4 class="text-center">{user.name}</h4>
 					</div>

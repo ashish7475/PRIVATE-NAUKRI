@@ -48,7 +48,7 @@ const LoginSignup = () => {
         formData.append('email',userSignupData.email)
         formData.append('password',userSignupData.password)
         formData.append('image',image)
-        axios.post('http://localhost:5000/signup',formData,{
+        axios.post('https://private-naukri-production.up.railway.app/signup',formData,{
 
         }).then((res,err)=>{
             if(err){
@@ -78,7 +78,7 @@ const LoginSignup = () => {
   }
   const handleLogin = (e)=>{
     e.preventDefault()
-    axios.post('http://localhost:5000/login',userLoginData)
+    axios.post('https://private-naukri-production.up.railway.app/login',userLoginData)
     .then((res,err)=>{
         if(err){
             toast.error(err);

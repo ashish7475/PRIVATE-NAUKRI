@@ -17,7 +17,7 @@ const Description = (props) => {
   }, []);
   useState(() => {
     axios
-      .get("http://localhost:5000/jobdetails", {
+      .get("https://private-naukri-production.up.railway.app/jobdetails", {
         params: {
           jobId: parseInt(jobId),
         },

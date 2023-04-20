@@ -132,7 +132,7 @@ const CustomReminder = () => {
             setLoading(true)
             setOpen(true)
             const user = JSON.parse(localStorage.getItem('User'));
-           axios.post('http://localhost:5000/customreminder',
+           axios.post('https://private-naukri-production.up.railway.app/customreminder',
            {
             company,
             email:user.email

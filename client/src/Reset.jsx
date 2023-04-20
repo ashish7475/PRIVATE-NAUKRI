@@ -33,7 +33,7 @@ const Reset = () => {
                 toast.error('Reset password token not found !')
             }
             else{
-                axios.post('http://localhost:5000/resetpassword',{token,newPassword:pass.password})
+                axios.post('https://private-naukri-production.up.railway.app/resetpassword',{token,newPassword:pass.password})
             .then((res,err)=>{
                 if(err){
                     toast.error(`${err}`)

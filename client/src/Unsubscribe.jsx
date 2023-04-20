@@ -20,7 +20,7 @@ const Unsubscribe = () => {
   },[])
     const handleSubmit = async(e)=>{
         e.preventDefault();
-        axios.post(`http://localhost:5000/unsubscribe`,{email})
+        axios.post(`https://private-naukri-production.up.railway.app/unsubscribe`,{email})
         .then((res,err)=>{
             setmessage(res.data.message)
             sessionStorage.setItem('message',res.data.message)

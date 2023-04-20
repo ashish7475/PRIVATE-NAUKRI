@@ -53,7 +53,7 @@ const Reminders = () => {
     const handleResumeReminder = (e,jobId)=>{
       setLoading(true)
       setOpen(true)
-      axios.post('http://localhost:5000/resumereminder',{username:user.username,jobId}).then((res,err)=>{
+      axios.post('https://private-naukri-production.up.railway.app/resumereminder',{username:user.username,jobId}).then((res,err)=>{
         if(err){
           console.log(err);
         }
@@ -83,7 +83,7 @@ const Reminders = () => {
     const handleStopReminder = (e,jobId)=>{
       setLoading(true)
       setOpen(true)
-      axios.post('http://localhost:5000/stopreminder',{username:user.username,jobId}).then((res,err)=>{
+      axios.post('https://private-naukri-production.up.railway.app/stopreminder',{username:user.username,jobId}).then((res,err)=>{
         if(err){
           console.log(err);
         }
@@ -112,7 +112,7 @@ const Reminders = () => {
     const handleDeleteReminder = (e,jobId)=>{
        setLoading(true)
        setOpen(true)
-      axios.post('http://localhost:5000/deletereminder',{username:user.username,jobId}).then((res,err)=>{
+      axios.post('https://private-naukri-production.up.railway.app/deletereminder',{username:user.username,jobId}).then((res,err)=>{
         if(err){
           console.log(err);
         }
@@ -145,7 +145,7 @@ const handleChange=(e)=>{
       const usr = JSON.parse(localStorage.getItem('User'));
       setUser(usr)
       if(token){
-        axios.get('http://localhost:5000/getreminders',{
+        axios.get('https://private-naukri-production.up.railway.app/getreminders',{
           headers:{
             'x-access-token':token
           }

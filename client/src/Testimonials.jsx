@@ -32,7 +32,7 @@ const Testimonials = () => {
     e.preventDefault();
     axios
       .post(
-        "http://localhost:5000/addtestimonial",
+        "https://private-naukri-production.up.railway.app/addtestimonial",
         {
           name: userData.name,
           username: userData.username,

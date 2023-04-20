@@ -34,7 +34,7 @@ const Invite = () => {
     setOpen(true)
     const user = JSON.parse(localStorage.getItem('User'));
     const userEmail = user.email
-    axios.post('http://localhost:5000/invite',{emails,userEmail}).then((res,err)=>{
+    axios.post('https://private-naukri-production.up.railway.app/invite',{emails,userEmail}).then((res,err)=>{
       if(err){
         toast.error(`${err}`)
         setLoading(false)

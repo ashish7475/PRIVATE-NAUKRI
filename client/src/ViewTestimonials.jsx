@@ -12,7 +12,7 @@ const ViewTestimonials = () => {
   
 
   useEffect(()=>{
-    axios.get('http://localhost:5000/testimonials').then((res,err)=>{
+    axios.get('https://private-naukri-production.up.railway.app/testimonials').then((res,err)=>{
       if(err){
         toast.error(`${err}`);
       }
@@ -31,7 +31,7 @@ const ViewTestimonials = () => {
     <Carousel>
               {testimonials && testimonials.map(testimonial=>(
                  <div className='testimonials__container'>
-                    <img className='avatar__test' style={{height:'60px',width:'60px',borderRadius:'50%'}} src={`http://localhost:5000/${testimonial.photoUrl}`} />
+                    <img className='avatar__test' style={{height:'60px',width:'60px',borderRadius:'50%'}} src={`https://private-naukri-production.up.railway.app/${testimonial.photoUrl}`} />
                     <span className='name__test'>{testimonial.name}</span>
                     <div className='testimonial__content'>
                         <h3 className='title__test'>{testimonial.title}</h3>

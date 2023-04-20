@@ -70,7 +70,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
     : "Placed";
      
      
-      axios.post('http://localhost:5000/updateapplystatus',{jobId,status:st,currentStatus},{
+      axios.post('https://private-naukri-production.up.railway.app/updateapplystatus',{jobId,status:st,currentStatus},{
         headers:{'x-access-token':localStorage.getItem('token')}
       }).then((res,err)=>{
         if(err){
@@ -135,7 +135,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
       navigate("/meme");
     }
     axios
-      .get("http://localhost:5000/appliedhistory", {
+      .get("https://private-naukri-production.up.railway.app/appliedhistory", {
         headers: { "x-access-token": token },
         params:{
           q:search,
@@ -162,7 +162,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
       navigate("/meme");
     }
     axios
-      .get("http://localhost:5000/appliedhistory", {
+      .get("https://private-naukri-production.up.railway.app/appliedhistory", {
         headers: { "x-access-token": token },
         params:{
           q:search,
@@ -185,7 +185,7 @@ const [currentRecordStatus,setCurrentRecordStatus] = React.useState({
       navigate("/meme");
     }
     axios
-      .get("http://localhost:5000/appliedhistory", {
+      .get("https://private-naukri-production.up.railway.app/appliedhistory", {
         headers: { "x-access-token": token },
         params:{
           q:search,

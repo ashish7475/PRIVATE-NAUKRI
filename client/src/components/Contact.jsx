@@ -36,7 +36,7 @@ const [open,setOpen] = React.useState(false)
     e.preventDefault()
     setLoading(true)
     setOpen(true)
-    axios.post('http://localhost:5000/contactus',{...formData}).then((res,err)=>{
+    axios.post('https://private-naukri-production.up.railway.app/contactus',{...formData}).then((res,err)=>{
       if(err){
         toast.error(`${err}`)
       }

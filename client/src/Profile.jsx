@@ -55,7 +55,7 @@ const Profile = () => {
     else{
 const formData = new FormData()
     formData.append('edit-image',image)
-    axios.post('http://localhost:5000/updateprofilephoto',formData,{
+    axios.post('https://private-naukri-production.up.railway.app/updateprofilephoto',formData,{
       headers:{'x-access-token':localStorage.getItem('token')}
     }).then((res,err)=>{
       if(err){
@@ -90,7 +90,7 @@ const formData = new FormData()
           <DialogContentText id="alert-dialog-slide-description">
             {userData && (
               <img
-                src={userData.profilePhotoUrl!==""?`http://localhost:5000/${userData.profilePhotoUrl}`:'/images/avatar.png'}
+                src={userData.profilePhotoUrl!==""?`https://private-naukri-production.up.railway.app/${userData.profilePhotoUrl}`:'/images/avatar.png'}
                 alt="Avatar"
                 class="img-fluid my-5"
               />
@@ -135,7 +135,7 @@ const formData = new FormData()
                     >
                       {userData && (
                         <img
-                          src={userData.profilePhotoUrl!==''?`http://localhost:5000/${userData.profilePhotoUrl}`:'/images/avatar.png'}
+                          src={userData.profilePhotoUrl!==''?`https://private-naukri-production.up.railway.app/${userData.profilePhotoUrl}`:'/images/avatar.png'}
                           alt="Avatar"
                           class="img-fluid my-5"
                           style={{ borderRadius: "50%" }}

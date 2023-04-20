@@ -39,7 +39,7 @@ const GridComponent = ({ records,setRecords }) => {
   
   const handleChangeStatus = async (e, record) => {
     const data = await axios.post(
-      "http://localhost:5000/addappliedhistory",
+      "https://private-naukri-production.up.railway.app/addappliedhistory",
       { record },
       {
         headers: { "x-access-token": localStorage.getItem("token") },
