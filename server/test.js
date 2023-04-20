@@ -1,5 +1,3 @@
-import cron from "node-cron";
+import { jobListingsEmail } from "./utility/index.js";
 
-cron.schedule("* * * * * *", () => {
-  console.log("Hi");
-});
+await jobListingsEmail();

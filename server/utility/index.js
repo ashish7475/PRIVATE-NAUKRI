@@ -197,8 +197,16 @@ const contactUsEmail = (name, email, subject, message) => {
 };
 
 const jobListingsEmail = async () => {
-  const URI = process.env.URI;
-  await mongoose.connect(URI);
+  const URI =
+    "mongodb+srv://ashish729912:hQAIMkyrifmhQH8w@webscrapercluster.sagxtxf.mongodb.net/?retryWrites=true&w=majority";
+  mongoose
+    .connect(URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => {
+      console.log("Mongoose Connected");
+    });
 
   const users = await User.find({ notifications: true });
   const emails = users.map((user) => user.email);
@@ -207,8 +215,8 @@ const jobListingsEmail = async () => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: process.env.EMAIL_ADDRESS,
-      pass: process.env.EMAIL_PASSWORD,
+      user: "private.naukri.ashish@gmail.com",
+      pass: "jwcddrxyemusqaut",
     },
   });
 

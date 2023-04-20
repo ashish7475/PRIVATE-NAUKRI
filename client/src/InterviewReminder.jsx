@@ -167,26 +167,22 @@ const InterviewReminder = () => {
            }).then((res,err)=>{
             if(err){
               console.log(err);
-              setLoading(false)
-              setOpen(false)
+              
             }
             else{
               if(res.status===203){
                 toast.error(res.data.message)
-                setLoading(false)
-                    setOpen(false)
+                
               }
               else if(res.status===200){
                 toast.info(res.data.message)
                 setInterview('') 
-                setLoading(false)
-                setOpen(false)
+                
         
               }
               else{
                 toast.error('An error has occured please try again!')
-                setLoading(false)
-                setOpen(false)
+                
               }
             }
            })
@@ -203,10 +199,53 @@ const InterviewReminder = () => {
        }
        }
        else{
-        toast.success('Reminder Set.')
+        if(selectedValue==='email'){
+            const user = JSON.parse(localStorage.getItem('User'));
+           axios.post('http://localhost:5000/setinterviewreminder',
+           {
+            company,
+            email:user.email
+            ,jobId:interview
+            ,phone
+            ,choice:selectedValue
+            ,date
+            ,time,
+            username:user.username,
+          }
+           ,{
+            headers:
+            {
+              'x-access-token':localStorage.getItem('token')
+            }
+
+           }).then((res,err)=>{
+            if(err){
+              console.log(err);
+              
+            }
+            else{
+              if(res.status===203){
+                toast.error(res.data.message)
+                
+              }
+              else if(res.status===200){
+                toast.info(res.data.message)
+                setInterview('') 
+                
+        
+              }
+              else{
+                toast.error('An error has occured please try again!')
+                
+              }
+            }
+           })
+        }
+        
        }
        
-       
+       setLoading(false)
+        setOpen(false)
        
     }
     
