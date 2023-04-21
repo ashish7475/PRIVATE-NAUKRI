@@ -63,8 +63,15 @@ const LoginSignup = () => {
                 toast.error(err);
             }
             else{
-                res.data.status===400?toast.error(res.data.message):toast.success(res.data.message)
+                if(res.data.status===400){
+                    toast.error(res.data.message)
+                    setLoading(false)
+                     setOpen(false)
+                }
+                
+                
                 if(res.data.status!==400){
+                    toast.success(res.data.message)
                      setUserSignupData({
                         username:'',
                         name:'',
