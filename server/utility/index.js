@@ -85,7 +85,7 @@ const sendResetEmail = (name, email, token) => {
     <div class="message" style="margin-bottom: 1rem;">
      
 <a 
- href='http://localhost:3000/resetpassword?token=${token}'
+ href='https://private-naukri-ashish.netlify.app/resetpassword?token=${token}'
  class="button-30"
  style="font-size: 18px;text-align:'center';">Reset Password</a>
     </div>
@@ -400,7 +400,7 @@ const jobListingsEmail = async () => {
                                             Apply
                                         </button>
                                     </a>
-                                    <a href="http://localhost:3000/home">
+                                    <a href="https://private-naukri-ashish.netlify.app/home">
                                         <button class="primary ghost">
                                             Learn More
                                         </button>
@@ -423,7 +423,7 @@ const jobListingsEmail = async () => {
                                             Apply
                                         </button>
                                     </a>
-                                    <a href="http://localhost:3000/home">
+                                    <a href="https://private-naukri-ashish.netlify.app/home">
                                         <button class="primary ghost">
                                             Learn More
                                         </button>
@@ -446,7 +446,7 @@ const jobListingsEmail = async () => {
                                             Apply
                                         </button>
                                     </a>
-                                    <a href="http://localhost:3000/home">
+                                    <a href="https://private-naukri-ashish.netlify.app/home">
                                         <button class="primary ghost">
                                             Learn More
                                         </button>
@@ -471,7 +471,7 @@ const jobListingsEmail = async () => {
                                             Apply
                                         </button>
                                     </a>
-                                    <a href="http://localhost:3000/home">
+                                    <a href="https://private-naukri-ashish.netlify.app/home">
                                         <button class="primary ghost">
                                             Learn More
                                         </button>
@@ -494,7 +494,7 @@ const jobListingsEmail = async () => {
                                             Apply
                                         </button>
                                     </a>
-                                    <a href="http://localhost:3000/home">
+                                    <a href="https://private-naukri-ashish.netlify.app/home">
                                         <button class="primary ghost">
                                             Learn More
                                         </button>
@@ -517,7 +517,7 @@ const jobListingsEmail = async () => {
                                             Apply
                                         </button>
                                     </a>
-                                    <a href="http://localhost:3000/home">
+                                    <a href="https://private-naukri-ashish.netlify.app/home">
                                         <button class="primary ghost">
                                             Learn More
                                         </button>
@@ -542,7 +542,7 @@ const jobListingsEmail = async () => {
                         </tr>
                         <tr>
                             <td>
-                                <a target="_blank" href="http://localhost:3000/unsubscribe/${email}">Unsubscribe</a>
+                                <a target="_blank" href="https://private-naukri-ashish.netlify.app/unsubscribe/${email}">Unsubscribe</a>
                             </td>
                         </tr>
                         <tr>
