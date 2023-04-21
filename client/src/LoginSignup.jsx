@@ -6,11 +6,17 @@ import FormData from 'form-data'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import UserContext from './UserContext'
-
+import { Dialog, DialogContent, Slide } from '@mui/material'
+import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader'
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const LoginSignup = () => {
 
     const {setUserData,setIsLoggedIn} = React.useContext(UserContext);
+    const [open,setOpen] = React.useState(false)
+   const [loading,setLoading] = React.useState(false)
   const [image,setImage] = React.useState(null)
   const [userSignupData,setUserSignupData] = React.useState({
     name:'',
@@ -35,6 +41,8 @@ const LoginSignup = () => {
   
   const handleSignup = (e)=>{
     e.preventDefault()
+    setLoading(true)
+    setOpen(true)
    if(userSignupData.password != userSignupData.confirmPassword){
         toast.error("Passwords dont match!")
     }
@@ -65,12 +73,13 @@ const LoginSignup = () => {
                         confirmPassword:'',
                      })
                      setImage(null)
+                     setLoading(false)
+                     setOpen(false)
                      window.scrollTo(0, 1100);
                 }
             }
         })
     }
-   
     
 
     
@@ -78,6 +87,8 @@ const LoginSignup = () => {
   }
   const handleLogin = (e)=>{
     e.preventDefault()
+    setLoading(true)
+    setOpen(true)
     axios.post('https://private-naukri-production.up.railway.app/login',userLoginData)
     .then((res,err)=>{
         if(err){
@@ -90,7 +101,8 @@ const LoginSignup = () => {
             }
             else{
                 toast.success(res.data.message)
-                
+                setLoading(false)
+                setOpen(false)
                 localStorage.setItem('token',res.data.token)
                 localStorage.setItem('User',JSON.stringify(res.data.user))
                 setIsLoggedIn(true)
@@ -99,6 +111,7 @@ const LoginSignup = () => {
             }
         }
     })
+    
   }
 
   useEffect(() => {
@@ -108,7 +121,24 @@ const LoginSignup = () => {
   return (
     
 <div className="main">
-
+{loading &&   <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        aria-describedby="alert-dialog-slide-description"
+        
+      >
+        
+        <DialogContent>
+          <div style={{width:'100%',height:'100%',display:'flex',alignItems:'center'}}><ClimbingBoxLoader
+        color={'black'}
+        loading={loading}
+        size={25}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      /></div>
+        </DialogContent>
+      </Dialog> }
 
         <section className="signup" id='sign-up'>
             <div className="container login">
