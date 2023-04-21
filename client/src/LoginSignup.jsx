@@ -41,15 +41,17 @@ const LoginSignup = () => {
   
   const handleSignup = (e)=>{
     e.preventDefault()
-    setLoading(true)
-    setOpen(true)
+    
    if(userSignupData.password != userSignupData.confirmPassword){
         toast.error("Passwords dont match!")
+        
     }
     else if(userSignupData.password.length<6){
         toast.warning("Password must be atlest 6 characters !");
     }
     else{
+        setLoading(true)
+        setOpen(true)
         const formData = new FormData()
         formData.append('name',userSignupData.name)
         formData.append('username',userSignupData.username)
