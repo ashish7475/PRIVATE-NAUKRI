@@ -105,6 +105,8 @@ const LoginSignup = () => {
             
             if(res.data.status==='error'){
                 toast.error(res.data.message)
+                setLoading(false)
+                setOpen(false)
             }
             else{
                 toast.success(res.data.message)
