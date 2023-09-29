@@ -36,7 +36,7 @@ const [open,setOpen] = React.useState(false)
     e.preventDefault()
     setLoading(true)
     setOpen(true)
-    axios.post('https://ggz.onrender.com/addappliedhistory",contactus',{...formData}).then((res,err)=>{
+    axios.post('https://ggz.onrender.com/contactus',{...formData}).then((res,err)=>{
       if(err){
         toast.error(`${err}`)
       }
