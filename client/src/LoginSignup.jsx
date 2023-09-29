@@ -58,7 +58,7 @@ const LoginSignup = () => {
         formData.append('email',userSignupData.email)
         formData.append('password',userSignupData.password)
         formData.append('image',image)
-        axios.post('https://private-naukri-production.up.railway.app/signup',formData,{
+        axios.post('https://ggz.onrender.com/signup',formData,{
 
         }).then((res,err)=>{
             if(err){
@@ -98,7 +98,7 @@ const LoginSignup = () => {
     e.preventDefault()
     setLoading(true)
     setOpen(true)
-    axios.post('https://private-naukri-production.up.railway.app/login',userLoginData)
+    axios.post('https://ggz.onrender.com/login',userLoginData)
     .then((res,err)=>{
         if(err){
             toast.error(err);
