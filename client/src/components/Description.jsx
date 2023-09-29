@@ -17,7 +17,7 @@ const Description = (props) => {
   }, []);
   useState(() => {
     axios
-      .get("https://ggz.onrender.com/addappliedhistory",jobdetails", {
+      .get("https://ggz.onrender.com/jobdetails", {
         params: {
           jobId: parseInt(jobId),
         },
