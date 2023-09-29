@@ -39,7 +39,7 @@ const GridComponent = ({ records,setRecords }) => {
   
   const handleChangeStatus = async (e, record) => {
     const data = await axios.post(
-      "https://private-naukri-production.up.railway.app/addappliedhistory",
+      "https://ggz.onrender.com/addappliedhistory",addappliedhistory",
       { record },
       {
         headers: { "x-access-token": localStorage.getItem("token") },
