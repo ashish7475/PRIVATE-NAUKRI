@@ -475,7 +475,7 @@ const setCustomReminder = async (req, res) => {
       font-size: 14px;
       color: #999;">
       <p> You are receiving this mail because you had set a reminder from your profile.
-       In case you had not set any such reminder please <a href='https://private-naukri-ashish.netlify.app/contactus'>contact us</a>
+       In case you had not set any such reminder please <a href='https://ggz.onrender.com/contactus'>contact us</a>
        Please do not reply to this email.This is an auto generated email and our support team wont be able to answer to any mails if replied.<br>In case of any queries please mail us at private.naukri.ashish@gmail.com</p>
     </div>
      </div>
@@ -582,7 +582,7 @@ const setInterviewReminder = async (req, res) => {
       font-size: 14px;
       color: #999;">
       <p> You are receiving this mail because you had set a reminder from your profile.
-       In case you had not set any such reminder please <a href='https://private-naukri-ashish.netlify.app/contactus'>contact us</a>
+       In case you had not set any such reminder please <a href='https://ggz.onrender.com/contactus'>contact us</a>
        Please do not reply to this email.This is an auto generated email and our support team wont be able to answer to any mails if replied.<br>In case of any queries please mail us at private.naukri.ashish@gmail.com</p>
     </div>
      </div>
