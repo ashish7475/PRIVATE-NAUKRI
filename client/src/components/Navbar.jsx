@@ -99,7 +99,7 @@ const Navbar = (props) => {
                   >
                     {userData && (
                       <img
-                        src={ userData.profilePhotoUrl!==''?`https://private-naukri-production.up.railway.app/${userData.profilePhotoUrl}`:'/images/avatar.png'}
+                        src={ userData.profilePhotoUrl!==''?`https://ggz.onrender.com/${userData.profilePhotoUrl}`:'/images/avatar.png'}
                         className="rounded-circle"
                         height="50px !important"
                         width="50px !important"
