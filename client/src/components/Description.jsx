@@ -17,7 +17,7 @@ const Description = (props) => {
   }, []);
   useState(() => {
     axios
-      .get("https://private-naukri-production.up.railway.app/jobdetails", {
+      .get("https://ggz.onrender.com/addappliedhistory",jobdetails", {
         params: {
           jobId: parseInt(jobId),
         },
