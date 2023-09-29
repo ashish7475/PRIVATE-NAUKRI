@@ -32,7 +32,7 @@ const Testimonials = () => {
     e.preventDefault();
     axios
       .post(
-        "https://private-naukri-production.up.railway.app/addtestimonial",
+        "https://ggz.onrender.com/addtestimonial",
         {
           name: userData.name,
           username: userData.username,
