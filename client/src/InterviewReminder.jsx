@@ -147,7 +147,7 @@ const InterviewReminder = () => {
         else{
           if(selectedValue==='email'){
             const user = JSON.parse(localStorage.getItem('User'));
-           axios.post('https://private-naukri-production.up.railway.app/setinterviewreminder',
+           axios.post('https://ggz.onrender.com/setinterviewreminder',
            {
             company,
             email:user.email
@@ -201,7 +201,7 @@ const InterviewReminder = () => {
        else{
         if(selectedValue==='email'){
             const user = JSON.parse(localStorage.getItem('User'));
-           axios.post('https://private-naukri-production.up.railway.app/setinterviewreminder',
+           axios.post('https://ggz.onrender.com/setinterviewreminder',
            {
             company,
             email:user.email
@@ -263,7 +263,7 @@ const InterviewReminder = () => {
     useEffect(()=>{
       const user = JSON.parse(localStorage.getItem('User'));
       if(company!=='' || type!==''){
-         axios.post('https://private-naukri-production.up.railway.app/getinterviews',
+         axios.post('https://ggz.onrender.com/getinterviews',
              {
                username:user.username
                ,company
