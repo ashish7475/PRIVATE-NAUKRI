@@ -53,7 +53,7 @@ const Reminders = () => {
     const handleResumeReminder = (e,jobId)=>{
       setLoading(true)
       setOpen(true)
-      axios.post('https://private-naukri-production.up.railway.app/resumereminder',{username:user.username,jobId}).then((res,err)=>{
+      axios.post('https://ggz.onrender.com/resumereminder',{username:user.username,jobId}).then((res,err)=>{
         if(err){
           console.log(err);
         }
@@ -83,7 +83,7 @@ const Reminders = () => {
     const handleStopReminder = (e,jobId)=>{
       setLoading(true)
       setOpen(true)
-      axios.post('https://private-naukri-production.up.railway.app/stopreminder',{username:user.username,jobId}).then((res,err)=>{
+      axios.post('https://ggz.onrender.com/stopreminder',{username:user.username,jobId}).then((res,err)=>{
         if(err){
           console.log(err);
         }
@@ -112,7 +112,7 @@ const Reminders = () => {
     const handleDeleteReminder = (e,jobId)=>{
        setLoading(true)
        setOpen(true)
-      axios.post('https://private-naukri-production.up.railway.app/deletereminder',{username:user.username,jobId}).then((res,err)=>{
+      axios.post('https://ggz.onrender.com/deletereminder',{username:user.username,jobId}).then((res,err)=>{
         if(err){
           console.log(err);
         }
@@ -145,7 +145,7 @@ const handleChange=(e)=>{
       const usr = JSON.parse(localStorage.getItem('User'));
       setUser(usr)
       if(token){
-        axios.get('https://private-naukri-production.up.railway.app/getreminders',{
+        axios.get('https://ggz.onrender.com/getreminders',{
           headers:{
             'x-access-token':token
           }
