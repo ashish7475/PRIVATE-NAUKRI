@@ -108,7 +108,7 @@ const userLogin = async (req, res) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    res.send({ message: "User not registered !", status: "error" });
+    res.send({ message: "User not registered !", status: 400 });
   } else {
     const isMatch = await bcrypt.compare(password, user.password);
 
@@ -124,11 +124,11 @@ const userLogin = async (req, res) => {
       res.send({
         message: "Login Successful",
         token: token,
-        status: "ok",
+        status: 200,
         user: user,
       });
     } else {
-      res.send({ status: "error", message: "Incorrect Password" });
+      res.send({ status: 401, message: "Incorrect Password" });
     }
   }
 };
